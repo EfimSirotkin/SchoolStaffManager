@@ -295,8 +295,7 @@
 
 
 <a name="3"/>
-### 3. Диаграммы последовательности  
-
+### 3. Диаграммы последовательности
 Диаграмма последовательности основных вариантов использования представлена ниже:
 
 ![alt text](https://github.com/EfimSirotkin/SchoolStaffManager/blob/master/Diagrams/Sequence%20Diagram/SequenceDiagram.png)
