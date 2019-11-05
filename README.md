@@ -9,7 +9,9 @@
 
 [Mockups](https://github.com/EfimSirotkin/SchoolStaffManager/tree/master/Mockups)
 
+[Diagrams-EN](https://github.com/EfimSirotkin/SchoolStaffManager/blob/master/Diagrams/DiagramsEN.md)
+
 [Diagrams-RU](https://github.com/EfimSirotkin/SchoolStaffManager/blob/master/Diagrams/Diagrams.md)
 
-[Diagrams-EN](https://github.com/EfimSirotkin/SchoolStaffManager/blob/master/Diagrams/DiagramsEN.md)
+
 
