@@ -1,8 +1,10 @@
-package sample;
+package main.staff;
+
+import main.interfaces.staff.PersonActivity;
 
 import java.util.ArrayList;
 
-public class Person {
+public class Person implements PersonActivity {
     private String name;
     private String surname;
     private String superName;
@@ -37,4 +39,28 @@ public class Person {
         return surname;
     }
 
+    @Override
+    public void viewStaffList() {
+
+    }
+
+    @Override
+    public void viewAnalytics() {
+
+    }
+
+    @Override
+    public void viewEmployeeInformation() {
+
+    }
+
+    @Override
+    public void register() {
+
+    }
+
+    @Override
+    public void login() {
+
+    }
 }

@@ -1,12 +1,15 @@
-package sample;
+package main.staff;
+
+import main.interfaces.staff.StaffActivity;
+import main.staff.Person;
 
 import java.util.ArrayList;
 
-public class ServiceWorker extends Person {
+public class ServiceWorker extends Person implements StaffActivity {
     private String typeOfWork;
     private String workRank;
     private String responsibilityZone;
-    private boolean areInstrumentsNeeded = false;
+    private boolean InstrumentsNeeded = false;
 
     public ServiceWorker(String name, String surname, String superName, String dateOfBirth, ArrayList<String> education, String typeOfWork, String workRank, String responsibilityZone, boolean areInstrumentsNeeded)
     {
@@ -14,7 +17,7 @@ public class ServiceWorker extends Person {
         this.typeOfWork = typeOfWork;
         this.workRank = workRank;
         this.responsibilityZone = responsibilityZone;
-        this.areInstrumentsNeeded = areInstrumentsNeeded;
+        this.InstrumentsNeeded = areInstrumentsNeeded;
     }
 
     public String getTypeOfWork() {
@@ -29,7 +32,22 @@ public class ServiceWorker extends Person {
         return responsibilityZone;
     }
 
-    public boolean isAreInstrumentsNeeded() {
-        return areInstrumentsNeeded;
+    public boolean isInstrumentsNeeded() {
+        return InstrumentsNeeded;
+    }
+
+    @Override
+    public void editPersonalData() {
+
+    }
+
+    @Override
+    public void requestForModification() {
+
+    }
+
+    @Override
+    public void requestForMaterials() {
+
     }
 }

@@ -1,9 +1,12 @@
-package sample;
+package main.staff;
+
+import main.interfaces.staff.StaffActivity;
+import main.staff.Person;
 
 import java.util.ArrayList;
 import java.util.Map;
 
-public class Teacher extends Person{
+public class Teacher extends Person implements StaffActivity {
     private String teacherDegree;
     private ArrayList<String> extraLessonsName;
     private Map<String, ArrayList<Integer>> teachSubjectsAtClasses;
@@ -28,5 +31,20 @@ public class Teacher extends Person{
 
     public Map<String, ArrayList<Integer>> getTeachSubjectsAtClasses() {
         return teachSubjectsAtClasses;
+    }
+
+    @Override
+    public void editPersonalData() {
+
+    }
+
+    @Override
+    public void requestForModification() {
+
+    }
+
+    @Override
+    public void requestForMaterials() {
+
     }
 }
