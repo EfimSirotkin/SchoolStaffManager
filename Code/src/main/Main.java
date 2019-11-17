@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.scene.text.Font;
@@ -62,10 +63,19 @@ public class Main extends Application {
         primaryStage.show();
 
         ExcelParser excelParser = new ExcelParser();
-        excelParser.createTemplateForPerson();
-        excelParser.createTemplateForAdministry();
-        excelParser.createTemplateForServiceStaff();
-        excelParser.createTemplateForTeacher();
+        //excelParser.createTemplateForPerson();
+        //excelParser.createTemplateForAdministry();
+        //excelParser.createTemplateForServiceStaff();
+        //excelParser.createTemplateForTeacher();
+
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        //File selectedDirectory = directoryChooser.showDialog(primaryStage);
+
+//        if(selectedDirectory == null){
+//            //No Directory selected
+//        }else{
+//            System.out.println(selectedDirectory.getAbsolutePath());
+//        }
 
     }
 

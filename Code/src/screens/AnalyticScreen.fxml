@@ -6,9 +6,128 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="screens.AnalyticScreenController"
-            prefHeight="400.0" prefWidth="600.0">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="screens.AnalyticScreenController"
+      prefHeight="1030" prefWidth="1920">
+    <padding>
+        <Insets top="5" left="5" right="10" bottom="10">
+        </Insets>
+    </padding>
+    <children>
+        <HBox spacing="450" alignment="TOP_LEFT">
+            <children>
+                <HBox alignment="TOP_LEFT">
+                    <padding>
+                        <Insets top="15" left="5" right="0" bottom="0">
 
-</AnchorPane>
+                        </Insets>
+                    </padding>
+                    <children>
+                        <Text text="School Staff Manager" textAlignment="CENTER">
+                            <font>
+                                <Font name = "Verdana Bold" size="28"></Font>
+                            </font>
+                        </Text>
+                    </children>
+                </HBox>
+                <HBox alignment="TOP_CENTER">
+                    <padding>
+                        <Insets top="10"
+                        ></Insets>
+                    </padding>
+                    <children>
+                        <Button
+                            text="Домой"
+                            onAction="#goToMainScreen"
+                            minWidth="300"
+                            minHeight="110"
+                            style="-fx-background-color: #7ebf7f">
+                            <font>
+                            <Font name = "Verdana Bold" size="28"></Font>
+                            </font>
+                        </Button>
+                    </children>
+                </HBox>
+            <HBox alignment="TOP_RIGHT">
+                <children>
+                    <ImageView
+                            fx:id="imageView"
+                            fitWidth="200"
+                            fitHeight="180">
+
+                    </ImageView>
+                </children>
+            </HBox>
+            </children>
+        </HBox>
+
+        <HBox alignment="CENTER">
+            <children>
+                <ButtonBar>
+                    <padding>
+                        <Insets top="20" left="0" right="0"></Insets>
+                    </padding>
+                    <buttons>
+                        <Button text="Преподавательский"
+                                prefWidth="550"
+                                prefHeight="25">
+                            <font>
+                                <Font name = "Verdana Bold" size="18"></Font>
+                            </font>
+                        </Button>
+                        <Button text="Административный"
+                                prefWidth="550"
+                                prefHeight="25">
+                            <font>
+                                <Font name = "Verdana Bold" size="18"></Font>
+                            </font>
+                        </Button>
+                        <Button text="Обслуживающий"
+                                prefWidth="550"
+                                prefHeight="25">
+                            <font>
+                                <Font name = "Verdana Bold" size="18"></Font>
+                            </font>
+                        </Button>
+                    </buttons>
+                </ButtonBar>
+            </children>
+        </HBox>
+
+        <HBox spacing="100">
+            <children>
+                <VBox spacing="15">
+                    <padding>
+                        <Insets top="40" left="80"></Insets>
+                    </padding>
+                    <Text text="Тарификация работников по количеству учебных часов">
+                        <font>
+                            <Font name = "Verdana Bold" size="18"></Font>
+                        </font>
+                    </Text>
+                    <BarChart
+                    fx:id="hoursChargingBar"
+                    >
+                        <xAxis>
+                            <CategoryAxis fx:id="yAxis" side="BOTTOM" />
+                        </xAxis>
+                        <yAxis>
+                            <NumberAxis side="LEFT" fx:id="xAxis" />
+                        </yAxis>
+                    </BarChart>
+                </VBox>
+            </children>
+        </HBox>
+
+
+    </children>
+
+</VBox>

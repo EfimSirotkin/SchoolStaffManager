@@ -92,7 +92,7 @@
         </VBox>
     <HBox alignment="CENTER_RIGHT">
         <padding>
-            <Insets left="0" right="50" bottom="0" top="200"></Insets>
+            <Insets left="0" right="50" bottom="0" top="225"></Insets>
         </padding>
         <Text text="База данных работников">
             <font>
