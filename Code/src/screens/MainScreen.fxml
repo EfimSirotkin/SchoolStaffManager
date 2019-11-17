@@ -6,9 +6,99 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="screens.MainScreenController"
-            prefHeight="400.0" prefWidth="600.0">
 
-</AnchorPane>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="screens.MainScreenController"
+      prefHeight="1030" prefWidth="1920">
+    <padding>
+        <Insets bottom="10" left="10" right="10" top="10"></Insets>
+    </padding>
+    <children>
+        <Text
+                text="School Staff Manager" >
+            <font>
+                <Font name = "Verdana Bold" size="40"></Font>
+            </font>
+        </Text>
+        <VBox alignment="CENTER">
+            <children>
+                <ImageView
+                        fx:id="imageView"
+                        fitHeight="380"  fitWidth="420">
+                </ImageView>
+                <Text text="Государственное учреждение образования">
+                    <font>
+                        <Font name = "Verdana Bold" size="20"></Font>
+                    </font>
+                </Text>
+                <Text text="Средняя школа №181 г.Минска">
+                    <font>
+                        <Font name = "Verdana Bold" size="20"></Font>
+                    </font>
+                </Text>
+
+                <HBox  alignment="CENTER" spacing="250">
+                    <padding>
+                        <Insets bottom="50" top="50" right="50" left="50"></Insets>
+                    </padding>
+                    <children>
+                        <Button
+                            onAction="#goToEditScreen"
+                            text="Редактировать"
+                            minHeight="100"
+                            minWidth="300"
+                            style="-fx-background-color: #7ebf7f"
+                            textFill="black">
+                            <font>
+                                <Font name="Verdana Bold" size="24">
+                                </Font>
+                            </font>
+                        </Button>
+                        <Button
+                                fx:id="viewScreenButton"
+                                text="Просмотреть"
+                                onAction="#goToViewScreen"
+                                minHeight="100"
+                                minWidth="300"
+                                style="-fx-background-color: #7ebf7f"
+                                textFill="black">
+                            <font>
+                                <Font name="Verdana Bold" size="24">
+                                </Font>
+                            </font>
+                        </Button>
+                        <Button
+                                fx:id="analyticsScreenButton"
+                                text="Аналитика"
+                                onAction="#goToAnalyticScreen"
+                                minHeight="100"
+                                minWidth="300"
+                                style="-fx-background-color: #7ebf7f"
+                                textFill="black">
+                            <font>
+                                <Font name="Verdana Bold" size="24">
+                                </Font>
+                            </font>
+                        </Button>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    <HBox alignment="CENTER_RIGHT">
+        <padding>
+            <Insets left="0" right="50" bottom="0" top="200"></Insets>
+        </padding>
+        <Text text="База данных работников">
+            <font>
+                <Font name="Verdana Bold" size="14"></Font>
+            </font>
+        </Text>
+    </HBox>
+    </children>
+</VBox>
