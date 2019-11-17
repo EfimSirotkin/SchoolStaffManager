@@ -34,12 +34,6 @@ import java.io.IOException;
 
 public class Main extends Application {
 
-    static Button editButton = new Button("Редактировать");
-    static Button viewButton = new Button("Просмотреть");
-    static Button analyticsButton = new Button("Аналитика");
-    static String defaultUIStyle = ";-fx-text-fill: black;-fx-font-weight: bold;-fx-font-size: 24px";
-    static String backGroundUIColor = "-fx-background-color: #7ebf7f ";
-
     public static String mainScreenID = "Main";
     public static String mainScreenFile = "MainScreen.fxml";
     public static String analyticScreenID = "Analytic";
@@ -49,12 +43,8 @@ public class Main extends Application {
     public static String editScreenID = "Edit";
     public static String editScreenFile= "EditScreen.fxml";
 
-
-
     @Override
     public void start(Stage primaryStage) throws Exception {
-
-        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
 
         ScreensController mainContainer = new ScreensController();
         mainContainer.loadScreen(mainScreenID, mainScreenFile);
@@ -73,6 +63,9 @@ public class Main extends Application {
 
         ExcelParser excelParser = new ExcelParser();
         excelParser.createTemplateForPerson();
+        excelParser.createTemplateForAdministry();
+        excelParser.createTemplateForServiceStaff();
+        excelParser.createTemplateForTeacher();
 
     }
 
