@@ -1,5 +1,7 @@
 package screens;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,19 +22,29 @@ public class AnalyticScreenController implements Initializable, ControlledScreen
     private ImageView imageView;
 
     private ScreensController myController;
+
     @FXML
-    private PieChart qualificationDistributionPie = new PieChart();
+    private PieChart qualificationDistributionPie;
     @FXML
-    private BarChart hoursChargingBar;
+    private BarChart<String, Number> hoursChargingBar;
     @FXML
     private LineChart higherEducationDynamicLine;
     @FXML
     private BarChart higherQualificationDistributionBar;
-    @FXML
-    NumberAxis xAxis = new NumberAxis();
-    @FXML
-    CategoryAxis yAxis = new CategoryAxis();
 
+    @FXML
+    private CategoryAxis xAxisHoursCharging;
+    @FXML
+    private NumberAxis yAxisHoursCharging;
+
+    @FXML
+    private CategoryAxis xAxisHigherEducation;
+    @FXML
+    private NumberAxis yAxisHigherEducation;
+    @FXML
+    private CategoryAxis xAxisHigherQualification;
+    @FXML
+    private NumberAxis yAxisHigherQualification;
 
 
     @Override
@@ -40,12 +52,12 @@ public class AnalyticScreenController implements Initializable, ControlledScreen
         File file = new File("F:\\Code\\SchoolStaffManager\\src\\screens\\res\\logo.jpg");
         Image image = new Image(file.toURI().toString());
         imageView.setImage(image);
-        xAxis.setLabel("Учитель");
-        yAxis.setLabel("Часы");
-        hoursChargingBar = new BarChart<>(xAxis, yAxis);
-        XYChart.Series series1 = new XYChart.Series();
-        series1.getData().add(new XYChart.Data("Ефим Сироткин", 90));
-        hoursChargingBar.getData().add(series1);
+
+        hoursChargingBar.getData().add(getSeriesDistribution());
+        higherEducationDynamicLine.getData().add(getHigherEducationDistribution());
+        higherQualificationDistributionBar.getData().add(getHigherQualificationDistribution());
+        qualificationDistributionPie.setData(getPieChartData());
+
     }
 
     @Override
@@ -63,14 +75,68 @@ public class AnalyticScreenController implements Initializable, ControlledScreen
     {
 
     }
-    public CategoryAxis getCategoryAxis(String category) {
-        CategoryAxis xAxis = new CategoryAxis();
-        xAxis.setLabel(category);
-        return xAxis;
+    public XYChart.Series<String, Number> getSeriesDistribution() {
+
+        XYChart.Series<String, Number> tempSeries = new XYChart.Series<>();
+        tempSeries.setName("2019");
+        tempSeries.getData().add(new XYChart.Data<>("Андрей Демко", 100.0));
+        tempSeries.getData().add(new XYChart.Data<>("Анастасия Шухова", 95.0));
+        tempSeries.getData().add(new XYChart.Data<>("Иван Литвин", 75.0));
+        tempSeries.getData().add(new XYChart.Data<>("Галина Шикова", 87.0));
+        tempSeries.getData().add(new XYChart.Data<>("Мария Васильева", 58.0));
+        tempSeries.getData().add(new XYChart.Data<>("Соня Назарова", 22));
+        tempSeries.getData().add(new XYChart.Data<>("Инна Светлугина", 54.0));
+        tempSeries.getData().add(new XYChart.Data<>("Елена Курило", 120.0));
+        tempSeries.getData().add(new XYChart.Data<>("Юлия Шунейко", 27.0));
+        tempSeries.getData().add(new XYChart.Data<>("Ефим Сироткин", 90.0));
+        tempSeries.getData().add(new XYChart.Data<>("Анастасия Сущеня", 40.0));
+        tempSeries.getData().add(new XYChart.Data<>("Елена Лукашевич", 80.0));
+
+        return tempSeries;
     }
-    public NumberAxis getNumberAxis(String category) {
-        NumberAxis yAxis = new NumberAxis();
-        yAxis.setLabel(category);
-        return yAxis;
+    public XYChart.Series<String, Number> getHigherEducationDistribution() {
+
+        XYChart.Series<String, Number> tempSeries = new XYChart.Series<>();
+        tempSeries.setName("Сотрудники");
+        tempSeries.getData().add(new XYChart.Data<>("2011", 87.0));
+        tempSeries.getData().add(new XYChart.Data<>("2012", 41.0));
+        tempSeries.getData().add(new XYChart.Data<>("2013", 57.0));
+        tempSeries.getData().add(new XYChart.Data<>("2014", 68.0));
+        tempSeries.getData().add(new XYChart.Data<>("2015", 41.0));
+        tempSeries.getData().add(new XYChart.Data<>("2016", 80.0));
+        tempSeries.getData().add(new XYChart.Data<>("2017", 90.0));
+        tempSeries.getData().add(new XYChart.Data<>("2018", 40.0));
+        tempSeries.getData().add(new XYChart.Data<>("2019", 80.0));
+
+        return tempSeries;
     }
+
+    public XYChart.Series<String, Number> getHigherQualificationDistribution() {
+
+        XYChart.Series<String, Number> tempSeries = new XYChart.Series<>();
+        tempSeries.setName("Сотрудники");
+        tempSeries.getData().add(new XYChart.Data<>("2011", 5.0));
+        tempSeries.getData().add(new XYChart.Data<>("2012", 7.0));
+        tempSeries.getData().add(new XYChart.Data<>("2013", 6.0));
+        tempSeries.getData().add(new XYChart.Data<>("2014", 8.0));
+        tempSeries.getData().add(new XYChart.Data<>("2015", 3.0));
+        tempSeries.getData().add(new XYChart.Data<>("2016", 11.0));
+        tempSeries.getData().add(new XYChart.Data<>("2017", 12.0));
+        tempSeries.getData().add(new XYChart.Data<>("2018", 13.0));
+        tempSeries.getData().add(new XYChart.Data<>("2019", 9.0));
+
+        return tempSeries;
+    }
+
+    public ObservableList<PieChart.Data> getPieChartData() {
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
+                new PieChart.Data("Высшая", 10),
+                new PieChart.Data("Первая", 17),
+                new PieChart.Data("Вторая", 12),
+                new PieChart.Data("Без категории", 4));
+
+        return pieChartData;
+
+    }
+
 }

@@ -13,6 +13,9 @@
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import com.sun.javafx.scene.control.skin.SplitPaneSkin.Content?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.PieChart?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="screens.AnalyticScreenController"
@@ -103,27 +106,64 @@
         </HBox>
 
         <HBox spacing="100">
+            <padding>
+                <Insets top="30" left="100">
+                </Insets>
+            </padding>
             <children>
-                <VBox spacing="15">
-                    <padding>
-                        <Insets top="40" left="80"></Insets>
-                    </padding>
-                    <Text text="Тарификация работников по количеству учебных часов">
-                        <font>
-                            <Font name = "Verdana Bold" size="18"></Font>
-                        </font>
-                    </Text>
                     <BarChart
                     fx:id="hoursChargingBar"
+                    prefWidth="800" prefHeight="400"
+                    barGap="10" layoutY="8.0"
+                    title="Тарификация работников по количеству учебных часов"
+
                     >
                         <xAxis>
-                            <CategoryAxis fx:id="yAxis" side="BOTTOM" />
+                            <CategoryAxis label="Учитель" side="BOTTOM" fx:id="xAxisHoursCharging"></CategoryAxis>
                         </xAxis>
                         <yAxis>
-                            <NumberAxis side="LEFT" fx:id="xAxis" />
+                            <NumberAxis label="Часы" side="LEFT" fx:id="yAxisHoursCharging"></NumberAxis>
                         </yAxis>
                     </BarChart>
-                </VBox>
+                <LineChart fx:id="higherEducationDynamicLine" title="Количество сотрудников с высшим образованием"
+                           prefWidth="800" prefHeight="400"
+                           layoutY="8.0">
+
+                    <xAxis>
+                        <CategoryAxis label="Год" side="BOTTOM" fx:id="xAxisHigherEducation"></CategoryAxis>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Количество" side="LEFT" fx:id="yAxisHigherEducation"></NumberAxis>
+                    </yAxis>
+                </LineChart>
+
+            </children>
+        </HBox>
+        <HBox spacing="100">
+            <padding>
+                <Insets top="30" left="100">
+                </Insets>
+            </padding>
+            <children>
+                <PieChart
+                        fx:id="qualificationDistributionPie"
+                        prefWidth="800" prefHeight="400"
+                        layoutY="8.0"
+                        title="Распределение учебного состава по квалификационной категории"
+
+                >
+                </PieChart>
+                <BarChart fx:id="higherQualificationDistributionBar" title="Количество сотрудников с высшей квалификационнной категорией"
+                           prefWidth="800" prefHeight="400"
+                           layoutY="8.0">
+                    <xAxis>
+                        <CategoryAxis label="Год" side="BOTTOM" fx:id="xAxisHigherQualificationQ"></CategoryAxis>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Количество" side="LEFT" fx:id="yAxisHigherQualification"></NumberAxis>
+                    </yAxis>
+                </BarChart>
+
             </children>
         </HBox>
 

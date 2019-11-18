@@ -1,6 +1,7 @@
 package main.parsers;
 
 import javafx.scene.control.Alert;
+import javafx.stage.DirectoryChooser;
 import jxl.Cell;
 import jxl.CellView;
 import jxl.Workbook;
@@ -28,17 +29,30 @@ public class ExcelParser implements Exporter, Importer {
     @Override
     public void createTemplateForPerson() throws IOException, WriteException {
         try {
-            WritableWorkbook personWBook = Workbook.createWorkbook(new File("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Пользовательский).xls"));    // nice file path, i know :)
-            WritableSheet excelSheet = personWBook.createSheet("Лист", 0);
-            WritableCellFormat cFormat = new WritableCellFormat();
-            cFormat.setAlignment(Alignment.CENTRE);
-            cFormat.setVerticalAlignment(VerticalAlignment.CENTRE);
-            WritableFont font = new WritableFont(WritableFont.ARIAL, 10, WritableFont.BOLD);
-            cFormat.setFont(font);
-            createDefaultTemplate(personWBook, excelSheet, cFormat);
+            DirectoryChooser directoryChooser = new DirectoryChooser();
+            File selectedDirectory = directoryChooser.showDialog(null);
 
-            personWBook.write();
-            personWBook.close();
+            if(selectedDirectory != null) {
+                WritableWorkbook personWBook = Workbook.createWorkbook(new File(selectedDirectory + "\\Шаблон(Пользовательский).xls"));    // nice file path, i know :)
+                WritableSheet excelSheet = personWBook.createSheet("Лист", 0);
+                WritableCellFormat cFormat = new WritableCellFormat();
+                cFormat.setAlignment(Alignment.CENTRE);
+                cFormat.setVerticalAlignment(VerticalAlignment.CENTRE);
+                WritableFont font = new WritableFont(WritableFont.ARIAL, 10, WritableFont.BOLD);
+                cFormat.setFont(font);
+                createDefaultTemplate(personWBook, excelSheet, cFormat);
+
+                personWBook.write();
+                personWBook.close();
+            }
+            else{
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Предупреждение");
+                alert.setHeaderText("Экспорт шаблона: " + "Шаблон(Пользовательский).xls");
+                alert.setContentText("Экспорт отменён");
+                alert.showAndWait();
+            }
+
         }
         catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
