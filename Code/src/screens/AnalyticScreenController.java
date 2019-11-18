@@ -13,6 +13,7 @@ import main.Main;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class AnalyticScreenController implements Initializable, ControlledScreen {
@@ -129,11 +130,15 @@ public class AnalyticScreenController implements Initializable, ControlledScreen
     }
 
     public ObservableList<PieChart.Data> getPieChartData() {
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(
-                new PieChart.Data("Высшая", 10),
-                new PieChart.Data("Первая", 17),
-                new PieChart.Data("Вторая", 12),
-                new PieChart.Data("Без категории", 4));
+
+        ArrayList<PieChart.Data> arrayList = new ArrayList<>();
+
+        arrayList.add(new PieChart.Data("Высшая", 10));
+        arrayList.add(new PieChart.Data("Первая", 17));
+        arrayList.add(new PieChart.Data("Вторая", 12));
+        arrayList.add(new PieChart.Data("Без категории", 4));
+
+        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(arrayList);
 
         return pieChartData;
 

@@ -45,7 +45,7 @@ public class MainScreenController implements Initializable,  ControlledScreen{
     }
     @FXML
     private void goToEditScreen(ActionEvent event) {
-        myController.setScreen(Main.analyticScreenID);
+        myController.setScreen(Main.editScreenID);
     }
 
 }

@@ -13,7 +13,6 @@
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
-<?import com.sun.javafx.scene.control.skin.SplitPaneSkin.Content?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.PieChart?>
 <VBox xmlns="http://javafx.com/javafx"
@@ -25,26 +24,24 @@
         </Insets>
     </padding>
     <children>
-        <HBox spacing="450" alignment="TOP_LEFT">
+        <HBox spacing="450">
             <children>
-                <HBox alignment="TOP_LEFT">
+                <HBox>
                     <padding>
-                        <Insets top="15" left="5" right="0" bottom="0">
-
+                        <Insets top="15" left="5" >
                         </Insets>
                     </padding>
                     <children>
                         <Text text="School Staff Manager" textAlignment="CENTER">
                             <font>
-                                <Font name = "Verdana Bold" size="28"></Font>
+                                <Font name = "Verdana Bold" size="28"/>
                             </font>
                         </Text>
                     </children>
                 </HBox>
                 <HBox alignment="TOP_CENTER">
                     <padding>
-                        <Insets top="10"
-                        ></Insets>
+                        <Insets top="10"/>
                     </padding>
                     <children>
                         <Button
@@ -54,7 +51,7 @@
                             minHeight="110"
                             style="-fx-background-color: #7ebf7f">
                             <font>
-                            <Font name = "Verdana Bold" size="28"></Font>
+                            <Font name = "Verdana Bold" size="28"/>
                             </font>
                         </Button>
                     </children>
@@ -76,28 +73,28 @@
             <children>
                 <ButtonBar>
                     <padding>
-                        <Insets top="20" left="0" right="0"></Insets>
+                        <Insets top="20"/>
                     </padding>
                     <buttons>
                         <Button text="Преподавательский"
                                 prefWidth="550"
                                 prefHeight="25">
                             <font>
-                                <Font name = "Verdana Bold" size="18"></Font>
+                                <Font name = "Verdana Bold" size="18"/>
                             </font>
                         </Button>
                         <Button text="Административный"
                                 prefWidth="550"
                                 prefHeight="25">
                             <font>
-                                <Font name = "Verdana Bold" size="18"></Font>
+                                <Font name = "Verdana Bold" size="18"/>
                             </font>
                         </Button>
                         <Button text="Обслуживающий"
                                 prefWidth="550"
                                 prefHeight="25">
                             <font>
-                                <Font name = "Verdana Bold" size="18"></Font>
+                                <Font name = "Verdana Bold" size="18"/>
                             </font>
                         </Button>
                     </buttons>
@@ -115,14 +112,12 @@
                     fx:id="hoursChargingBar"
                     prefWidth="800" prefHeight="400"
                     barGap="10" layoutY="8.0"
-                    title="Тарификация работников по количеству учебных часов"
-
-                    >
+                    title="Тарификация работников по количеству учебных часов">
                         <xAxis>
-                            <CategoryAxis label="Учитель" side="BOTTOM" fx:id="xAxisHoursCharging"></CategoryAxis>
+                            <CategoryAxis label="Учитель" side="BOTTOM" fx:id="xAxisHoursCharging"/>
                         </xAxis>
                         <yAxis>
-                            <NumberAxis label="Часы" side="LEFT" fx:id="yAxisHoursCharging"></NumberAxis>
+                            <NumberAxis label="Часы" side="LEFT" fx:id="yAxisHoursCharging"/>
                         </yAxis>
                     </BarChart>
                 <LineChart fx:id="higherEducationDynamicLine" title="Количество сотрудников с высшим образованием"
@@ -130,10 +125,10 @@
                            layoutY="8.0">
 
                     <xAxis>
-                        <CategoryAxis label="Год" side="BOTTOM" fx:id="xAxisHigherEducation"></CategoryAxis>
+                        <CategoryAxis label="Год" side="BOTTOM" fx:id="xAxisHigherEducation"/>
                     </xAxis>
                     <yAxis>
-                        <NumberAxis label="Количество" side="LEFT" fx:id="yAxisHigherEducation"></NumberAxis>
+                        <NumberAxis label="Количество" side="LEFT" fx:id="yAxisHigherEducation"/>
                     </yAxis>
                 </LineChart>
 
@@ -157,17 +152,14 @@
                            prefWidth="800" prefHeight="400"
                            layoutY="8.0">
                     <xAxis>
-                        <CategoryAxis label="Год" side="BOTTOM" fx:id="xAxisHigherQualificationQ"></CategoryAxis>
+                        <CategoryAxis label="Год" side="BOTTOM" fx:id="xAxisHigherQualification"/>
                     </xAxis>
                     <yAxis>
-                        <NumberAxis label="Количество" side="LEFT" fx:id="yAxisHigherQualification"></NumberAxis>
+                        <NumberAxis label="Количество" side="LEFT" fx:id="yAxisHigherQualification"/>
                     </yAxis>
                 </BarChart>
 
             </children>
         </HBox>
-
-
     </children>
-
 </VBox>

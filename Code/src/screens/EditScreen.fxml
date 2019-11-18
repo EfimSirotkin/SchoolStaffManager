@@ -6,9 +6,237 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="screens.EditScreenController"
-            prefHeight="400.0" prefWidth="600.0">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.image.ImageView?>
 
-</AnchorPane>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.image.Image?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="screens.EditScreenController"
+      prefHeight="1030" prefWidth="1920">
+    <padding>
+        <Insets top="5" left="5" right="10" bottom="10">
+        </Insets>
+    </padding>
+    <children>
+    <HBox spacing="450">
+    <children>
+        <HBox alignment="TOP_LEFT">
+            <padding>
+                <Insets top="15" left="5" right="0" bottom="0">
+
+                </Insets>
+            </padding>
+            <children>
+                <Text text="School Staff Manager" textAlignment="CENTER">
+                    <font>
+                        <Font name = "Verdana Bold" size="28"></Font>
+                    </font>
+                </Text>
+            </children>
+        </HBox>
+        <HBox alignment="TOP_CENTER">
+            <padding>
+                <Insets top="10"
+                ></Insets>
+            </padding>
+            <children>
+                <Button
+                        text="Домой"
+                        onAction="#goToMainScreen"
+                        minWidth="300"
+                        minHeight="110"
+                        style="-fx-background-color: #7ebf7f">
+                    <font>
+                        <Font name = "Verdana Bold" size="28"></Font>
+                    </font>
+                </Button>
+            </children>
+        </HBox>
+        <HBox alignment="TOP_RIGHT">
+            <ImageView
+                    fx:id="imageView"
+                    fitWidth="200"
+                    fitHeight="180">
+
+            </ImageView>
+        </HBox>
+    </children>
+    </HBox>
+        <HBox spacing="80">
+            <children>
+                <VBox>
+                <HBox spacing="50">
+                    <VBox>
+                        <padding>
+                            <Insets left="75">
+                            </Insets>
+                        </padding>
+                        <Label fx:id="fullName">
+                            <font>
+                                <Font name = "Verdana Bold" size="28"></Font>
+                            </font>
+                        </Label >
+                        <Label fx:id="jobTitle">
+                            <font>
+                                <Font name = "Verdana Bold" size="20"></Font>
+                            </font>
+                        </Label>
+                        <VBox spacing="14">
+                            <padding>
+                                <Insets top="50"></Insets>
+                            </padding>
+                        <Label fx:id="dateOfBirth">
+                            <font>
+                                <Font name = "Verdana" size="18"></Font>
+                            </font>
+                        </Label>
+                        <Label fx:id="workingExperience">
+                            <font>
+                                <Font name = "Verdana" size="18"></Font>
+                            </font>
+                        </Label>
+                        <Label fx:id="phoneNumber">
+                            <font>
+                                <Font name = "Verdana" size="18"></Font>
+                            </font>
+                        </Label>
+                        <Label fx:id="qualification">
+                            <font>
+                                <Font name = "Verdana" size="18"></Font>
+                            </font>
+                        </Label>
+                        </VBox>
+                    </VBox>
+                    <ImageView
+                            fx:id="personImage"
+                            fitWidth="200"
+                            fitHeight="180">
+                    </ImageView>
+                </HBox>
+
+                    <VBox spacing="10">
+                        <padding>
+                            <Insets top="40" left="75"></Insets>
+                        </padding>
+                        <Text text="Образование:">
+                            <font>
+                                <Font name = "Verdana Bold" size="18">  </Font>
+                            </font>
+                        </Text>
+                    <Label fx:id="education">
+                        <font>
+                            <Font name = "Verdana" size="18"></Font>
+                        </font>
+                    </Label>
+                        <Text text="Курсы повышения квалификации:">
+                            <font>
+                                <Font name = "Verdana Bold" size="18">  </Font>
+                            </font>
+                        </Text>
+                    <Label fx:id="qualificationCourses">
+                        <font>
+                            <Font name = "Verdana" size="18"></Font>
+                        </font>
+                    </Label>
+                    </VBox>
+                    <HBox spacing="15">
+                        <padding>
+                            <Insets top="40" left="75"></Insets>
+                        </padding>
+                        <Button text="Отправить письмо" prefWidth="275" prefHeight="35" textAlignment="LEFT">
+                            <font>
+                                <Font name="Verdana Bold" size="20"></Font>
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="25.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="https://cdn0.iconfinder.com/data/icons/business-and-finance-vol-2/48/57-512.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button text="Редактировать" prefWidth="235" prefHeight="35" textAlignment="LEFT">
+                            <font>
+                                <Font name="Verdana Bold" size="20"></Font>
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="25.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="https://cdn3.iconfinder.com/data/icons/mixed-v1-1/512/pencil_pen_draw_edit-512.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                        <Button text="Удалить запись" prefWidth="240" prefHeight="35" textAlignment="LEFT">
+                            <font>
+                                <Font name="Verdana Bold" size="20"></Font>
+                            </font>
+                            <graphic>
+                                <ImageView fitHeight="25.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="https://cdn1.iconfinder.com/data/icons/schedule-appointment-1/512/eraser-512.png" />
+                                    </image>
+                                </ImageView>
+                            </graphic>
+                        </Button>
+                    </HBox>
+                </VBox>
+            </children>
+            <VBox spacing="15">
+                <Text text="Состав учреждения">
+                    <font>
+                        <Font name="Verdana Bold" size="24"></Font>
+                    </font>
+                </Text>
+
+                    <ButtonBar>
+                        <buttons>
+                            <Button text="Преподавательский"
+                                    prefWidth="250"
+                                    prefHeight="25">
+                                <font>
+                                    <Font name = "Verdana Bold" size="18"/>
+                                </font>
+                            </Button>
+                            <Button text="Административный"
+                                    prefWidth="250"
+                                    prefHeight="25">
+                                <font>
+                                    <Font name = "Verdana Bold" size="18"/>
+                                </font>
+                            </Button>
+                            <Button text="Обслуживающий"
+                                    prefWidth="250"
+                                    prefHeight="25">
+                                <font>
+                                    <Font name = "Verdana Bold" size="18"/>
+                                </font>
+                            </Button>
+                        </buttons>
+                    </ButtonBar>
+
+                <TableView fx:id="staffTable" maxWidth="850" minHeight="600">
+                </TableView>
+                <HBox spacing="395">
+                    <Button text="Импортировать из Excel" style="-fx-background-color: #7ebf7f">
+                        <font>
+                            <Font name = "Verdana Bold" size="15"/>
+                        </font>
+                    </Button>
+                    <Button text="Экспортировать в Excel" style="-fx-background-color: #d1c821">
+                        <font>
+                            <Font name = "Verdana Bold" size="15"/>
+                        </font>
+                    </Button>
+                </HBox>
+
+            </VBox>
+
+        </HBox>
+
+    </children>
+</VBox>
