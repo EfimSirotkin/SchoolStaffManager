@@ -11,6 +11,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+
+<?import java.net.URL?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="screens.ViewScreenController"
@@ -25,7 +27,6 @@
                 <HBox alignment="TOP_LEFT">
                     <padding>
                         <Insets top="15" left="5" right="0" bottom="0">
-
                         </Insets>
                     </padding>
                     <children>
@@ -64,11 +65,11 @@
                 </HBox>
             </children>
         </HBox>
-        <HBox spacing="80">
+        <HBox spacing="0">
             <children>
                 <VBox>
-                    <HBox spacing="50">
-                        <VBox>
+                    <HBox spacing="50" minWidth="950">
+                        <VBox minWidth="650">
                             <padding>
                                 <Insets left="75">
                                 </Insets>
@@ -171,6 +172,8 @@
                 <ButtonBar>
                     <buttons>
                         <Button text="Преподавательский"
+                                onAction="#onStaffTypeClicked"
+                                fx:id="pedagogicalButton"
                                 prefWidth="250"
                                 prefHeight="25">
                             <font>
@@ -178,6 +181,8 @@
                             </font>
                         </Button>
                         <Button text="Административный"
+                                onAction="#onStaffTypeClicked"
+                                fx:id="administryButton"
                                 prefWidth="250"
                                 prefHeight="25">
                             <font>
@@ -185,6 +190,8 @@
                             </font>
                         </Button>
                         <Button text="Обслуживающий"
+                                onAction="#onStaffTypeClicked"
+                                fx:id="serviceStaffButton"
                                 prefWidth="250"
                                 prefHeight="25">
                             <font>
@@ -194,15 +201,15 @@
                     </buttons>
                 </ButtonBar>
 
-                <TableView fx:id="staffTable" maxWidth="850" minHeight="600">
+                <TableView fx:id="staffTable" onMouseClicked="#clickTableViewItem" maxWidth="850" minHeight="600">
                 </TableView>
                 <HBox spacing="395">
-                    <Button text="Импортировать из Excel" style="-fx-background-color: #7ebf7f">
+                    <Button  fx:id="importFromExcel"  text="Импортировать из Excel" style="-fx-background-color: #7ebf7f" disable="true">
                         <font>
                             <Font name = "Verdana Bold" size="15"/>
                         </font>
                     </Button>
-                    <Button text="Экспортировать в Excel" style="-fx-background-color: #d1c821">
+                    <Button fx:id="exportToExcelButton" text="Экспортировать в Excel" style="-fx-background-color: #d1c821" disable="true">
                         <font>
                             <Font name = "Verdana Bold" size="15"/>
                         </font>

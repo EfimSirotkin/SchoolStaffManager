@@ -17,8 +17,11 @@ public class ServiceStaffDB {
         return serviceStaff;
     }
 
-    public void findServiceWorker(String name) {
-
+    public ServiceWorker findServiceWorker(String name) {
+        for(ServiceWorker serviceWorker : serviceStaff)
+            if(serviceWorker.getName().equals(name))
+                return serviceWorker;
+        return null;
     }
 
     public void addServiceWorker(ServiceWorker serviceWorker)

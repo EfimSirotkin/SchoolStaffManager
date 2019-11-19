@@ -16,8 +16,12 @@ public class PedagogicalDB {
     public ArrayList<Teacher> getPedagogicalStaff() {
         return pedagogicalStaff;
     }
-    public void findTeacher(String name) {
-
+    public Teacher findTeacher(String name) {
+        for(Teacher teacher : getPedagogicalStaff()) {
+            if(teacher.getName().equals(name))
+                return teacher;
+        }
+    return null;
     }
     public void addTeacher(Teacher teacher) {
 

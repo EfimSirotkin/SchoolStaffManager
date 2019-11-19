@@ -16,8 +16,12 @@ public class AdministryDB {
     public void addAdministrator(Administrator administrator) {
 
     }
-    public void findAdministrator(String name) {
-
+    public Administrator findAdministrator(String name) {
+        for(Administrator administrator : administryStaff) {
+            if(administrator.getName().equals(name))
+                return administrator;
+        }
+        return null;
     }
     public void deleteAdministrator(String name) {
 

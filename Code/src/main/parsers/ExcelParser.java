@@ -264,7 +264,7 @@ public class ExcelParser implements Exporter, Importer {
     }
 
     @Override
-    public void importAdministryTemplate(String filePath) {
+    public ArrayList<Administrator> importAdministryTemplate(String filePath) {
 
         ArrayList<Administrator> importedAdministrators;
         StaffConverter staffConverter = new StaffConverter();
@@ -293,11 +293,11 @@ public class ExcelParser implements Exporter, Importer {
         } catch (BiffException e) {
             e.printStackTrace();
         }
-
+        return importedAdministrators;
     }
 
     @Override
-    public void importPedagogicalTemplate(String filePath) {
+    public ArrayList<Teacher> importPedagogicalTemplate(String filePath) {
         ArrayList<Teacher> importedTeachers;
         StaffConverter staffConverter = new StaffConverter();
         importedTeachers = staffConverter.fromPersonToTeacher(importPersonTemplate(filePath));
@@ -335,11 +335,12 @@ public class ExcelParser implements Exporter, Importer {
         } catch (BiffException e) {
             e.printStackTrace();
         }
+        return importedTeachers;
     }
 
 
     @Override
-    public void importServiceStaffTemplate(String filePath) {
+    public ArrayList<ServiceWorker> importServiceStaffTemplate(String filePath) {
         ArrayList<ServiceWorker> importedServiceWorkers = new ArrayList<ServiceWorker>();
         StaffConverter staffConverter = new StaffConverter();
         importedServiceWorkers = staffConverter.fromPersonToServiceWorker(importPersonTemplate(filePath));
@@ -383,7 +384,7 @@ public class ExcelParser implements Exporter, Importer {
         } catch (BiffException e) {
             e.printStackTrace();
         }
-
+        return importedServiceWorkers;
     }
 
     @Override
