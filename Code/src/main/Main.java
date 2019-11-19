@@ -38,6 +38,8 @@ public class Main extends Application {
         primaryStage.show();
 
         ExcelParser excelParser = new ExcelParser();
+        excelParser.importPersonTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Пользовательский).xls");
+        excelParser.importAdministryTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Административный).xls");
         //excelParser.createTemplateForPerson();
         //excelParser.createTemplateForAdministry();
         //excelParser.createTemplateForServiceStaff();

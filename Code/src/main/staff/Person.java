@@ -19,6 +19,7 @@ public class Person implements PersonActivity {
         this.surname = surname;
         this.superName = superName;
         this.dateOfBirth = dateOfBirth;
+        this.education = new ArrayList<>();
         for(String diploma : education)
             this.education.add(diploma);
 
@@ -37,6 +38,10 @@ public class Person implements PersonActivity {
 
     public String getSurname() {
         return surname;
+    }
+
+    public ArrayList<String> getEducation() {
+        return education;
     }
 
     @Override

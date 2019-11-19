@@ -15,6 +15,10 @@ public class Administrator extends Person implements AdministryActivity {
         this.editingAvailable = allRights;
         this.jobTitle = jobTitle;
     }
+    public Administrator(String name, String surname, String superName, String dateOfBirth, ArrayList<String> education)
+    {
+        super(name,surname,superName,dateOfBirth,education);
+    }
 
     public String getJobTitle() {
         return jobTitle;
@@ -42,5 +46,13 @@ public class Administrator extends Person implements AdministryActivity {
     @Override
     public void deleteEmployee() {
 
+    }
+
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
+
+    public void setEditingAvailable(boolean editingAvailable) {
+        this.editingAvailable = editingAvailable;
     }
 }

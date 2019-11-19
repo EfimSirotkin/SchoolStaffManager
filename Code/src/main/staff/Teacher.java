@@ -20,6 +20,9 @@ public class Teacher extends Person implements StaffActivity {
             this.teachSubjectsAtClasses.put(teachingSubjects[i], teachClasses.get(i));
         }
     }
+    public Teacher(String name, String surName,String superName,  String dateOfBirth, ArrayList<String> education) {
+        super(name,surName,superName, dateOfBirth, education);
+    }
 
     public String getTeacherDegree() {
         return teacherDegree;
@@ -46,5 +49,17 @@ public class Teacher extends Person implements StaffActivity {
     @Override
     public void requestForMaterials() {
 
+    }
+
+    public void setTeacherDegree(String teacherDegree) {
+        this.teacherDegree = teacherDegree;
+    }
+
+    public void setExtraLessonsName(ArrayList<String> extraLessonsName) {
+        this.extraLessonsName = extraLessonsName;
+    }
+
+    public void setTeachSubjectsAtClasses(Map<String, ArrayList<Integer>> teachSubjectsAtClasses) {
+        this.teachSubjectsAtClasses = teachSubjectsAtClasses;
     }
 }

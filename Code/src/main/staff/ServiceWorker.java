@@ -20,6 +20,10 @@ public class ServiceWorker extends Person implements StaffActivity {
         this.InstrumentsNeeded = areInstrumentsNeeded;
     }
 
+    public ServiceWorker(String name, String surName, String superName, String dateOfBirth, ArrayList<String> education) {
+        super(name, surName, superName, dateOfBirth, education);
+    }
+
     public String getTypeOfWork() {
         return typeOfWork;
     }
@@ -49,5 +53,21 @@ public class ServiceWorker extends Person implements StaffActivity {
     @Override
     public void requestForMaterials() {
 
+    }
+
+    public void setTypeOfWork(String typeOfWork) {
+        this.typeOfWork = typeOfWork;
+    }
+
+    public void setWorkRank(String workRank) {
+        this.workRank = workRank;
+    }
+
+    public void setResponsibilityZone(String responsibilityZone) {
+        this.responsibilityZone = responsibilityZone;
+    }
+
+    public void setInstrumentsNeeded(boolean instrumentsNeeded) {
+        InstrumentsNeeded = instrumentsNeeded;
     }
 }

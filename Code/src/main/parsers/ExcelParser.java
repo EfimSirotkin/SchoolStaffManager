@@ -4,28 +4,31 @@ import javafx.scene.control.Alert;
 import javafx.stage.DirectoryChooser;
 import jxl.Cell;
 import jxl.CellView;
+import jxl.Sheet;
 import jxl.Workbook;
 import jxl.format.Alignment;
 import jxl.format.Border;
 import jxl.format.BorderLineStyle;
 import jxl.format.CellFormat;
 import jxl.format.VerticalAlignment;
+import jxl.read.biff.BiffException;
 import jxl.write.*;
 import main.interfaces.parsers.Exporter;
 import main.interfaces.parsers.Importer;
+import main.staff.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class ExcelParser implements Exporter, Importer {
 
     public final int dimensionMultiplier = 256;
     @Override
     public void exportData() {
-
     }
-
     @Override
     public void createTemplateForPerson() throws IOException, WriteException {
         try {
@@ -203,6 +206,128 @@ public class ExcelParser implements Exporter, Importer {
     public void importData() {
 
     }
+
+    @Override
+    public ArrayList<Person> importPersonTemplate(String filePath) {
+        Workbook workbook;
+        ArrayList<Person> importedPersons = new ArrayList<>();
+        ArrayList<String> nameList;
+        ArrayList<String> surNameList;
+        ArrayList<String> superNameList;
+        ArrayList<String> dateOfBirthList;
+        ArrayList<String> educationList;
+        try {
+            workbook = Workbook.getWorkbook(new File(filePath));
+
+            Sheet sheet = workbook.getSheet(0);
+
+            int columnCounter = 1;
+            int rowCounter = 2;
+
+            surNameList = readColumns(columnCounter, rowCounter, sheet);   // Читаем строки по столбцам, начиная со второго(1)
+            columnCounter++;
+
+            rowCounter = 2;
+            nameList = readColumns(columnCounter, rowCounter, sheet);
+            columnCounter++;
+
+            rowCounter = 2;
+            superNameList = readColumns(columnCounter,rowCounter,sheet);
+            columnCounter++;
+
+            rowCounter = 2;
+            dateOfBirthList = readColumns(columnCounter,rowCounter,sheet);
+            dateOfBirthList = removeSlashes(dateOfBirthList);
+            columnCounter++;
+
+            rowCounter = 2;
+            educationList = readColumns(columnCounter,rowCounter, sheet);
+
+            for(int i = 0; i < surNameList.size(); i ++) {
+                ArrayList<String> parsedEducationList = parseEducationString(educationList.get(i));
+                importedPersons.add(new Person(nameList.get(i),
+                                    surNameList.get(i),
+                                    superNameList.get(i),
+                                    dateOfBirthList.get(i),
+                                    parsedEducationList
+                        ));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (BiffException e) {
+            e.printStackTrace();
+        }
+        return importedPersons;
+    }
+
+    @Override
+    public void importAdministryTemplate(String filePath) {
+
+        ArrayList<Administrator> importedAdministrators;
+        StaffConverter staffConverter = new StaffConverter();
+        importedAdministrators = staffConverter.fromPersonToAdministrator(importPersonTemplate(filePath));
+        try {
+            Workbook workbook = Workbook.getWorkbook(new File(filePath));
+
+            ArrayList<String> jobTitleList = new ArrayList<>();
+            ArrayList<String> accessRightsList = new ArrayList<>();
+
+            Sheet sheet = workbook.getSheet(0);
+
+            int columnCounter = 6;
+            int rowCounter = 2;
+            jobTitleList = readColumns(columnCounter, rowCounter, sheet);
+            columnCounter++;
+
+            accessRightsList = readColumns(columnCounter, rowCounter, sheet);
+
+            for(int i = 0; i < importedAdministrators.size(); i++) {
+                importedAdministrators.get(i).setJobTitle(jobTitleList.get(i));
+                boolean currentAccessRights;
+                String currentARString = accessRightsList.get(i);
+                if(currentARString.equals("Да") || currentARString.equals("да"))
+                    currentAccessRights = true;
+                else
+                    currentAccessRights = false;
+                importedAdministrators.get(i).setEditingAvailable(currentAccessRights);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (BiffException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @Override
+    public void importPedagogicalTemplate(String filePath) {
+        ArrayList<Teacher> importedTeachers;
+        StaffConverter staffConverter = new StaffConverter();
+        importedTeachers = staffConverter.fromPersonToTeacher(importPersonTemplate(filePath));
+
+        try {
+            Workbook workbook = Workbook.getWorkbook(new File(filePath));
+
+        }catch (IOException e) {
+            e.printStackTrace();
+        } catch (BiffException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ArrayList<ServiceWorker> fromPersonToServiceWorker(ArrayList<Person> personsToConvert) {
+        ArrayList<ServiceWorker> tempServiceWorkerList = new ArrayList<>();
+        for(Person person : personsToConvert)
+            tempServiceWorkerList.add(new ServiceWorker(person.getName(), person.getSurname(), person.getSuperName(), person.getDateOfBirth(), person.getEducation()));
+
+        return tempServiceWorkerList;
+    }
+
+    @Override
+    public void importServiceStaffTemplate() {
+
+    }
+
     @Override
     public void createDefaultTemplate(WritableWorkbook writableWorkbook,WritableSheet excelSheet, WritableCellFormat writableCellFormat)
     {
@@ -233,4 +358,56 @@ public class ExcelParser implements Exporter, Importer {
             e.printStackTrace();
         }
     }
+
+    public ArrayList<String> readColumns(int columnNumber, int rowNumber,Sheet writableSheet) {
+        ArrayList<String> tempDataList = new ArrayList<>();
+        Cell currentCell;
+        try {
+            while ((currentCell = writableSheet.getCell(columnNumber, rowNumber)) != null) {
+                tempDataList.add(currentCell.getContents());
+                rowNumber++;
+            }
+        }catch (ArrayIndexOutOfBoundsException e) {
+
+        }
+        return tempDataList;
+    }
+
+
+    public ArrayList<String> parseEducationString(String education) {
+        ArrayList<String> educationList = new ArrayList<>();
+        int beginning = 0;
+        int end = 0;
+        String parsedEducation;
+        boolean multipleEducation = false;
+        for(int i = 0; i < education.length(); i++)
+            if(education.charAt(i) == ',')
+            {
+                multipleEducation = true;
+                if(i>0)
+                    end = i - 1;
+                else
+                    end = 0;
+                parsedEducation = education.substring(beginning, end);
+                educationList.add(parsedEducation);
+                beginning = i + 1;
+            }
+        if(!multipleEducation)
+            educationList.add(education);
+        for(int i =0; i< educationList.size();i++) {
+            if(educationList.get(i).charAt(0) == ' ')
+                educationList.set(i, educationList.get(i).substring(1));
+        }
+        return educationList;
+    }
+
+    public ArrayList<String> removeSlashes(ArrayList<String> dateOfBirthList) {
+        ArrayList<String> tempList = new ArrayList<>();
+        for(String dateOfBirth : dateOfBirthList) {
+            dateOfBirth = dateOfBirth.replace("/", ".");
+            tempList.add(dateOfBirth);
+        }
+        return  tempList;
+    }
+
 }
