@@ -11,5 +11,5 @@ public interface Importer {
     ArrayList<Person> importPersonTemplate(String filePath);
     void importAdministryTemplate(String filePath) throws IOException, BiffException;
     void importPedagogicalTemplate(String filePath);
-    void importServiceStaffTemplate();
+    void importServiceStaffTemplate(String filePath);
 }

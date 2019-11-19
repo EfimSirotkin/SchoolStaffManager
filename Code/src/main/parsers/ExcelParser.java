@@ -20,8 +20,11 @@ import main.staff.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ExcelParser implements Exporter, Importer {
 
@@ -269,8 +272,8 @@ public class ExcelParser implements Exporter, Importer {
         try {
             Workbook workbook = Workbook.getWorkbook(new File(filePath));
 
-            ArrayList<String> jobTitleList = new ArrayList<>();
-            ArrayList<String> accessRightsList = new ArrayList<>();
+            ArrayList<String> jobTitleList;
+            ArrayList<String> accessRightsList;
 
             Sheet sheet = workbook.getSheet(0);
 
@@ -283,13 +286,7 @@ public class ExcelParser implements Exporter, Importer {
 
             for(int i = 0; i < importedAdministrators.size(); i++) {
                 importedAdministrators.get(i).setJobTitle(jobTitleList.get(i));
-                boolean currentAccessRights;
-                String currentARString = accessRightsList.get(i);
-                if(currentARString.equals("Да") || currentARString.equals("да"))
-                    currentAccessRights = true;
-                else
-                    currentAccessRights = false;
-                importedAdministrators.get(i).setEditingAvailable(currentAccessRights);
+                importedAdministrators.get(i).setEditingAvailable(parseBooleanString(accessRightsList.get(i)));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -307,6 +304,31 @@ public class ExcelParser implements Exporter, Importer {
 
         try {
             Workbook workbook = Workbook.getWorkbook(new File(filePath));
+            ArrayList<String> qualificationCategory;
+            ArrayList<String> teachingSubjects;
+            ArrayList<String> teachingClasses;
+            Map<String, ArrayList<Integer>> teachSubjectsAtClasses;
+
+            Sheet sheet = workbook.getSheet(0);
+
+            int columnCounter = 6;
+            int rowCounter = 2;
+            qualificationCategory = readColumns(columnCounter, rowCounter, sheet);
+            columnCounter++;
+
+            rowCounter = 2;
+            teachingSubjects = readColumns(columnCounter, rowCounter, sheet);
+            columnCounter++;
+
+            rowCounter = 2;
+            teachingClasses = readColumns(columnCounter, rowCounter, sheet);
+
+
+            for(int i = 0; i < importedTeachers.size(); i++) {
+                importedTeachers.get(i).setTeacherDegree(qualificationCategory.get(i));
+                importedTeachers.get(i).setTeachSubjectsAtClasses(mapSubjectsWithClasses(teachingSubjects, teachingClasses));
+            }
+
 
         }catch (IOException e) {
             e.printStackTrace();
@@ -315,16 +337,52 @@ public class ExcelParser implements Exporter, Importer {
         }
     }
 
-    public ArrayList<ServiceWorker> fromPersonToServiceWorker(ArrayList<Person> personsToConvert) {
-        ArrayList<ServiceWorker> tempServiceWorkerList = new ArrayList<>();
-        for(Person person : personsToConvert)
-            tempServiceWorkerList.add(new ServiceWorker(person.getName(), person.getSurname(), person.getSuperName(), person.getDateOfBirth(), person.getEducation()));
-
-        return tempServiceWorkerList;
-    }
 
     @Override
-    public void importServiceStaffTemplate() {
+    public void importServiceStaffTemplate(String filePath) {
+        ArrayList<ServiceWorker> importedServiceWorkers = new ArrayList<ServiceWorker>();
+        StaffConverter staffConverter = new StaffConverter();
+        importedServiceWorkers = staffConverter.fromPersonToServiceWorker(importPersonTemplate(filePath));
+
+        try{
+            Workbook workbook = Workbook.getWorkbook(new File(filePath));
+
+            ArrayList<String> specializationList;
+            ArrayList<String> workRankList;
+            ArrayList<String> responsibilityList;
+            ArrayList<String> inventoryNeeded;
+
+            Sheet sheet = workbook.getSheet(0);
+
+            int columnCounter = 6;
+            int rowCounter = 2;
+            specializationList = readColumns(columnCounter, rowCounter, sheet);
+            columnCounter++;
+
+            rowCounter = 2;
+            workRankList = readColumns(columnCounter,rowCounter, sheet);
+            columnCounter++;
+
+            rowCounter = 2;
+            responsibilityList = readColumns(columnCounter,rowCounter, sheet);
+            columnCounter++;
+
+            rowCounter = 2;
+            inventoryNeeded = readColumns(columnCounter, rowCounter, sheet);
+
+            for(int i = 0; i < importedServiceWorkers.size(); i++) {
+                importedServiceWorkers.get(i).setTypeOfWork(specializationList.get(i));
+                importedServiceWorkers.get(i).setWorkRank(workRankList.get(i));
+                importedServiceWorkers.get(i).setResponsibilityZone(responsibilityList.get(i));
+                importedServiceWorkers.get(i).setInstrumentsNeeded(parseBooleanString(inventoryNeeded.get(i)));
+            }
+
+
+        }catch (IOException e) {
+            e.printStackTrace();
+        } catch (BiffException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -373,7 +431,6 @@ public class ExcelParser implements Exporter, Importer {
         return tempDataList;
     }
 
-
     public ArrayList<String> parseEducationString(String education) {
         ArrayList<String> educationList = new ArrayList<>();
         int beginning = 0;
@@ -410,4 +467,45 @@ public class ExcelParser implements Exporter, Importer {
         return  tempList;
     }
 
+    public HashMap<String, ArrayList<String>> mapSubjectsWithClasses(ArrayList<String> subjects, ArrayList<String> classes) {
+        HashMap<String, ArrayList<String>> tempMap = new HashMap<>();
+        for(int i = 0; i < subjects.size(); i++) {
+            tempMap.put(subjects.get(i), parseClassesString(classes.get(i)));
+        }
+        return tempMap;
+    }
+
+    public ArrayList<String> parseClassesString(String classesToParse) {
+        ArrayList<String> tempClassList = new ArrayList<>();
+        int beginning =0;
+        int end = 0;
+        boolean hasMultipleClasses = false;
+        for(int i =0; i < classesToParse.length(); i++) {
+            String tempClass;
+            if( i == classesToParse.length()-1) {
+                tempClass = classesToParse.substring(beginning);
+                tempClass =  tempClass.replace(" ", "");
+                tempClassList.add(tempClass);
+            }
+            if(classesToParse.charAt(i)== ','){
+                hasMultipleClasses = true;
+                end = i;
+                tempClass = classesToParse.substring(beginning, end);
+                tempClass =  tempClass.replace(" ", "");
+                tempClassList.add(tempClass);
+                beginning = i + 1;
+            }
+
+        }
+        if(!hasMultipleClasses)
+            tempClassList.add(classesToParse);
+        return tempClassList;
+    }
+
+    public boolean parseBooleanString(String stringToParse) {
+        if(stringToParse == "Да" || stringToParse == "да")
+            return true;
+        else
+            return false;
+    }
 }

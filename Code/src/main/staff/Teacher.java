@@ -4,15 +4,16 @@ import main.interfaces.staff.StaffActivity;
 import main.staff.Person;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Teacher extends Person implements StaffActivity {
     private String teacherDegree;
     private ArrayList<String> extraLessonsName;
-    private Map<String, ArrayList<Integer>> teachSubjectsAtClasses;
+    private HashMap<String, ArrayList<String>> teachSubjectsAtClasses;
 
     Teacher(String name, String surName, String superName, String dateOfBirth, ArrayList<String> education,
-            String[] teachingSubjects, ArrayList<ArrayList<Integer>> teachClasses, String teacherDegree, ArrayList<String> extraLessonsName)
+            String[] teachingSubjects, ArrayList<ArrayList<String>> teachClasses, String teacherDegree, ArrayList<String> extraLessonsName)
     {
         super(name,surName, superName, dateOfBirth, education);
         for(int i =0; i < teachingSubjects.length; i++)
@@ -32,7 +33,7 @@ public class Teacher extends Person implements StaffActivity {
         return extraLessonsName;
     }
 
-    public Map<String, ArrayList<Integer>> getTeachSubjectsAtClasses() {
+    public Map<String, ArrayList<String>> getTeachSubjectsAtClasses() {
         return teachSubjectsAtClasses;
     }
 
@@ -59,7 +60,7 @@ public class Teacher extends Person implements StaffActivity {
         this.extraLessonsName = extraLessonsName;
     }
 
-    public void setTeachSubjectsAtClasses(Map<String, ArrayList<Integer>> teachSubjectsAtClasses) {
+    public void setTeachSubjectsAtClasses(HashMap<String, ArrayList<String>> teachSubjectsAtClasses) {
         this.teachSubjectsAtClasses = teachSubjectsAtClasses;
     }
 }
