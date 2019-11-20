@@ -10,10 +10,15 @@ public class Person implements PersonActivity {
     private String superName;
     private String dateOfBirth;
     private ArrayList<String> education;
+    private String phoneNumber;
 
     public Person() {}
 
-    public Person(String name, String surname, String superName, String dateOfBirth, ArrayList<String> education)
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public Person(String name, String surname, String superName, String dateOfBirth, ArrayList<String> education, String phoneNumber)
     {
         this.name = name;
         this.surname = surname;
@@ -22,8 +27,11 @@ public class Person implements PersonActivity {
         this.education = new ArrayList<>();
         for(String diploma : education)
             this.education.add(diploma);
+        this.phoneNumber = phoneNumber;
 
     }
+
+
     public String getName() {
         return name;
     }
@@ -43,6 +51,7 @@ public class Person implements PersonActivity {
     public ArrayList<String> getEducation() {
         return education;
     }
+
 
     @Override
     public void viewStaffList() {

@@ -8,16 +8,10 @@ public class Administrator extends Person implements AdministryActivity {
     private String jobTitle;
     boolean editingAvailable = true;
 
-    public Administrator(String name, String surname, String superName, String dateOfBirth, ArrayList<String> education,
-                         String jobTitle, boolean allRights)
+
+    public Administrator(String name, String surname, String superName, String dateOfBirth, ArrayList<String> education, String phoneNumber)
     {
-        super(name,surname,superName,dateOfBirth, education);
-        this.editingAvailable = allRights;
-        this.jobTitle = jobTitle;
-    }
-    public Administrator(String name, String surname, String superName, String dateOfBirth, ArrayList<String> education)
-    {
-        super(name,surname,superName,dateOfBirth,education);
+        super(name,surname,superName,dateOfBirth,education, phoneNumber);
     }
 
     public String getJobTitle() {

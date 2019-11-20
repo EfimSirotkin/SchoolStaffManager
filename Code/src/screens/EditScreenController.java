@@ -9,11 +9,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.text.Text;
 import main.Main;
 import main.staff.Person;
-
-
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;

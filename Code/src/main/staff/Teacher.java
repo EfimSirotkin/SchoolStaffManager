@@ -11,18 +11,36 @@ public class Teacher extends Person implements StaffActivity {
     private String teacherDegree;
     private ArrayList<String> extraLessonsName;
     private HashMap<String, ArrayList<String>> teachSubjectsAtClasses;
+    private String workingExperience;
+    private ArrayList<String> qualificationCourses;
+    private Integer weeklyTeachingHours;
 
-    Teacher(String name, String surName, String superName, String dateOfBirth, ArrayList<String> education,
-            String[] teachingSubjects, ArrayList<ArrayList<String>> teachClasses, String teacherDegree, ArrayList<String> extraLessonsName)
-    {
-        super(name,surName, superName, dateOfBirth, education);
-        for(int i =0; i < teachingSubjects.length; i++)
-        {
-            this.teachSubjectsAtClasses.put(teachingSubjects[i], teachClasses.get(i));
-        }
+    public void setWeeklyTeachingHours(Integer weeklyTeachingHours) {
+        this.weeklyTeachingHours = weeklyTeachingHours;
     }
-    public Teacher(String name, String surName,String superName,  String dateOfBirth, ArrayList<String> education) {
-        super(name,surName,superName, dateOfBirth, education);
+
+    public Integer getWeeklyTeachingHours() {
+        return weeklyTeachingHours;
+    }
+
+    public void setQualificationCourses(ArrayList<String> qualificationCourses) {
+        this.qualificationCourses = qualificationCourses;
+    }
+
+    public ArrayList<String> getQualificationCourses() {
+        return qualificationCourses;
+    }
+
+    public Teacher(String name, String surName, String superName, String dateOfBirth, ArrayList<String> education, String phoneNumber) {
+        super(name,surName,superName, dateOfBirth, education, phoneNumber);
+    }
+
+    public void setWorkingExperience(String workingExperience) {
+        this.workingExperience = workingExperience;
+    }
+
+    public String getWorkingExperience() {
+        return workingExperience;
     }
 
     public String getTeacherDegree() {

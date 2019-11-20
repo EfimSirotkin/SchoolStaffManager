@@ -11,17 +11,10 @@ public class ServiceWorker extends Person implements StaffActivity {
     private String responsibilityZone;
     private boolean InstrumentsNeeded = false;
 
-    public ServiceWorker(String name, String surname, String superName, String dateOfBirth, ArrayList<String> education, String typeOfWork, String workRank, String responsibilityZone, boolean areInstrumentsNeeded)
-    {
-        super(name, surname, superName, dateOfBirth, education);
-        this.typeOfWork = typeOfWork;
-        this.workRank = workRank;
-        this.responsibilityZone = responsibilityZone;
-        this.InstrumentsNeeded = areInstrumentsNeeded;
-    }
 
-    public ServiceWorker(String name, String surName, String superName, String dateOfBirth, ArrayList<String> education) {
-        super(name, surName, superName, dateOfBirth, education);
+
+    public ServiceWorker(String name, String surName, String superName, String dateOfBirth, ArrayList<String> education, String phoneNumber) {
+        super(name, surName, superName, dateOfBirth, education, phoneNumber);
     }
 
     public String getTypeOfWork() {

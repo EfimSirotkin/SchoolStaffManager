@@ -121,12 +121,14 @@ public class ViewScreenController implements Initializable, ControlledScreen {
         importFromExcel.setDisable(false);
         ExcelParser excelParser = new ExcelParser();
 
+
         if(actionEvent.getSource().equals(pedagogicalButton)) {
-                sourceStaff = SourceStaff.PEDAGOGICAL;
-                pedagogicalDB = new PedagogicalDB(excelParser.importPedagogicalTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Преподавательский).xls"));
-                ObservableList<Person> observableList = FXCollections.observableArrayList(pedagogicalDB.getPedagogicalStaff());
-                staffTable.setItems(FXCollections.observableArrayList(observableList));
-                putDataIntoTableView();
+            sourceStaff = SourceStaff.PEDAGOGICAL;
+            pedagogicalDB = new PedagogicalDB(excelParser.importPedagogicalTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Преподавательский).xls"));
+            ObservableList<Person> observableList = FXCollections.observableArrayList(pedagogicalDB.getPedagogicalStaff());
+            staffTable.getColumns().clear();
+            staffTable.setItems(FXCollections.observableArrayList(observableList));
+            putDataIntoTableView();
 
         }
         else if(actionEvent.getSource().equals(administryButton))
@@ -134,6 +136,7 @@ public class ViewScreenController implements Initializable, ControlledScreen {
             sourceStaff = SourceStaff.ADMINISTRATION;
             administryDB = new AdministryDB(excelParser.importAdministryTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Административный).xls"));
             ObservableList<Person> observableList = FXCollections.observableArrayList(administryDB.getAdministryStaff());
+            staffTable.getColumns().clear();
             staffTable.setItems(FXCollections.observableArrayList(observableList));
             putDataIntoTableView();
 
@@ -143,6 +146,7 @@ public class ViewScreenController implements Initializable, ControlledScreen {
             sourceStaff = SourceStaff.SERVICESTAFF;
             serviceStaffDB = new ServiceStaffDB(excelParser.importServiceStaffTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Обслуживающий).xls"));
             ObservableList<Person> observableList = FXCollections.observableArrayList(serviceStaffDB.getServiceStaff());
+            staffTable.getColumns().clear();
             staffTable.setItems(FXCollections.observableArrayList(observableList));
             putDataIntoTableView();
 
@@ -164,10 +168,13 @@ public class ViewScreenController implements Initializable, ControlledScreen {
                 Teacher selectedTeacher = pedagogicalDB.findTeacher(staffTable.getSelectionModel().getSelectedItem().getName());
                 if(selectedTeacher != null) {
                     fullName.setText(getFullName());
-                    education.setText(generateEducationString());
+                    education.setText(generateEducationString(staffTable.getSelectionModel().getSelectedItem().getEducation()));
                     dateOfBirth.setText("Дата рождения: " + staffTable.getSelectionModel().getSelectedItem().getDateOfBirth());
                     jobTitle.setText("учитель");
                     qualification.setText("Квалификационная категория: " + selectedTeacher.getTeacherDegree());
+                    phoneNumber.setText("Телефон: " + selectedTeacher.getPhoneNumber());
+                    qualificationCourses.setText(generateEducationString(selectedTeacher.getQualificationCourses()));
+                    workingExperience.setText("Стаж работы: " + selectedTeacher.getWorkingExperience() + " лет");
                 }
             }
             else if(sourceStaff == SourceStaff.ADMINISTRATION)
@@ -175,10 +182,16 @@ public class ViewScreenController implements Initializable, ControlledScreen {
                 Administrator selectedAdministrator = administryDB.findAdministrator(staffTable.getSelectionModel().getSelectedItem().getName());
                 if(selectedAdministrator != null) {
                     fullName.setText(getFullName());
-                    education.setText(generateEducationString());
+                    education.setText(generateEducationString(staffTable.getSelectionModel().getSelectedItem().getEducation()));
                     dateOfBirth.setText("Дата рождения: " + staffTable.getSelectionModel().getSelectedItem().getDateOfBirth());
                     jobTitle.setText(selectedAdministrator.getJobTitle());
-                    qualification.setText("-");
+                    phoneNumber.setText("Телефон: " + selectedAdministrator.getPhoneNumber());
+                    if(selectedAdministrator.isEditingAvailable())
+                        qualification.setText("Полные права доступа");
+                    else
+                        qualification.setText("Права доступа пользователя");
+                    qualificationCourses.setText("Квалификационная категория: " + "актуально для преподавателей");
+                    workingExperience.setText("Стаж работы: " + "актуален для преподавателей");
                 }
             }
             else if(sourceStaff == SourceStaff.SERVICESTAFF)
@@ -186,18 +199,19 @@ public class ViewScreenController implements Initializable, ControlledScreen {
                 ServiceWorker selectedServiceWorker = serviceStaffDB.findServiceWorker(staffTable.getSelectionModel().getSelectedItem().getName());
                 if(selectedServiceWorker != null) {
                     fullName.setText(getFullName());
-                    education.setText(generateEducationString());
+                    education.setText(generateEducationString(staffTable.getSelectionModel().getSelectedItem().getEducation()));
                     dateOfBirth.setText("Дата рождения: " + staffTable.getSelectionModel().getSelectedItem().getDateOfBirth());
                     jobTitle.setText(selectedServiceWorker.getTypeOfWork());
                     qualification.setText("Разряд: " + selectedServiceWorker.getWorkRank());
+                    phoneNumber.setText(("Телефон: " + selectedServiceWorker.getPhoneNumber()));
                 }
             }
         }
     }
 
-    public String generateEducationString() {
+    public String generateEducationString(ArrayList<String> sourceList) {
         ArrayList<String> tempList = new ArrayList<String>();
-        tempList = staffTable.getSelectionModel().getSelectedItem().getEducation();
+        tempList = sourceList;
         String generatedString ="";
         for(int i = 0; i < tempList.size(); i++) {
             generatedString += tempList.get(i);
@@ -233,7 +247,7 @@ public class ViewScreenController implements Initializable, ControlledScreen {
 
             TableColumn<Person, ArrayList<String>> educationColumn = new TableColumn<>("Образование");
             educationColumn.setCellValueFactory(new PropertyValueFactory<>("education"));
-            educationColumn.setMinWidth(170);
+            educationColumn.setMinWidth(250);
 
             staffTable.getColumns().add(educationColumn);
         }

@@ -77,22 +77,9 @@
                     </padding>
                     <buttons>
                         <Button text="Преподавательский"
-                                prefWidth="550"
-                                prefHeight="25">
-                            <font>
-                                <Font name = "Verdana Bold" size="18"/>
-                            </font>
-                        </Button>
-                        <Button text="Административный"
-                                prefWidth="550"
-                                prefHeight="25">
-                            <font>
-                                <Font name = "Verdana Bold" size="18"/>
-                            </font>
-                        </Button>
-                        <Button text="Обслуживающий"
-                                prefWidth="550"
-                                prefHeight="25">
+                                onAction="#generateAnalyticsGraphics"
+                                prefWidth="1700"
+                                prefHeight="20">
                             <font>
                                 <Font name = "Verdana Bold" size="18"/>
                             </font>
@@ -112,7 +99,8 @@
                     fx:id="hoursChargingBar"
                     prefWidth="800" prefHeight="400"
                     barGap="10" layoutY="8.0"
-                    title="Тарификация работников по количеству учебных часов">
+                    title="Тарификация работников по количеству учебных часов"
+                    style="-fx-font-size: 16px; -fx-font-weight: bold;">
                         <xAxis>
                             <CategoryAxis label="Учитель" side="BOTTOM" fx:id="xAxisHoursCharging"/>
                         </xAxis>
@@ -145,7 +133,7 @@
                         prefWidth="800" prefHeight="400"
                         layoutY="8.0"
                         title="Распределение учебного состава по квалификационной категории"
-
+                        style="-fx-font-size: 16px; -fx-font-weight: bold;"
                 >
                 </PieChart>
                 <BarChart fx:id="higherQualificationDistributionBar" title="Количество сотрудников с высшей квалификационнной категорией"

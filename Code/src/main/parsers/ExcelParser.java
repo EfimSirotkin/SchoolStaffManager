@@ -219,6 +219,7 @@ public class ExcelParser implements Exporter, Importer {
         ArrayList<String> superNameList;
         ArrayList<String> dateOfBirthList;
         ArrayList<String> educationList;
+        ArrayList<String> phoneNumberList;
         try {
             workbook = Workbook.getWorkbook(new File(filePath));
 
@@ -245,6 +246,11 @@ public class ExcelParser implements Exporter, Importer {
 
             rowCounter = 2;
             educationList = readColumns(columnCounter,rowCounter, sheet);
+            columnCounter++;
+
+            rowCounter = 2;
+            phoneNumberList = readColumns(columnCounter, rowCounter, sheet);
+
 
             for(int i = 0; i < surNameList.size(); i ++) {
                 ArrayList<String> parsedEducationList = parseEducationString(educationList.get(i));
@@ -252,7 +258,8 @@ public class ExcelParser implements Exporter, Importer {
                                     surNameList.get(i),
                                     superNameList.get(i),
                                     dateOfBirthList.get(i),
-                                    parsedEducationList
+                                    parsedEducationList,
+                                    phoneNumberList.get(i)
                         ));
             }
         } catch (IOException e) {
@@ -277,7 +284,7 @@ public class ExcelParser implements Exporter, Importer {
 
             Sheet sheet = workbook.getSheet(0);
 
-            int columnCounter = 6;
+            int columnCounter = 7;
             int rowCounter = 2;
             jobTitleList = readColumns(columnCounter, rowCounter, sheet);
             columnCounter++;
@@ -305,15 +312,21 @@ public class ExcelParser implements Exporter, Importer {
         try {
             Workbook workbook = Workbook.getWorkbook(new File(filePath));
             ArrayList<String> qualificationCategory;
+            ArrayList<String> qualificationCourses;
             ArrayList<String> teachingSubjects;
             ArrayList<String> teachingClasses;
-            Map<String, ArrayList<Integer>> teachSubjectsAtClasses;
+            ArrayList<String> workingExperience;
+            ArrayList<String> teachingHoursList;
 
             Sheet sheet = workbook.getSheet(0);
 
-            int columnCounter = 6;
+            int columnCounter = 7;
             int rowCounter = 2;
             qualificationCategory = readColumns(columnCounter, rowCounter, sheet);
+            columnCounter++;
+
+            rowCounter = 2;
+            qualificationCourses = readColumns(columnCounter,rowCounter,sheet);
             columnCounter++;
 
             rowCounter = 2;
@@ -322,11 +335,24 @@ public class ExcelParser implements Exporter, Importer {
 
             rowCounter = 2;
             teachingClasses = readColumns(columnCounter, rowCounter, sheet);
+            columnCounter++;
+
+            rowCounter = 2;
+            teachingHoursList = readColumns(columnCounter, rowCounter, sheet);
+            columnCounter++;
+
+            rowCounter = 2;
+            workingExperience = readColumns(columnCounter,rowCounter, sheet);
+
 
 
             for(int i = 0; i < importedTeachers.size(); i++) {
                 importedTeachers.get(i).setTeacherDegree(qualificationCategory.get(i));
                 importedTeachers.get(i).setTeachSubjectsAtClasses(mapSubjectsWithClasses(teachingSubjects, teachingClasses));
+                importedTeachers.get(i).setWorkingExperience(workingExperience.get(i));
+                importedTeachers.get(i).setQualificationCourses(parseEducationString(qualificationCourses.get(i)));
+                importedTeachers.get(i).setWeeklyTeachingHours(Integer.valueOf(teachingHoursList.get(i)));
+                System.out.println(importedTeachers.get(i).getWeeklyTeachingHours());
             }
 
 
@@ -355,7 +381,7 @@ public class ExcelParser implements Exporter, Importer {
 
             Sheet sheet = workbook.getSheet(0);
 
-            int columnCounter = 6;
+            int columnCounter = 7;
             int rowCounter = 2;
             specializationList = readColumns(columnCounter, rowCounter, sheet);
             columnCounter++;
@@ -376,6 +402,7 @@ public class ExcelParser implements Exporter, Importer {
                 importedServiceWorkers.get(i).setWorkRank(workRankList.get(i));
                 importedServiceWorkers.get(i).setResponsibilityZone(responsibilityList.get(i));
                 importedServiceWorkers.get(i).setInstrumentsNeeded(parseBooleanString(inventoryNeeded.get(i)));
+
             }
 
 
@@ -503,8 +530,10 @@ public class ExcelParser implements Exporter, Importer {
         return tempClassList;
     }
 
+
+
     public boolean parseBooleanString(String stringToParse) {
-        if(stringToParse == "Да" || stringToParse == "да")
+        if(stringToParse.equals("Да") || stringToParse.equals("да"))
             return true;
         else
             return false;

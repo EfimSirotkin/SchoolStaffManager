@@ -201,9 +201,9 @@
                     </buttons>
                 </ButtonBar>
 
-                <TableView fx:id="staffTable" onMouseClicked="#clickTableViewItem" maxWidth="850" minHeight="600">
+                <TableView fx:id="staffTable" onMouseClicked="#clickTableViewItem" maxWidth="930" minHeight="600">
                 </TableView>
-                <HBox spacing="395">
+                <HBox spacing="480">
                     <Button  fx:id="importFromExcel"  text="Импортировать из Excel" style="-fx-background-color: #7ebf7f" disable="true">
                         <font>
                             <Font name = "Verdana Bold" size="15"/>
