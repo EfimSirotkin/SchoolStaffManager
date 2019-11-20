@@ -18,8 +18,6 @@ import java.util.ResourceBundle;
 public class MainScreenController implements Initializable, ControlledScreen {
     @FXML
     private ImageView imageView;
-
-
     private ScreensController myController;
 
     @Override

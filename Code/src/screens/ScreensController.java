@@ -40,6 +40,7 @@ public class ScreensController extends StackPane {
             ControlledScreen myScreenController = myLoader.getController();
             myScreenController.setScreenParent(this);
             addScreen(name, loadScreen);
+
             return true;
         } catch (Exception e) {
             System.out.println(e.getMessage());

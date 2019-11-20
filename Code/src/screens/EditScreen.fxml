@@ -69,8 +69,8 @@
         <HBox spacing="80">
             <children>
                 <VBox>
-                <HBox spacing="50">
-                    <VBox>
+                <HBox spacing="50" >
+                    <VBox minWidth="700">
                         <padding>
                             <Insets left="75">
                             </Insets>
@@ -196,6 +196,8 @@
                     <ButtonBar>
                         <buttons>
                             <Button text="Преподавательский"
+                                    fx:id="pedagogicalButton"
+                                    onAction="#onStaffTypeClicked"
                                     prefWidth="250"
                                     prefHeight="25">
                                 <font>
@@ -203,6 +205,8 @@
                                 </font>
                             </Button>
                             <Button text="Административный"
+                                    fx:id="administryButton"
+                                    onAction="#onStaffTypeClicked"
                                     prefWidth="250"
                                     prefHeight="25">
                                 <font>
@@ -210,6 +214,8 @@
                                 </font>
                             </Button>
                             <Button text="Обслуживающий"
+                                    fx:id="serviceStaffButton"
+                                    onAction="#onStaffTypeClicked"
                                     prefWidth="250"
                                     prefHeight="25">
                                 <font>
@@ -219,15 +225,15 @@
                         </buttons>
                     </ButtonBar>
 
-                <TableView fx:id="staffTable" maxWidth="850" minHeight="600">
+                <TableView fx:id="staffTable" onMouseClicked="#clickTableViewItem" maxWidth="850" minHeight="600">
                 </TableView>
                 <HBox spacing="395">
-                    <Button text="Импортировать из Excel" style="-fx-background-color: #7ebf7f">
+                    <Button text="Импортировать из Excel" style="-fx-background-color: #7ebf7f" fx:id="importFromExcel">
                         <font>
                             <Font name="Verdana Bold" size="15"/>
                         </font>
                     </Button>
-                    <Button text="Экспортировать в Excel" style="-fx-background-color: #d1c821">
+                    <Button text="Экспортировать в Excel" style="-fx-background-color: #d1c821" fx:id="exportToExcelButton">
                         <font>
                             <Font name="Verdana Bold" size="15"/>
                         </font>

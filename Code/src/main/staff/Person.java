@@ -1,6 +1,7 @@
 package main.staff;
 
 import main.interfaces.staff.PersonActivity;
+import main.parsers.LoginStorage;
 
 import java.util.ArrayList;
 
@@ -11,6 +12,7 @@ public class Person implements PersonActivity {
     private String dateOfBirth;
     private ArrayList<String> education;
     private String phoneNumber;
+    LoginStorage loginStorage;
 
     public Person() {
     }
@@ -50,6 +52,21 @@ public class Person implements PersonActivity {
 
     public ArrayList<String> getEducation() {
         return education;
+    }
+
+    public LoginStorage getLoginStorage() {
+        return loginStorage;
+    }
+
+    public void setLoginStorage(LoginStorage loginStorage) {
+        this.loginStorage = loginStorage;
+    }
+
+    public boolean checkLoginDataValidity(LoginStorage loginStorage) {
+        if(this.loginStorage.getLogin().equals(loginStorage.getLogin()) && this.loginStorage.getPassword().equals(loginStorage.getPassword()))
+            return true;
+        else
+            return false;
     }
 
 

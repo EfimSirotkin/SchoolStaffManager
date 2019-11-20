@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.text.Text?>
+<?import javafx.geometry.Insets?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="screens.TeacherRegistrationScreen"
+      prefHeight="1000.0" prefWidth="800.0">
+    <padding>
+        <Insets top="10" left="20" right="20" bottom="10"></Insets>
+    </padding>
+    <HBox spacing="200">
+        <Label text="Регистрация">
+            <font>
+                <Font name="Verdana Bold" size="28"></Font>
+            </font>
+        </Label>
+        <ImageView
+                fx:id="imageView"
+                fitHeight="120" fitWidth="150">
+        </ImageView>
+    </HBox>
+    <VBox spacing="20">
+        <HBox spacing="50">
+            <Label text="Фамилия" minWidth="150">
+                <font>
+                    <Font name="Verdana Bold" size="15"></Font>
+                </font>
+            </Label>
+            <TextField fx:id="surNameField" minWidth="300">
+
+            </TextField>
+        </HBox>
+        <HBox spacing="50">
+            <Label text="Имя" minWidth="150">
+                <font>
+                    <Font name="Verdana Bold" size="15"></Font>
+                </font>
+            </Label>
+            <TextField fx:id="nameField" minWidth="300">
+
+            </TextField>
+        </HBox>
+        <HBox spacing="50">
+            <Label text="Отчество" minWidth="150">
+                <font>
+                    <Font name="Verdana Bold" size="15"></Font>
+                </font>
+            </Label>
+            <TextField fx:id="superNameField" minWidth="300">
+
+            </TextField>
+        </HBox>
+        <HBox spacing="50">
+            <Label text="Дата рождения" minWidth="150">
+                <font>
+                    <Font name="Verdana Bold" size="15"></Font>
+                </font>
+            </Label>
+            <TextField fx:id="dateOfBirthField" minWidth="300">
+
+            </TextField>
+        </HBox>
+        <HBox spacing="50">
+            <Label text="Образование" minWidth="150">
+                <font>
+                    <Font name="Verdana Bold" size="15"></Font>
+                </font>
+            </Label>
+            <TextField fx:id="educationField" minWidth="300">
+
+            </TextField>
+        </HBox>
+        <HBox spacing="50">
+            <Label text="Стаж работы" minWidth="150">
+                <font>
+                    <Font name="Verdana Bold" size="15"></Font>
+                </font>
+            </Label>
+            <TextField fx:id="workingExperienceField" minWidth="300">
+
+            </TextField>
+        </HBox>
+        <HBox spacing="50">
+            <Label text="Мобильный телефон" minWidth="150">
+                <font>
+                    <Font name="Verdana Bold" size="15"></Font>
+                </font>
+            </Label>
+            <TextField fx:id="phoneNumberField" minWidth="270">
+
+            </TextField>
+        </HBox>
+        <HBox spacing="20">
+            <Label text="Квалификационная категория" minWidth="150">
+                <font>
+                    <Font name="Verdana Bold" size="15"></Font>
+                </font>
+            </Label>
+            <TextField fx:id="qualificationField" minWidth="212">
+
+            </TextField>
+        </HBox>
+        <HBox spacing="20">
+            <Label text="Курсы повышения квалификации" minWidth="150">
+                <font>
+                    <Font name="Verdana Bold" size="15"></Font>
+                </font>
+            </Label>
+            <TextField fx:id="qualificationCoursesField" minWidth="180">
+
+            </TextField>
+        </HBox>
+        <HBox spacing="90">
+            <Label text="Преподаёт(предмет)" minWidth="150">
+                <font>
+                    <Font name="Verdana Bold" size="15"></Font>
+                </font>
+            </Label>
+            <TextField fx:id="teachingSubjectsField" minWidth="230">
+
+            </TextField>
+        </HBox>
+        <HBox spacing="80">
+            <Label text="В следующих классах" minWidth="150">
+                <font>
+                    <Font name="Verdana Bold" size="15"></Font>
+                </font>
+            </Label>
+            <TextField fx:id="teachAtClassesField" minWidth="230">
+
+            </TextField>
+        </HBox>
+        <HBox spacing="52">
+            <Label text="Учебных часов в неделю" minWidth="150">
+                <font>
+                    <Font name="Verdana Bold" size="15"></Font>
+                </font>
+            </Label>
+            <TextField fx:id="weeklyTeachingHoursField" minWidth="230">
+
+            </TextField>
+        </HBox>
+
+        <HBox spacing="20">
+            <padding>
+                <Insets left="100"></Insets>
+            </padding>
+            <Button text="Зарегистрироваться" minWidth="200" onAction="#onRegisterButtonClicked">
+                <font>
+                    <Font name="Verdana Bold" size="13"></Font>
+                </font>
+            </Button>
+            <Button text="Назад">
+                <font>
+                    <Font name="Verdana Bold" size="13"></Font>
+                </font>
+            </Button>
+        </HBox>
+    </VBox>
+</VBox>

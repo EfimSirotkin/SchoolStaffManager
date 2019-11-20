@@ -35,6 +35,36 @@ public class ExcelParser implements Exporter, Importer {
     }
 
     @Override
+    public void createDefaultTemplate(WritableWorkbook writableWorkbook, WritableSheet excelSheet, WritableCellFormat writableCellFormat) {
+
+        try {
+            CellView cellView = new CellView();
+            cellView.setSize(20 * dimensionMultiplier);
+            for (int i = 1; i <= 5; i++)
+                excelSheet.setColumnView(i, cellView);
+
+            Label label = new Label(1, 1, "Фамилия", writableCellFormat);
+            excelSheet.addCell(label);
+
+            label = new Label(2, 1, "Имя", writableCellFormat);
+            excelSheet.addCell(label);
+
+            label = new Label(3, 1, "Отчество", writableCellFormat);
+            excelSheet.addCell(label);
+
+            label = new Label(4, 1, "Дата рождения", writableCellFormat);
+            excelSheet.addCell(label);
+
+            label = new Label(5, 1, "Образование", writableCellFormat);
+            excelSheet.addCell(label);
+
+        } catch (WriteException e) {
+
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void createTemplateForPerson() throws IOException, WriteException {
         try {
             DirectoryChooser directoryChooser = new DirectoryChooser();
@@ -53,20 +83,17 @@ public class ExcelParser implements Exporter, Importer {
                 personWBook.write();
                 personWBook.close();
             } else {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Предупреждение");
-                alert.setHeaderText("Экспорт шаблона: " + "Шаблон(Пользовательский).xls");
-                alert.setContentText("Экспорт отменён");
-                alert.showAndWait();
+                AlertWarner.showAlert("Предупреждение", "Экспорт шаблона: " +
+                                "Шаблон(Пользовательский).xls","Вероятно, файл шаблона уже открыт в Microsoft Excel",
+                        Alert.AlertType.WARNING );
             }
 
         } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Предупреждение");
-            alert.setHeaderText("Экспорт шаблона: " + "Шаблон(Пользовательский).xls");
-            alert.setContentText("Вероятно, файл шаблона уже открыт в Microsoft Excel");
 
-            alert.showAndWait();
+            AlertWarner.showAlert("Предупреждение", "Экспорт шаблона: " +
+                    "Шаблон(Пользовательский).xls","Вероятно, файл шаблона уже открыт в Microsoft Excel",
+                    Alert.AlertType.WARNING );
+
             e.printStackTrace();
         }
 
@@ -101,7 +128,7 @@ public class ExcelParser implements Exporter, Importer {
             administryWBook.close();
         } catch (IOException e) {
 
-            AlertWarner.showAlert("Предупреждение", "Экспорт шаблона", "Вероятно, файл шаблона уже открыт в Microsoft Excel");
+            AlertWarner.showAlert("Предупреждение", "Экспорт шаблона", "Вероятно, файл шаблона уже открыт в Microsoft Excel", Alert.AlertType.WARNING);
             e.printStackTrace();
         }
 
@@ -141,7 +168,7 @@ public class ExcelParser implements Exporter, Importer {
             teachersWBook.close();
         } catch (IOException e) {
 
-            AlertWarner.showAlert("Предупреждение", "Экспорт шаблона: ", "Вероятно, файл шаблона уже открыт в Microsoft Excel");
+            AlertWarner.showAlert("Предупреждение", "Экспорт шаблона: ", "Вероятно, файл шаблона уже открыт в Microsoft Excel", Alert.AlertType.WARNING);
             e.printStackTrace();
         }
 
@@ -187,7 +214,7 @@ public class ExcelParser implements Exporter, Importer {
             serviceStaffWBook.close();
         } catch (IOException e) {
 
-            AlertWarner.showAlert("Предупреждение", "Экспорт шаблона: ", "Вероятно, файл шаблона уже открыт в Microsoft Excel");
+            AlertWarner.showAlert("Предупреждение", "Экспорт шаблона: ", "Вероятно, файл шаблона уже открыт в Microsoft Excel", Alert.AlertType.WARNING);
             e.printStackTrace();
         }
     }
@@ -277,9 +304,12 @@ public class ExcelParser implements Exporter, Importer {
 
             accessRightsList = readColumns(columnCounter, rowCounter, sheet);
 
+            ArrayList<LoginStorage> loginStorages = importLoginData(filePath);
+
             for (int i = 0; i < importedAdministrators.size(); i++) {
                 importedAdministrators.get(i).setJobTitle(jobTitleList.get(i));
                 importedAdministrators.get(i).setEditingAvailable(ParserUtils.parseBooleanString(accessRightsList.get(i)));
+                importedAdministrators.get(i).setLoginStorage(loginStorages.get(i));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -330,13 +360,15 @@ public class ExcelParser implements Exporter, Importer {
             rowCounter = 2;
             workingExperience = readColumns(columnCounter, rowCounter, sheet);
 
+            ArrayList<LoginStorage> loginStorages = importLoginData(filePath);
+
             for (int i = 0; i < importedTeachers.size(); i++) {
                 importedTeachers.get(i).setTeacherDegree(qualificationCategory.get(i));
                 importedTeachers.get(i).setTeachSubjectsAtClasses(ParserUtils.mapSubjectsWithClasses(teachingSubjects, teachingClasses));
                 importedTeachers.get(i).setWorkingExperience(workingExperience.get(i));
                 importedTeachers.get(i).setQualificationCourses(ParserUtils.parseEducationString(qualificationCourses.get(i)));
                 importedTeachers.get(i).setWeeklyTeachingHours(Integer.valueOf(teachingHoursList.get(i)));
-                System.out.println(importedTeachers.get(i).getWeeklyTeachingHours());
+                importedTeachers.get(i).setLoginStorage(loginStorages.get(i));
             }
 
         } catch (IOException e) {
@@ -379,11 +411,15 @@ public class ExcelParser implements Exporter, Importer {
             rowCounter = 2;
             inventoryNeeded = readColumns(columnCounter, rowCounter, sheet);
 
+            ArrayList<LoginStorage> loginStorages = importLoginData(filePath);
+
             for (int i = 0; i < importedServiceWorkers.size(); i++) {
+
                 importedServiceWorkers.get(i).setTypeOfWork(specializationList.get(i));
                 importedServiceWorkers.get(i).setWorkRank(workRankList.get(i));
                 importedServiceWorkers.get(i).setResponsibilityZone(responsibilityList.get(i));
                 importedServiceWorkers.get(i).setInstrumentsNeeded(ParserUtils.parseBooleanString(inventoryNeeded.get(i)));
+                importedServiceWorkers.get(i).setLoginStorage(loginStorages.get(i));
             }
 
         } catch (IOException e) {
@@ -426,36 +462,33 @@ public class ExcelParser implements Exporter, Importer {
         }
         return teacherStatistics;
     }
-
-
     @Override
-    public void createDefaultTemplate(WritableWorkbook writableWorkbook, WritableSheet excelSheet, WritableCellFormat writableCellFormat) {
+    public ArrayList<LoginStorage> importLoginData(String filePath) throws IOException, BiffException {
 
+        ArrayList<LoginStorage> loginStorages = new ArrayList<>();
         try {
-            CellView cellView = new CellView();
-            cellView.setSize(20 * dimensionMultiplier);
-            for (int i = 1; i <= 5; i++)
-                excelSheet.setColumnView(i, cellView);
+            Workbook workbook = Workbook.getWorkbook(new File(filePath));
+            Sheet sheet = workbook.getSheet(0);
 
-            Label label = new Label(1, 1, "Фамилия", writableCellFormat);
-            excelSheet.addCell(label);
+            ArrayList<String> loginList;
+            ArrayList<String> passwordList;
 
-            label = new Label(2, 1, "Имя", writableCellFormat);
-            excelSheet.addCell(label);
+            int columnCounter = 14;
+            int rowCounter = 2;
+            loginList = readColumns(columnCounter, rowCounter, sheet);
+            columnCounter++;
+            passwordList = readColumns(columnCounter, rowCounter, sheet);
 
-            label = new Label(3, 1, "Отчество", writableCellFormat);
-            excelSheet.addCell(label);
+            for(int i = 0; i < loginList.size(); i++)
+                loginStorages.add(new LoginStorage(loginList.get(i), passwordList.get(i)));
+            return loginStorages;
 
-            label = new Label(4, 1, "Дата рождения", writableCellFormat);
-            excelSheet.addCell(label);
-
-            label = new Label(5, 1, "Образование", writableCellFormat);
-            excelSheet.addCell(label);
-
-        } catch (WriteException e) {
-
+        }catch (IOException e) {
+            e.printStackTrace();
+        } catch (BiffException e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     public ArrayList<String> readColumns(int columnNumber, int rowNumber, Sheet writableSheet) {

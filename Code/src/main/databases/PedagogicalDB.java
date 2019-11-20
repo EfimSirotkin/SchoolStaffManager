@@ -27,6 +27,7 @@ public class PedagogicalDB {
     return null;
     }
     public void addTeacher(Teacher teacher) {
+        pedagogicalStaff.add(teacher);
 
     }
     public void deleteTeacher(String name) {

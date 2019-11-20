@@ -24,9 +24,9 @@
     <children>
         <HBox spacing="450">
             <children>
-                <HBox alignment="TOP_LEFT">
+                <HBox >
                     <padding>
-                        <Insets top="15" left="5" right="0" bottom="0">
+                        <Insets top="15" left="5" >
                         </Insets>
                     </padding>
                     <children>
@@ -65,11 +65,11 @@
                 </HBox>
             </children>
         </HBox>
-        <HBox spacing="0">
+        <HBox spacing="80">
             <children>
                 <VBox>
-                    <HBox spacing="50" minWidth="950">
-                        <VBox minWidth="650">
+                    <HBox spacing="50">
+                        <VBox minWidth="700">
                             <padding>
                                 <Insets left="75">
                                 </Insets>

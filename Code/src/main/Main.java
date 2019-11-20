@@ -3,7 +3,6 @@ package main;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import main.parsers.ExcelParser;
 import screens.ScreensController;
@@ -18,6 +17,12 @@ public class Main extends Application {
     public static String viewScreenFile = "ViewScreen.fxml";
     public static String editScreenID = "Edit";
     public static String editScreenFile= "EditScreen.fxml";
+    public static String loginScreenID = "Login";
+    public static String loginScreenFile = "LoginScreen.fxml";
+    public static String registrationTeacherScreenID = "teacherRegistration";
+    public static String registrationTeacherScreenFile = "TeacherRegistrationScreen.fxml";
+    public static String registrationServiceStaffID = "ServiceStaffRegistration";
+    public static String registrationServiceStaffFile = "ServiceStaffRegistration.fxml";
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -27,8 +32,11 @@ public class Main extends Application {
         mainContainer.loadScreen(viewScreenID, viewScreenFile);
         mainContainer.loadScreen(editScreenID, editScreenFile);
         mainContainer.loadScreen(analyticScreenID, analyticScreenFile);
+        mainContainer.loadScreen(loginScreenID, loginScreenFile);
+        mainContainer.loadScreen(registrationServiceStaffID, registrationServiceStaffFile);
+        mainContainer.loadScreen(registrationTeacherScreenID, registrationTeacherScreenFile);
 
-        mainContainer.setScreen(mainScreenID);
+        mainContainer.setScreen(loginScreenID);
 
         Group root = new Group();
         root.getChildren().addAll(mainContainer);
@@ -36,17 +44,6 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("School Staff Manager");
         primaryStage.show();
-
-        ExcelParser excelParser = new ExcelParser();
-        //excelParser.importPersonTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Пользовательский).xls");
-        //excelParser.importAdministryTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Административный).xls");
-        //excelParser.importPedagogicalTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Преподавательский).xls");
-        //excelParser.importServiceStaffTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Обслуживающий).xls");
-        //excelParser.createTemplateForPerson();
-        //excelParser.createTemplateForAdministry();
-        //excelParser.createTemplateForServiceStaff();
-        //excelParser.createTemplateForTeacher();
-
     }
 
 
