@@ -21,40 +21,40 @@
     </padding>
     <children>
         <Text
-                text="School Staff Manager" >
+                text="School Staff Manager">
             <font>
-                <Font name = "Verdana Bold" size="40"></Font>
+                <Font name="Verdana Bold" size="40"></Font>
             </font>
         </Text>
         <VBox alignment="CENTER">
             <children>
                 <ImageView
                         fx:id="imageView"
-                        fitHeight="380"  fitWidth="420">
+                        fitHeight="380" fitWidth="420">
                 </ImageView>
                 <Text text="Государственное учреждение образования">
                     <font>
-                        <Font name = "Verdana Bold" size="20"></Font>
+                        <Font name="Verdana Bold" size="20"></Font>
                     </font>
                 </Text>
                 <Text text="Средняя школа №181 г.Минска">
                     <font>
-                        <Font name = "Verdana Bold" size="20"></Font>
+                        <Font name="Verdana Bold" size="20"></Font>
                     </font>
                 </Text>
 
-                <HBox  alignment="CENTER" spacing="250">
+                <HBox alignment="CENTER" spacing="250">
                     <padding>
                         <Insets bottom="50" top="50" right="50" left="50"></Insets>
                     </padding>
                     <children>
                         <Button
-                            onAction="#goToEditScreen"
-                            text="Редактировать"
-                            minHeight="100"
-                            minWidth="300"
-                            style="-fx-background-color: #7ebf7f"
-                            textFill="black">
+                                onAction="#goToEditScreen"
+                                text="Редактировать"
+                                minHeight="100"
+                                minWidth="300"
+                                style="-fx-background-color: #7ebf7f"
+                                textFill="black">
                             <font>
                                 <Font name="Verdana Bold" size="24">
                                 </Font>
@@ -90,15 +90,15 @@
                 </HBox>
             </children>
         </VBox>
-    <HBox alignment="CENTER_RIGHT">
-        <padding>
-            <Insets left="0" right="50" bottom="0" top="225"></Insets>
-        </padding>
-        <Text text="База данных работников">
-            <font>
-                <Font name="Verdana Bold" size="14"></Font>
-            </font>
-        </Text>
-    </HBox>
+        <HBox alignment="CENTER_RIGHT">
+            <padding>
+                <Insets left="0" right="50" bottom="0" top="225"></Insets>
+            </padding>
+            <Text text="База данных работников">
+                <font>
+                    <Font name="Verdana Bold" size="14"></Font>
+                </font>
+            </Text>
+        </HBox>
     </children>
 </VBox>

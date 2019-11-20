@@ -11,6 +11,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import main.Main;
 import main.staff.Person;
+
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -61,10 +62,10 @@ public class EditScreenController implements Initializable, ControlledScreen {
         workingExperience.setText("Стаж работы: " + "20 лет");
         jobTitle.setText("директор");
         dateOfBirth.setText("Дата рождения: " + "18.09.1973");
-        phoneNumber.setText("Телефон: "  + "+375295548776");
-        qualification.setText("Квалификационная категория: " +  "высшая");
+        phoneNumber.setText("Телефон: " + "+375295548776");
+        qualification.setText("Квалификационная категория: " + "высшая");
         education.setText("Белорусский государственный педагогический университет\n"
-                            + "Академия управления при президенте Республики Беларусь");
+                + "Академия управления при президенте Республики Беларусь");
         qualificationCourses.setText("Институт повышения квалификации работников учреждений образования");
         getTableViewStaff();
     }
@@ -79,7 +80,8 @@ public class EditScreenController implements Initializable, ControlledScreen {
     public void goToMainScreen(ActionEvent action) {
         myController.setScreen(Main.mainScreenID);
     }
-    public void getTableViewStaff(){
+
+    public void getTableViewStaff() {
 
         TableColumn<Person, String> nameColumn = new TableColumn<Person, String>("Имя");
         TableColumn<Person, String> surNameColumn = new TableColumn<Person, String>("Фамилия");
@@ -103,7 +105,7 @@ public class EditScreenController implements Initializable, ControlledScreen {
         dateOfBirth.setCellValueFactory(new PropertyValueFactory<Person, String>("дата рождения"));
         jobTitle.setCellValueFactory(new PropertyValueFactory<Person, String>("должность"));
 
-        staffTable.getColumns().addAll(nameColumn,surNameColumn, superNameColumn, dateOfBirth, jobTitle);
+        staffTable.getColumns().addAll(nameColumn, surNameColumn, superNameColumn, dateOfBirth, jobTitle);
 
     }
 }

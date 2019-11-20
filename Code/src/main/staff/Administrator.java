@@ -9,9 +9,8 @@ public class Administrator extends Person implements AdministryActivity {
     boolean editingAvailable = true;
 
 
-    public Administrator(String name, String surname, String superName, String dateOfBirth, ArrayList<String> education, String phoneNumber)
-    {
-        super(name,surname,superName,dateOfBirth,education, phoneNumber);
+    public Administrator(String name, String surname, String superName, String dateOfBirth, ArrayList<String> education, String phoneNumber) {
+        super(name, surname, superName, dateOfBirth, education, phoneNumber);
     }
 
     public String getJobTitle() {

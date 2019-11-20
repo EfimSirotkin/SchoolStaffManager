@@ -32,7 +32,7 @@ public class Teacher extends Person implements StaffActivity {
     }
 
     public Teacher(String name, String surName, String superName, String dateOfBirth, ArrayList<String> education, String phoneNumber) {
-        super(name,surName,superName, dateOfBirth, education, phoneNumber);
+        super(name, surName, superName, dateOfBirth, education, phoneNumber);
     }
 
     public void setWorkingExperience(String workingExperience) {

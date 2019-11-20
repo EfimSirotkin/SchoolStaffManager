@@ -15,13 +15,13 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-
-public class MainScreenController implements Initializable,  ControlledScreen{
+public class MainScreenController implements Initializable, ControlledScreen {
     @FXML
     private ImageView imageView;
 
 
     private ScreensController myController;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         File file = new File("F:\\Code\\SchoolStaffManager\\src\\screens\\res\\logo.jpg");
@@ -43,6 +43,7 @@ public class MainScreenController implements Initializable,  ControlledScreen{
     private void goToAnalyticScreen(ActionEvent event) {
         myController.setScreen(Main.analyticScreenID);
     }
+
     @FXML
     private void goToEditScreen(ActionEvent event) {
         myController.setScreen(Main.editScreenID);

@@ -29,16 +29,18 @@ import java.util.Map;
 public class ExcelParser implements Exporter, Importer {
 
     public final int dimensionMultiplier = 256;
+
     @Override
     public void exportData() {
     }
+
     @Override
     public void createTemplateForPerson() throws IOException, WriteException {
         try {
             DirectoryChooser directoryChooser = new DirectoryChooser();
             File selectedDirectory = directoryChooser.showDialog(null);
 
-            if(selectedDirectory != null) {
+            if (selectedDirectory != null) {
                 WritableWorkbook personWBook = Workbook.createWorkbook(new File(selectedDirectory + "\\Шаблон(Пользовательский).xls"));    // nice file path, i know :)
                 WritableSheet excelSheet = personWBook.createSheet("Лист", 0);
                 WritableCellFormat cFormat = new WritableCellFormat();
@@ -50,8 +52,7 @@ public class ExcelParser implements Exporter, Importer {
 
                 personWBook.write();
                 personWBook.close();
-            }
-            else{
+            } else {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Предупреждение");
                 alert.setHeaderText("Экспорт шаблона: " + "Шаблон(Пользовательский).xls");
@@ -59,8 +60,7 @@ public class ExcelParser implements Exporter, Importer {
                 alert.showAndWait();
             }
 
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Предупреждение");
             alert.setHeaderText("Экспорт шаблона: " + "Шаблон(Пользовательский).xls");
@@ -99,13 +99,9 @@ public class ExcelParser implements Exporter, Importer {
 
             administryWBook.write();
             administryWBook.close();
-        }catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Предупреждение");
-            alert.setHeaderText("Экспорт шаблона: " + "Шаблон(Административный).xls");
-            alert.setContentText("Вероятно, файл шаблона уже открыт в Microsoft Excel");
+        } catch (IOException e) {
 
-            alert.showAndWait();
+            AlertWarner.showAlert("Предупреждение", "Экспорт шаблона", "Вероятно, файл шаблона уже открыт в Microsoft Excel");
             e.printStackTrace();
         }
 
@@ -144,12 +140,8 @@ public class ExcelParser implements Exporter, Importer {
             teachersWBook.write();
             teachersWBook.close();
         } catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Предупреждение");
-            alert.setHeaderText("Экспорт шаблона: " + "Шаблон(Преподавательский).xls");
-            alert.setContentText("Вероятно, файл шаблона уже открыт в Microsoft Excel");
 
-            alert.showAndWait();
+            AlertWarner.showAlert("Предупреждение", "Экспорт шаблона: ", "Вероятно, файл шаблона уже открыт в Microsoft Excel");
             e.printStackTrace();
         }
 
@@ -193,14 +185,9 @@ public class ExcelParser implements Exporter, Importer {
 
             serviceStaffWBook.write();
             serviceStaffWBook.close();
-        }
-         catch (IOException e) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Предупреждение");
-            alert.setHeaderText("Экспорт шаблона: " + "Шаблон(Обслуживающий).xls");
-            alert.setContentText("Вероятно, файл шаблона уже открыт в Microsoft Excel");
+        } catch (IOException e) {
 
-            alert.showAndWait();
+            AlertWarner.showAlert("Предупреждение", "Экспорт шаблона: ", "Вероятно, файл шаблона уже открыт в Microsoft Excel");
             e.printStackTrace();
         }
     }
@@ -236,31 +223,30 @@ public class ExcelParser implements Exporter, Importer {
             columnCounter++;
 
             rowCounter = 2;
-            superNameList = readColumns(columnCounter,rowCounter,sheet);
+            superNameList = readColumns(columnCounter, rowCounter, sheet);
             columnCounter++;
 
             rowCounter = 2;
-            dateOfBirthList = readColumns(columnCounter,rowCounter,sheet);
-            dateOfBirthList = removeSlashes(dateOfBirthList);
+            dateOfBirthList = readColumns(columnCounter, rowCounter, sheet);
+            dateOfBirthList = ParserUtils.removeSlashes(dateOfBirthList);
             columnCounter++;
 
             rowCounter = 2;
-            educationList = readColumns(columnCounter,rowCounter, sheet);
+            educationList = readColumns(columnCounter, rowCounter, sheet);
             columnCounter++;
 
             rowCounter = 2;
             phoneNumberList = readColumns(columnCounter, rowCounter, sheet);
 
-
-            for(int i = 0; i < surNameList.size(); i ++) {
-                ArrayList<String> parsedEducationList = parseEducationString(educationList.get(i));
+            for (int i = 0; i < surNameList.size(); i++) {
+                ArrayList<String> parsedEducationList = ParserUtils.parseEducationString(educationList.get(i));
                 importedPersons.add(new Person(nameList.get(i),
-                                    surNameList.get(i),
-                                    superNameList.get(i),
-                                    dateOfBirthList.get(i),
-                                    parsedEducationList,
-                                    phoneNumberList.get(i)
-                        ));
+                        surNameList.get(i),
+                        superNameList.get(i),
+                        dateOfBirthList.get(i),
+                        parsedEducationList,
+                        phoneNumberList.get(i)
+                ));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -291,9 +277,9 @@ public class ExcelParser implements Exporter, Importer {
 
             accessRightsList = readColumns(columnCounter, rowCounter, sheet);
 
-            for(int i = 0; i < importedAdministrators.size(); i++) {
+            for (int i = 0; i < importedAdministrators.size(); i++) {
                 importedAdministrators.get(i).setJobTitle(jobTitleList.get(i));
-                importedAdministrators.get(i).setEditingAvailable(parseBooleanString(accessRightsList.get(i)));
+                importedAdministrators.get(i).setEditingAvailable(ParserUtils.parseBooleanString(accessRightsList.get(i)));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -326,7 +312,7 @@ public class ExcelParser implements Exporter, Importer {
             columnCounter++;
 
             rowCounter = 2;
-            qualificationCourses = readColumns(columnCounter,rowCounter,sheet);
+            qualificationCourses = readColumns(columnCounter, rowCounter, sheet);
             columnCounter++;
 
             rowCounter = 2;
@@ -342,21 +328,18 @@ public class ExcelParser implements Exporter, Importer {
             columnCounter++;
 
             rowCounter = 2;
-            workingExperience = readColumns(columnCounter,rowCounter, sheet);
+            workingExperience = readColumns(columnCounter, rowCounter, sheet);
 
-
-
-            for(int i = 0; i < importedTeachers.size(); i++) {
+            for (int i = 0; i < importedTeachers.size(); i++) {
                 importedTeachers.get(i).setTeacherDegree(qualificationCategory.get(i));
-                importedTeachers.get(i).setTeachSubjectsAtClasses(mapSubjectsWithClasses(teachingSubjects, teachingClasses));
+                importedTeachers.get(i).setTeachSubjectsAtClasses(ParserUtils.mapSubjectsWithClasses(teachingSubjects, teachingClasses));
                 importedTeachers.get(i).setWorkingExperience(workingExperience.get(i));
-                importedTeachers.get(i).setQualificationCourses(parseEducationString(qualificationCourses.get(i)));
+                importedTeachers.get(i).setQualificationCourses(ParserUtils.parseEducationString(qualificationCourses.get(i)));
                 importedTeachers.get(i).setWeeklyTeachingHours(Integer.valueOf(teachingHoursList.get(i)));
                 System.out.println(importedTeachers.get(i).getWeeklyTeachingHours());
             }
 
-
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         } catch (BiffException e) {
             e.printStackTrace();
@@ -364,14 +347,13 @@ public class ExcelParser implements Exporter, Importer {
         return importedTeachers;
     }
 
-
     @Override
     public ArrayList<ServiceWorker> importServiceStaffTemplate(String filePath) {
         ArrayList<ServiceWorker> importedServiceWorkers = new ArrayList<ServiceWorker>();
         StaffConverter staffConverter = new StaffConverter();
         importedServiceWorkers = staffConverter.fromPersonToServiceWorker(importPersonTemplate(filePath));
 
-        try{
+        try {
             Workbook workbook = Workbook.getWorkbook(new File(filePath));
 
             ArrayList<String> specializationList;
@@ -387,26 +369,24 @@ public class ExcelParser implements Exporter, Importer {
             columnCounter++;
 
             rowCounter = 2;
-            workRankList = readColumns(columnCounter,rowCounter, sheet);
+            workRankList = readColumns(columnCounter, rowCounter, sheet);
             columnCounter++;
 
             rowCounter = 2;
-            responsibilityList = readColumns(columnCounter,rowCounter, sheet);
+            responsibilityList = readColumns(columnCounter, rowCounter, sheet);
             columnCounter++;
 
             rowCounter = 2;
             inventoryNeeded = readColumns(columnCounter, rowCounter, sheet);
 
-            for(int i = 0; i < importedServiceWorkers.size(); i++) {
+            for (int i = 0; i < importedServiceWorkers.size(); i++) {
                 importedServiceWorkers.get(i).setTypeOfWork(specializationList.get(i));
                 importedServiceWorkers.get(i).setWorkRank(workRankList.get(i));
                 importedServiceWorkers.get(i).setResponsibilityZone(responsibilityList.get(i));
-                importedServiceWorkers.get(i).setInstrumentsNeeded(parseBooleanString(inventoryNeeded.get(i)));
-
+                importedServiceWorkers.get(i).setInstrumentsNeeded(ParserUtils.parseBooleanString(inventoryNeeded.get(i)));
             }
 
-
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         } catch (BiffException e) {
             e.printStackTrace();
@@ -415,28 +395,61 @@ public class ExcelParser implements Exporter, Importer {
     }
 
     @Override
-    public void createDefaultTemplate(WritableWorkbook writableWorkbook,WritableSheet excelSheet, WritableCellFormat writableCellFormat)
-    {
+    public TeacherStatistics importStatisticsData(String filePath) {
+        TeacherStatistics teacherStatistics = new TeacherStatistics();
+        try {
+            Workbook workbook = Workbook.getWorkbook(new File(filePath));
+            Sheet sheet = workbook.getSheet(0);
+
+            ArrayList<String> statisticsYearsList;
+            ArrayList<Integer> higherEducationCountList;
+            ArrayList<Integer> higherQualificationCountList;
+
+            int columnCounter = 1;
+            int rowCounter = 2;
+            statisticsYearsList = readColumns(columnCounter, rowCounter, sheet);
+            columnCounter++;
+
+            rowCounter = 2;
+            higherEducationCountList = ParserUtils.convertStringArrayList(readColumns(columnCounter, rowCounter, sheet));
+            columnCounter++;
+
+            rowCounter = 2;
+            higherQualificationCountList = ParserUtils.convertStringArrayList(readColumns(columnCounter, rowCounter, sheet));
+
+            teacherStatistics = new TeacherStatistics(higherEducationCountList, higherQualificationCountList, statisticsYearsList);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (BiffException e) {
+            e.printStackTrace();
+        }
+        return teacherStatistics;
+    }
+
+
+    @Override
+    public void createDefaultTemplate(WritableWorkbook writableWorkbook, WritableSheet excelSheet, WritableCellFormat writableCellFormat) {
 
         try {
             CellView cellView = new CellView();
             cellView.setSize(20 * dimensionMultiplier);
-            for(int i = 1; i <= 5; i ++)
-                excelSheet.setColumnView(i,cellView);
+            for (int i = 1; i <= 5; i++)
+                excelSheet.setColumnView(i, cellView);
 
             Label label = new Label(1, 1, "Фамилия", writableCellFormat);
             excelSheet.addCell(label);
 
-            label = new Label(2, 1, "Имя",writableCellFormat);
+            label = new Label(2, 1, "Имя", writableCellFormat);
             excelSheet.addCell(label);
 
-            label = new Label(3, 1, "Отчество",writableCellFormat);
+            label = new Label(3, 1, "Отчество", writableCellFormat);
             excelSheet.addCell(label);
 
-            label = new Label(4, 1, "Дата рождения",writableCellFormat);
+            label = new Label(4, 1, "Дата рождения", writableCellFormat);
             excelSheet.addCell(label);
 
-            label = new Label(5,1, "Образование", writableCellFormat);
+            label = new Label(5, 1, "Образование", writableCellFormat);
             excelSheet.addCell(label);
 
         } catch (WriteException e) {
@@ -445,7 +458,7 @@ public class ExcelParser implements Exporter, Importer {
         }
     }
 
-    public ArrayList<String> readColumns(int columnNumber, int rowNumber,Sheet writableSheet) {
+    public ArrayList<String> readColumns(int columnNumber, int rowNumber, Sheet writableSheet) {
         ArrayList<String> tempDataList = new ArrayList<>();
         Cell currentCell;
         try {
@@ -453,89 +466,9 @@ public class ExcelParser implements Exporter, Importer {
                 tempDataList.add(currentCell.getContents());
                 rowNumber++;
             }
-        }catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
 
         }
         return tempDataList;
-    }
-
-    public ArrayList<String> parseEducationString(String education) {
-        ArrayList<String> educationList = new ArrayList<>();
-        int beginning = 0;
-        int end = 0;
-        String parsedEducation;
-        boolean multipleEducation = false;
-        for(int i = 0; i < education.length(); i++)
-            if(education.charAt(i) == ',')
-            {
-                multipleEducation = true;
-                if(i>0)
-                    end = i - 1;
-                else
-                    end = 0;
-                parsedEducation = education.substring(beginning, end);
-                educationList.add(parsedEducation);
-                beginning = i + 1;
-            }
-        if(!multipleEducation)
-            educationList.add(education);
-        for(int i =0; i< educationList.size();i++) {
-            if(educationList.get(i).charAt(0) == ' ')
-                educationList.set(i, educationList.get(i).substring(1));
-        }
-        return educationList;
-    }
-
-    public ArrayList<String> removeSlashes(ArrayList<String> dateOfBirthList) {
-        ArrayList<String> tempList = new ArrayList<>();
-        for(String dateOfBirth : dateOfBirthList) {
-            dateOfBirth = dateOfBirth.replace("/", ".");
-            tempList.add(dateOfBirth);
-        }
-        return  tempList;
-    }
-
-    public HashMap<String, ArrayList<String>> mapSubjectsWithClasses(ArrayList<String> subjects, ArrayList<String> classes) {
-        HashMap<String, ArrayList<String>> tempMap = new HashMap<>();
-        for(int i = 0; i < subjects.size(); i++) {
-            tempMap.put(subjects.get(i), parseClassesString(classes.get(i)));
-        }
-        return tempMap;
-    }
-
-    public ArrayList<String> parseClassesString(String classesToParse) {
-        ArrayList<String> tempClassList = new ArrayList<>();
-        int beginning =0;
-        int end = 0;
-        boolean hasMultipleClasses = false;
-        for(int i =0; i < classesToParse.length(); i++) {
-            String tempClass;
-            if( i == classesToParse.length()-1) {
-                tempClass = classesToParse.substring(beginning);
-                tempClass =  tempClass.replace(" ", "");
-                tempClassList.add(tempClass);
-            }
-            if(classesToParse.charAt(i)== ','){
-                hasMultipleClasses = true;
-                end = i;
-                tempClass = classesToParse.substring(beginning, end);
-                tempClass =  tempClass.replace(" ", "");
-                tempClassList.add(tempClass);
-                beginning = i + 1;
-            }
-
-        }
-        if(!hasMultipleClasses)
-            tempClassList.add(classesToParse);
-        return tempClassList;
-    }
-
-
-
-    public boolean parseBooleanString(String stringToParse) {
-        if(stringToParse.equals("Да") || stringToParse.equals("да"))
-            return true;
-        else
-            return false;
     }
 }

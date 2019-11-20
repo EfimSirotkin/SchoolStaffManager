@@ -28,13 +28,13 @@
             <children>
                 <HBox>
                     <padding>
-                        <Insets top="15" left="5" >
+                        <Insets top="15" left="5">
                         </Insets>
                     </padding>
                     <children>
                         <Text text="School Staff Manager" textAlignment="CENTER">
                             <font>
-                                <Font name = "Verdana Bold" size="28"/>
+                                <Font name="Verdana Bold" size="28"/>
                             </font>
                         </Text>
                     </children>
@@ -45,27 +45,27 @@
                     </padding>
                     <children>
                         <Button
-                            text="Домой"
-                            onAction="#goToMainScreen"
-                            minWidth="300"
-                            minHeight="110"
-                            style="-fx-background-color: #7ebf7f">
+                                text="Домой"
+                                onAction="#goToMainScreen"
+                                minWidth="300"
+                                minHeight="110"
+                                style="-fx-background-color: #7ebf7f">
                             <font>
-                            <Font name = "Verdana Bold" size="28"/>
+                                <Font name="Verdana Bold" size="28"/>
                             </font>
                         </Button>
                     </children>
                 </HBox>
-            <HBox alignment="TOP_RIGHT">
-                <children>
-                    <ImageView
-                            fx:id="imageView"
-                            fitWidth="200"
-                            fitHeight="180">
+                <HBox alignment="TOP_RIGHT">
+                    <children>
+                        <ImageView
+                                fx:id="imageView"
+                                fitWidth="200"
+                                fitHeight="180">
 
-                    </ImageView>
-                </children>
-            </HBox>
+                        </ImageView>
+                    </children>
+                </HBox>
             </children>
         </HBox>
 
@@ -76,12 +76,12 @@
                         <Insets top="20"/>
                     </padding>
                     <buttons>
-                        <Button text="Преподавательский"
+                        <Button text="Обновить диаграммы"
                                 onAction="#generateAnalyticsGraphics"
                                 prefWidth="1700"
                                 prefHeight="20">
                             <font>
-                                <Font name = "Verdana Bold" size="18"/>
+                                <Font name="Verdana Bold" size="18"/>
                             </font>
                         </Button>
                     </buttons>
@@ -95,22 +95,23 @@
                 </Insets>
             </padding>
             <children>
-                    <BarChart
-                    fx:id="hoursChargingBar"
-                    prefWidth="800" prefHeight="400"
-                    barGap="10" layoutY="8.0"
-                    title="Тарификация работников по количеству учебных часов"
-                    style="-fx-font-size: 16px; -fx-font-weight: bold;">
-                        <xAxis>
-                            <CategoryAxis label="Учитель" side="BOTTOM" fx:id="xAxisHoursCharging"/>
-                        </xAxis>
-                        <yAxis>
-                            <NumberAxis label="Часы" side="LEFT" fx:id="yAxisHoursCharging"/>
-                        </yAxis>
-                    </BarChart>
+                <BarChart
+                        fx:id="hoursChargingBar"
+                        prefWidth="800" prefHeight="400"
+                        barGap="10" layoutY="8.0"
+                        title="Тарификация работников по количеству учебных часов"
+                        style="-fx-font-size: 16px; -fx-font-weight: bold;">
+                    <xAxis>
+                        <CategoryAxis label="Учитель" side="BOTTOM" fx:id="xAxisHoursCharging"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Часы" side="LEFT" fx:id="yAxisHoursCharging"/>
+                    </yAxis>
+                </BarChart>
                 <LineChart fx:id="higherEducationDynamicLine" title="Количество сотрудников с высшим образованием"
                            prefWidth="800" prefHeight="400"
-                           layoutY="8.0">
+                           layoutY="8.0"
+                           style="-fx-font-size: 16px; -fx-font-weight: bold;">
 
                     <xAxis>
                         <CategoryAxis label="Год" side="BOTTOM" fx:id="xAxisHigherEducation"/>
@@ -136,9 +137,11 @@
                         style="-fx-font-size: 16px; -fx-font-weight: bold;"
                 >
                 </PieChart>
-                <BarChart fx:id="higherQualificationDistributionBar" title="Количество сотрудников с высшей квалификационнной категорией"
-                           prefWidth="800" prefHeight="400"
-                           layoutY="8.0">
+                <BarChart fx:id="higherQualificationDistributionBar"
+                          title="Количество сотрудников с высшей квалификационнной категорией"
+                          prefWidth="800" prefHeight="400"
+                          layoutY="8.0"
+                          style="-fx-font-size: 16px; -fx-font-weight: bold;">
                     <xAxis>
                         <CategoryAxis label="Год" side="BOTTOM" fx:id="xAxisHigherQualification"/>
                     </xAxis>

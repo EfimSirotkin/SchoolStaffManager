@@ -15,6 +15,7 @@ import main.Main;
 import main.databases.PedagogicalDB;
 import main.parsers.ExcelParser;
 import main.staff.Teacher;
+import main.staff.TeacherStatistics;
 
 import java.io.File;
 import java.net.URL;
@@ -66,7 +67,7 @@ public class AnalyticScreenController implements Initializable, ControlledScreen
         higherEducationDynamicLine.getData().add(getHigherEducationDistribution());
         higherQualificationDistributionBar.getData().add(getHigherQualificationDistribution());
         qualificationDistributionPie.setData(getPieChartData());
-        hoursChargingBar.setBarGap(3);;
+        hoursChargingBar.setBarGap(3);
 
     }
 
@@ -74,62 +75,65 @@ public class AnalyticScreenController implements Initializable, ControlledScreen
     public void setScreenParent(ScreensController screenParent) {
         myController = screenParent;
     }
+
     @FXML
-    public void goToMainScreen(ActionEvent action)
-    {
+    public void goToMainScreen(ActionEvent action) {
         myController.setScreen(Main.mainScreenID);
     }
 
     @FXML
-    public void generateAnalyticsGraphics()
-    {
+    public void generateAnalyticsGraphics() {
         hoursChargingBar.getData().clear();
         hoursChargingBar.getData().add(getSeriesDistribution());
         qualificationDistributionPie.getData().clear();
         qualificationDistributionPie.setData(getPieChartData());
+        higherEducationDynamicLine.getData().clear();
+        higherEducationDynamicLine.getData().add(getHigherEducationDistribution());
+        higherQualificationDistributionBar.getData().clear();
+        higherQualificationDistributionBar.getData().add(getHigherQualificationDistribution());
     }
+
     public XYChart.Series<String, Number> getSeriesDistribution() {
         ExcelParser excelParser = new ExcelParser();
         XYChart.Series<String, Number> tempSeries = new XYChart.Series<>();
         pedagogicalDB = new PedagogicalDB(excelParser.importPedagogicalTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Преподавательский).xls"));
         tempSeries.setName("2019");
-        for(Teacher teacher : pedagogicalDB.getPedagogicalStaff()) {
+        for (Teacher teacher : pedagogicalDB.getPedagogicalStaff()) {
             String fullName = teacher.getName() + " " + teacher.getSurname();
 
             tempSeries.getData().add(new XYChart.Data<>(fullName, teacher.getWeeklyTeachingHours()));
         }
         return tempSeries;
     }
+
     public XYChart.Series<String, Number> getHigherEducationDistribution() {
+
+        ExcelParser excelParser = new ExcelParser();
+        TeacherStatistics teacherStatistics = excelParser.importStatisticsData("F:\\Code\\SchoolStaffManager\\res\\Динамика.xls");
+        ArrayList<String> statisticsYearList = teacherStatistics.getYearsList();
+        ArrayList<Integer> statisticsHigherEducationCount = teacherStatistics.getHaveHigherEducation();
 
         XYChart.Series<String, Number> tempSeries = new XYChart.Series<>();
         tempSeries.setName("Сотрудники");
-        tempSeries.getData().add(new XYChart.Data<>("2011", 87.0));
-        tempSeries.getData().add(new XYChart.Data<>("2012", 41.0));
-        tempSeries.getData().add(new XYChart.Data<>("2013", 57.0));
-        tempSeries.getData().add(new XYChart.Data<>("2014", 68.0));
-        tempSeries.getData().add(new XYChart.Data<>("2015", 41.0));
-        tempSeries.getData().add(new XYChart.Data<>("2016", 80.0));
-        tempSeries.getData().add(new XYChart.Data<>("2017", 90.0));
-        tempSeries.getData().add(new XYChart.Data<>("2018", 40.0));
-        tempSeries.getData().add(new XYChart.Data<>("2019", 80.0));
+
+        for(int i = 0; i < statisticsYearList.size(); i++)
+            tempSeries.getData().add(new XYChart.Data<>(statisticsYearList.get(i), statisticsHigherEducationCount.get(i)));
 
         return tempSeries;
     }
 
     public XYChart.Series<String, Number> getHigherQualificationDistribution() {
 
+        ExcelParser excelParser = new ExcelParser();
+        TeacherStatistics teacherStatistics = excelParser.importStatisticsData("F:\\Code\\SchoolStaffManager\\res\\Динамика.xls");
+        ArrayList<String> statisticsYearList = teacherStatistics.getYearsList();
+        ArrayList<Integer> statisticsHigherQualififcationCount = teacherStatistics.getHigherQualificationList();
+
         XYChart.Series<String, Number> tempSeries = new XYChart.Series<>();
         tempSeries.setName("Сотрудники");
-        tempSeries.getData().add(new XYChart.Data<>("2011", 5.0));
-        tempSeries.getData().add(new XYChart.Data<>("2012", 7.0));
-        tempSeries.getData().add(new XYChart.Data<>("2013", 6.0));
-        tempSeries.getData().add(new XYChart.Data<>("2014", 8.0));
-        tempSeries.getData().add(new XYChart.Data<>("2015", 3.0));
-        tempSeries.getData().add(new XYChart.Data<>("2016", 11.0));
-        tempSeries.getData().add(new XYChart.Data<>("2017", 12.0));
-        tempSeries.getData().add(new XYChart.Data<>("2018", 13.0));
-        tempSeries.getData().add(new XYChart.Data<>("2019", 9.0));
+
+        for(int i =0; i < statisticsYearList.size(); i++)
+            tempSeries.getData().add(new XYChart.Data<>(statisticsYearList.get(i), statisticsHigherQualififcationCount.get(i)));
 
         return tempSeries;
     }
@@ -141,7 +145,7 @@ public class AnalyticScreenController implements Initializable, ControlledScreen
         ArrayList<String> qualificationPresents = pedagogicalDB.getPresentQualifications();
         ArrayList<Integer> qualificationCount = pedagogicalDB.getCertainQualificationsCount();
 
-        for(int i =0; i < qualificationPresents.size(); i++)
+        for (int i = 0; i < qualificationPresents.size(); i++)
             arrayList.add(new PieChart.Data(qualificationPresents.get(i), qualificationCount.get(i)));
 
         ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList(arrayList);
@@ -149,7 +153,6 @@ public class AnalyticScreenController implements Initializable, ControlledScreen
         return pieChartData;
 
     }
-
 
 
 }

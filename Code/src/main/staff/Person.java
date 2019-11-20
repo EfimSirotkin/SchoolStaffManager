@@ -12,20 +12,20 @@ public class Person implements PersonActivity {
     private ArrayList<String> education;
     private String phoneNumber;
 
-    public Person() {}
+    public Person() {
+    }
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public Person(String name, String surname, String superName, String dateOfBirth, ArrayList<String> education, String phoneNumber)
-    {
+    public Person(String name, String surname, String superName, String dateOfBirth, ArrayList<String> education, String phoneNumber) {
         this.name = name;
         this.surname = surname;
         this.superName = superName;
         this.dateOfBirth = dateOfBirth;
         this.education = new ArrayList<>();
-        for(String diploma : education)
+        for (String diploma : education)
             this.education.add(diploma);
         this.phoneNumber = phoneNumber;
 

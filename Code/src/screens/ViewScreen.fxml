@@ -32,7 +32,7 @@
                     <children>
                         <Text text="School Staff Manager" textAlignment="CENTER">
                             <font>
-                                <Font name = "Verdana Bold" size="28"></Font>
+                                <Font name="Verdana Bold" size="28"></Font>
                             </font>
                         </Text>
                     </children>
@@ -50,7 +50,7 @@
                                 minHeight="110"
                                 style="-fx-background-color: #7ebf7f">
                             <font>
-                                <Font name = "Verdana Bold" size="28"></Font>
+                                <Font name="Verdana Bold" size="28"></Font>
                             </font>
                         </Button>
                     </children>
@@ -76,12 +76,12 @@
                             </padding>
                             <Label fx:id="fullName">
                                 <font>
-                                    <Font name = "Verdana Bold" size="28"></Font>
+                                    <Font name="Verdana Bold" size="28"></Font>
                                 </font>
-                            </Label >
+                            </Label>
                             <Label fx:id="jobTitle">
                                 <font>
-                                    <Font name = "Verdana Bold" size="20"></Font>
+                                    <Font name="Verdana Bold" size="20"></Font>
                                 </font>
                             </Label>
                             <VBox spacing="14">
@@ -90,22 +90,22 @@
                                 </padding>
                                 <Label fx:id="dateOfBirth">
                                     <font>
-                                        <Font name = "Verdana" size="18"></Font>
+                                        <Font name="Verdana" size="18"></Font>
                                     </font>
                                 </Label>
                                 <Label fx:id="workingExperience">
                                     <font>
-                                        <Font name = "Verdana" size="18"></Font>
+                                        <Font name="Verdana" size="18"></Font>
                                     </font>
                                 </Label>
                                 <Label fx:id="phoneNumber">
                                     <font>
-                                        <Font name = "Verdana" size="18"></Font>
+                                        <Font name="Verdana" size="18"></Font>
                                     </font>
                                 </Label>
                                 <Label fx:id="qualification">
                                     <font>
-                                        <Font name = "Verdana" size="18"></Font>
+                                        <Font name="Verdana" size="18"></Font>
                                     </font>
                                 </Label>
                             </VBox>
@@ -123,22 +123,22 @@
                         </padding>
                         <Text text="Образование:">
                             <font>
-                                <Font name = "Verdana Bold" size="18">  </Font>
+                                <Font name="Verdana Bold" size="18"></Font>
                             </font>
                         </Text>
                         <Label fx:id="education">
                             <font>
-                                <Font name = "Verdana" size="18"></Font>
+                                <Font name="Verdana" size="18"></Font>
                             </font>
                         </Label>
                         <Text text="Курсы повышения квалификации:">
                             <font>
-                                <Font name = "Verdana Bold" size="18">  </Font>
+                                <Font name="Verdana Bold" size="18"></Font>
                             </font>
                         </Text>
                         <Label fx:id="qualificationCourses">
                             <font>
-                                <Font name = "Verdana" size="18"></Font>
+                                <Font name="Verdana" size="18"></Font>
                             </font>
                         </Label>
                     </VBox>
@@ -153,7 +153,7 @@
                             <graphic>
                                 <ImageView fitHeight="25.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="https://cdn0.iconfinder.com/data/icons/business-and-finance-vol-2/48/57-512.png" />
+                                        <Image url="https://cdn0.iconfinder.com/data/icons/business-and-finance-vol-2/48/57-512.png"/>
                                     </image>
                                 </ImageView>
                             </graphic>
@@ -163,7 +163,7 @@
                 </VBox>
             </children>
             <VBox spacing="15">
-                <Text text="Состав учреждения" >
+                <Text text="Состав учреждения">
                     <font>
                         <Font name="Verdana Bold" size="24"></Font>
                     </font>
@@ -177,7 +177,7 @@
                                 prefWidth="250"
                                 prefHeight="25">
                             <font>
-                                <Font name = "Verdana Bold" size="18"/>
+                                <Font name="Verdana Bold" size="18"/>
                             </font>
                         </Button>
                         <Button text="Административный"
@@ -186,7 +186,7 @@
                                 prefWidth="250"
                                 prefHeight="25">
                             <font>
-                                <Font name = "Verdana Bold" size="18"/>
+                                <Font name="Verdana Bold" size="18"/>
                             </font>
                         </Button>
                         <Button text="Обслуживающий"
@@ -195,7 +195,7 @@
                                 prefWidth="250"
                                 prefHeight="25">
                             <font>
-                                <Font name = "Verdana Bold" size="18"/>
+                                <Font name="Verdana Bold" size="18"/>
                             </font>
                         </Button>
                     </buttons>
@@ -204,14 +204,16 @@
                 <TableView fx:id="staffTable" onMouseClicked="#clickTableViewItem" maxWidth="930" minHeight="600">
                 </TableView>
                 <HBox spacing="480">
-                    <Button  fx:id="importFromExcel"  text="Импортировать из Excel" style="-fx-background-color: #7ebf7f" disable="true">
+                    <Button fx:id="importFromExcel" text="Импортировать из Excel" style="-fx-background-color: #7ebf7f"
+                            disable="true">
                         <font>
-                            <Font name = "Verdana Bold" size="15"/>
+                            <Font name="Verdana Bold" size="15"/>
                         </font>
                     </Button>
-                    <Button fx:id="exportToExcelButton" text="Экспортировать в Excel" style="-fx-background-color: #d1c821" disable="true">
+                    <Button fx:id="exportToExcelButton" text="Экспортировать в Excel"
+                            style="-fx-background-color: #d1c821" disable="true">
                         <font>
-                            <Font name = "Verdana Bold" size="15"/>
+                            <Font name="Verdana Bold" size="15"/>
                         </font>
                     </Button>
                 </HBox>

@@ -12,7 +12,6 @@ public class ServiceWorker extends Person implements StaffActivity {
     private boolean InstrumentsNeeded = false;
 
 
-
     public ServiceWorker(String name, String surName, String superName, String dateOfBirth, ArrayList<String> education, String phoneNumber) {
         super(name, surName, superName, dateOfBirth, education, phoneNumber);
     }

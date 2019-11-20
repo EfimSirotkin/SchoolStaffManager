@@ -224,12 +224,12 @@
                 <HBox spacing="395">
                     <Button text="Импортировать из Excel" style="-fx-background-color: #7ebf7f">
                         <font>
-                            <Font name = "Verdana Bold" size="15"/>
+                            <Font name="Verdana Bold" size="15"/>
                         </font>
                     </Button>
                     <Button text="Экспортировать в Excel" style="-fx-background-color: #d1c821">
                         <font>
-                            <Font name = "Verdana Bold" size="15"/>
+                            <Font name="Verdana Bold" size="15"/>
                         </font>
                     </Button>
                 </HBox>
