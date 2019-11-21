@@ -159,7 +159,7 @@
                     <Font name="Verdana Bold" size="13"></Font>
                 </font>
             </Button>
-            <Button text="Назад">
+            <Button text="Назад" onAction="#onBackToLoginButtonClicked">
                 <font>
                     <Font name="Verdana Bold" size="13"></Font>
                 </font>

@@ -1,5 +1,6 @@
 package main.staff;
 
+
 import main.interfaces.staff.StaffActivity;
 import main.staff.Person;
 
@@ -51,7 +52,7 @@ public class Teacher extends Person implements StaffActivity {
         return extraLessonsName;
     }
 
-    public Map<String, ArrayList<String>> getTeachSubjectsAtClasses() {
+    public HashMap<String, ArrayList<String>> getTeachSubjectsAtClasses() {
         return teachSubjectsAtClasses;
     }
 

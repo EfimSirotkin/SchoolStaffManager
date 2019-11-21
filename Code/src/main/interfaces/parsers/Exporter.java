@@ -4,6 +4,7 @@ import jxl.write.WritableCellFormat;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
+import main.databases.PedagogicalDB;
 
 import java.io.IOException;
 
@@ -14,4 +15,6 @@ public interface Exporter {
     void createTemplateForTeacher() throws IOException, WriteException;
     void createTemplateForServiceStaff() throws IOException, WriteException;
     void createDefaultTemplate(WritableWorkbook writableWorkbook,WritableSheet excelSheet, WritableCellFormat writableCellFormat);
+
+    void exportTeachers(String filePath, PedagogicalDB pedagogicalDB);
 }

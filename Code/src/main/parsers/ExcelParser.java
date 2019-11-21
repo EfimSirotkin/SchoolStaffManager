@@ -7,12 +7,12 @@ import jxl.CellView;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.format.Alignment;
-import jxl.format.Border;
-import jxl.format.BorderLineStyle;
-import jxl.format.CellFormat;
+
 import jxl.format.VerticalAlignment;
 import jxl.read.biff.BiffException;
 import jxl.write.*;
+import jxl.write.Number;
+import main.databases.PedagogicalDB;
 import main.interfaces.parsers.Exporter;
 import main.interfaces.parsers.Importer;
 import main.staff.*;
@@ -20,11 +20,11 @@ import main.staff.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.Set;
+
 
 public class ExcelParser implements Exporter, Importer {
 
@@ -61,6 +61,46 @@ public class ExcelParser implements Exporter, Importer {
         } catch (WriteException e) {
 
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void exportTeachers(String filePath, PedagogicalDB pedagogicalDB) {
+        WritableWorkbook writableWorkbook = null;
+        try {
+
+            writableWorkbook = Workbook.createWorkbook(new File(filePath));
+
+            // create an Excel sheet
+            WritableSheet excelSheet = writableWorkbook.createSheet("Sheet 1", 0);
+
+            // add something into the Excel sheet
+            Label label = new Label(0, 0, "Test Count");
+            excelSheet.addCell(label);
+
+            Number number = new Number(0, 1, 1);
+            excelSheet.addCell(number);
+
+            label = new Label(1, 0, "Result");
+            excelSheet.addCell(label);
+
+            label = new Label(1, 1, "Passed");
+            excelSheet.addCell(label);
+
+            number = new Number(0, 2, 2);
+            excelSheet.addCell(number);
+
+            label = new Label(1, 2, "Passed 2");
+            excelSheet.addCell(label);
+
+            writableWorkbook.write();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (WriteException e) {
+            e.printStackTrace();
+
         }
     }
 
@@ -503,5 +543,46 @@ public class ExcelParser implements Exporter, Importer {
 
         }
         return tempDataList;
+    }
+    public void writeTeacherColumns(ArrayList<Teacher> teachers, int columnNumber, int rowNumber, Sheet sheet) {
+
+        ArrayList<String> surNameList = new ArrayList<>();
+        ArrayList<String> nameList = new ArrayList<>();
+        ArrayList<String> superNameList = new ArrayList<>();
+        ArrayList<String> dateOfBirthList = new ArrayList<>();
+        ArrayList<ArrayList<String>> educationList = new ArrayList<>();
+        ArrayList<String> phoneNumberList = new ArrayList<>();
+        ArrayList<String> qualificationList = new ArrayList<>();
+        ArrayList<ArrayList<String>> qualificationCoursesList = new ArrayList<>();
+        ArrayList<ArrayList<String>> teachingSubjectsList = new ArrayList<>();
+        ArrayList<ArrayList<String>> teachAtClassesList = new ArrayList<>();
+        ArrayList<Integer> weeklyTeachingHoursList = new ArrayList<>();
+        ArrayList<LoginStorage> loginStorages = new ArrayList<>();
+        HashMap<String, ArrayList<String>> teachSubjectsAtClasses = new HashMap<>();
+        int iterator = 0;
+
+        for(Teacher teacher : teachers) {
+
+            teachSubjectsAtClasses = teacher.getTeachSubjectsAtClasses();
+            Set<String> teachingSubjects = teachSubjectsAtClasses.keySet();
+            ArrayList<ArrayList<String>> teachingAtClassess = (ArrayList<ArrayList<String>>) teachSubjectsAtClasses.values();
+
+            surNameList.add(teacher.getSurname());
+            nameList.add(teacher.getName());
+            superNameList.add(teacher.getDateOfBirth());
+            dateOfBirthList.add(teacher.getDateOfBirth());
+            educationList.add(teacher.getEducation());
+            phoneNumberList.add(teacher.getPhoneNumber());
+            qualificationList.add(teacher.getWorkingExperience());
+            qualificationCoursesList.add(teacher.getQualificationCourses());
+
+            ArrayList<String> teacherTeachingSubjects = new ArrayList<String>();
+            for(String subject : teachingSubjects)
+                teacherTeachingSubjects.add(subject + ",");
+
+
+
+        }
+
     }
 }

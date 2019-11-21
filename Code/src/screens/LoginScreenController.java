@@ -75,6 +75,7 @@ public class LoginScreenController implements Initializable, ControlledScreen {
                 myController.setScreen(Main.mainScreenID);
                 Stage stage = (Stage) loginTextField.getScene().getWindow();
                 stage.setMaximized(true);
+                break;
             }
         if(!success) {
             AlertWarner.showAlert("Ошибка авторизации", "Авторизация неуспешна", "Логин или пароль введены неверно", Alert.AlertType.ERROR);

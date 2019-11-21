@@ -6,9 +6,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
+import main.Main;
 import main.databases.PedagogicalDB;
 import main.databases.PersonDB;
 import main.parsers.ExcelParser;
+import main.parsers.LoginStorage;
 import main.parsers.ParserUtils;
 import main.staff.Teacher;
 
@@ -83,13 +86,27 @@ public class TeacherRegistrationScreen implements Initializable, ControlledScree
         String teachSubjectAtClasses = teachAtClassesField.getText();
         String phoneNumber = phoneNumberField.getText();
         Integer weeklyTeachingHours = Integer.valueOf(weeklyTeachingHoursField.getText());
+
+        int loginLength = 8;
+        int passwordNumbersLength = 3;
+        int passwordSymbolsLength = 5;
+
+        LoginStorage newLoginData = new LoginStorage(ParserUtils.generateLogin(loginLength), ParserUtils.generatePassword(passwordSymbolsLength,passwordNumbersLength));
+
         Teacher newTeacher = new Teacher(name, surName, superName, dateOfBirth, ParserUtils.parseEducationString(education), phoneNumber);
         newTeacher.setWeeklyTeachingHours(weeklyTeachingHours);
         newTeacher.setTeacherDegree(qualification);
         newTeacher.setQualificationCourses(ParserUtils.parseEducationString(qualificationCourses));
         newTeacher.setTeachSubjectsAtClasses(ParserUtils.mapSubjectsWithClasses(ParserUtils.parseEducationString(teachingSubjects), ParserUtils.parseClassesString(teachSubjectAtClasses)));
+        newTeacher.setLoginStorage(newLoginData);
         pedagogicalDB.addTeacher(newTeacher);
 
+
+
+    }
+    @FXML
+    private void onBackToLoginButtonClicked(ActionEvent event) {
+        myController.setScreen(Main.loginScreenID);
     }
 
 }

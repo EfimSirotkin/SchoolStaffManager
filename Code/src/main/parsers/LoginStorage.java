@@ -26,4 +26,5 @@ public class LoginStorage {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }

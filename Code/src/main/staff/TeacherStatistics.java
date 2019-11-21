@@ -9,7 +9,6 @@ public class TeacherStatistics {
 
     public TeacherStatistics() {
     }
-
     public TeacherStatistics(ArrayList<Integer> haveHigherEducation, ArrayList<Integer> higherQualificationList, ArrayList<String> yearsList) {
 
         this.haveHigherEducation = new ArrayList<>();
@@ -20,7 +19,6 @@ public class TeacherStatistics {
         this.higherQualificationList = higherQualificationList;
         this.yearsList = yearsList;
     }
-
     public ArrayList<Integer> getHaveHigherEducation() {
         return haveHigherEducation;
     }
@@ -28,7 +26,6 @@ public class TeacherStatistics {
     public void setHaveHigherEducation(ArrayList<Integer> haveHigherEducation) {
         this.haveHigherEducation = haveHigherEducation;
     }
-
     public ArrayList<Integer> getHigherQualificationList() {
         return higherQualificationList;
     }
@@ -36,7 +33,6 @@ public class TeacherStatistics {
     public void setHigherQualificationList(ArrayList<Integer> higherQualificationList) {
         this.higherQualificationList = higherQualificationList;
     }
-
     public ArrayList<String> getYearsList() {
         return yearsList;
     }

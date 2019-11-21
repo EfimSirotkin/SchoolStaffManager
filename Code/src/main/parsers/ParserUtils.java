@@ -1,7 +1,11 @@
 package main.parsers;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 
 public class ParserUtils {
 
@@ -89,5 +93,46 @@ public class ParserUtils {
             return true;
         else
             return false;
+    }
+    static public String generateLogin(int loginLength) {
+
+
+        String symbolsToGrab = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "abcdefghijklmnopqrstuvxyz";
+
+        StringBuilder generatedLoginBuilder = new StringBuilder(loginLength);
+
+        for (int i = 0; i < loginLength; i++) {
+            int index = (int)(symbolsToGrab.length() * Math.random());
+
+            generatedLoginBuilder.append(symbolsToGrab.charAt(index));
+        }
+        return generatedLoginBuilder.toString();
+
+    }
+
+    static public String generatePassword(int symbolsLength, int numbersLength) {
+
+        String generatedString = generateLogin(symbolsLength);
+
+        String numbersToGrab = "0123456789";
+
+        StringBuilder generatedPasswordBuilder = new StringBuilder(generatedString);
+
+        for (int i = 0; i < numbersLength; i++) {
+            int index = (int)(numbersToGrab.length() * Math.random());
+
+            generatedPasswordBuilder.append(numbersToGrab.charAt(index));
+        }
+        return generatedPasswordBuilder.toString();
+    }
+
+    static public <K, V> K getKey(Map<K, V> map, V value) {
+        for (Map.Entry<K, V> entry : map.entrySet()) {
+            if (entry.getValue().equals(value)) {
+                return entry.getKey();
+            }
+        }
+        return null;
     }
 }
