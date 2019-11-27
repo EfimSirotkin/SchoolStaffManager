@@ -100,9 +100,6 @@ public class TeacherRegistrationScreen implements Initializable, ControlledScree
         newTeacher.setTeachSubjectsAtClasses(ParserUtils.mapSubjectsWithClasses(ParserUtils.parseEducationString(teachingSubjects), ParserUtils.parseClassesString(teachSubjectAtClasses)));
         newTeacher.setLoginStorage(newLoginData);
         pedagogicalDB.addTeacher(newTeacher);
-
-
-
     }
     @FXML
     private void onBackToLoginButtonClicked(ActionEvent event) {

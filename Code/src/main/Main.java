@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import main.databases.PersonDB;
 import main.parsers.ExcelParser;
 import screens.ScreensController;
 
@@ -24,17 +25,20 @@ public class Main extends Application {
     public static String registrationServiceStaffID = "ServiceStaffRegistration";
     public static String registrationServiceStaffFile = "ServiceStaffRegistration.fxml";
 
+    public static PersonDB personDB;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
 
         ScreensController mainContainer = new ScreensController();
         mainContainer.loadScreen(mainScreenID, mainScreenFile);
-        mainContainer.loadScreen(viewScreenID, viewScreenFile);
-        mainContainer.loadScreen(editScreenID, editScreenFile);
-        mainContainer.loadScreen(analyticScreenID, analyticScreenFile);
         mainContainer.loadScreen(loginScreenID, loginScreenFile);
         mainContainer.loadScreen(registrationServiceStaffID, registrationServiceStaffFile);
         mainContainer.loadScreen(registrationTeacherScreenID, registrationTeacherScreenFile);
+        mainContainer.loadScreen(viewScreenID, viewScreenFile);
+        mainContainer.loadScreen(editScreenID, editScreenFile);
+        mainContainer.loadScreen(analyticScreenID, analyticScreenFile);
+
 
         mainContainer.setScreen(loginScreenID);
 

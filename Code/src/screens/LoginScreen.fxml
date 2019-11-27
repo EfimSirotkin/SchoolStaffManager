@@ -35,7 +35,7 @@
                 <Font name="Verdana Bold" size="16"></Font>
             </font>
         </Label>
-        <TextField fx:id="loginTextField" >
+        <TextField fx:id="loginTextField" promptText="Введите логин">
             <font>
                 <Font name="Verdana Bold" size="16"></Font>
             </font>
@@ -47,11 +47,11 @@
                     <Font name="Verdana Bold" size="16"></Font>
                 </font>
             </Label>
-            <TextField fx:id="passwordTextField">
+            <PasswordField fx:id="passwordTextField" promptText="Введите пароль">
                 <font>
                     <Font name="Verdana Bold" size="16"></Font>
                 </font>
-            </TextField>
+            </PasswordField>
         </HBox></VBox>
 
     <HBox spacing="10">

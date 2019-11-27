@@ -51,10 +51,6 @@ public class EditScreenController implements Initializable, ControlledScreen {
     private TableView<Person> staffTable;
 
     private ScreensController myController;
-    private AdministryDB administryDB;
-    private PedagogicalDB pedagogicalDB;
-    private ServiceStaffDB serviceStaffDB;
-    private PersonDB personDB;
     private ViewScreenController.SourceStaff sourceStaff;
 
     enum SourceStaff {PEDAGOGICAL, ADMINISTRATION, SERVICESTAFF}
@@ -119,24 +115,24 @@ public class EditScreenController implements Initializable, ControlledScreen {
 
         if (actionEvent.getSource().equals(pedagogicalButton)) {
             sourceStaff = ViewScreenController.SourceStaff.PEDAGOGICAL;
-            pedagogicalDB = new PedagogicalDB(excelParser.importPedagogicalTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Преподавательский).xls"));
-            ObservableList<Person> observableList = FXCollections.observableArrayList(pedagogicalDB.getPedagogicalStaff());
+            Main.personDB.setPedagogicalDB(new PedagogicalDB(excelParser.importPedagogicalTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Преподавательский).xls")));
+            ObservableList<Person> observableList = FXCollections.observableArrayList(Main.personDB.getPedagogicalDB().getPedagogicalStaff());
             staffTable.getColumns().clear();
             staffTable.setItems(FXCollections.observableArrayList(observableList));
             putDataIntoTableView();
 
         } else if (actionEvent.getSource().equals(administryButton)) {
             sourceStaff = ViewScreenController.SourceStaff.ADMINISTRATION;
-            administryDB = new AdministryDB(excelParser.importAdministryTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Административный).xls"));
-            ObservableList<Person> observableList = FXCollections.observableArrayList(administryDB.getAdministryStaff());
+            Main.personDB.setAdministryDB(new AdministryDB(excelParser.importAdministryTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Административный).xls")));
+            ObservableList<Person> observableList = FXCollections.observableArrayList(Main.personDB.getAdministryDB().getAdministryStaff());
             staffTable.getColumns().clear();
             staffTable.setItems(FXCollections.observableArrayList(observableList));
             putDataIntoTableView();
 
         } else if (actionEvent.getSource().equals(serviceStaffButton)) {
             sourceStaff = ViewScreenController.SourceStaff.SERVICESTAFF;
-            serviceStaffDB = new ServiceStaffDB(excelParser.importServiceStaffTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Обслуживающий).xls"));
-            ObservableList<Person> observableList = FXCollections.observableArrayList(serviceStaffDB.getServiceStaff());
+            Main.personDB.setServiceStaffDB(new ServiceStaffDB(excelParser.importServiceStaffTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Обслуживающий).xls")));
+            ObservableList<Person> observableList = FXCollections.observableArrayList(Main.personDB.getServiceStaffDB().getServiceStaff());
             staffTable.getColumns().clear();
             staffTable.setItems(FXCollections.observableArrayList(observableList));
             putDataIntoTableView();
@@ -153,7 +149,7 @@ public class EditScreenController implements Initializable, ControlledScreen {
     public void clickTableViewItem(MouseEvent event) {
         if (event.getClickCount() == 2) {
             if (sourceStaff == ViewScreenController.SourceStaff.PEDAGOGICAL) {
-                Teacher selectedTeacher = pedagogicalDB.findTeacher(staffTable.getSelectionModel().getSelectedItem().getName());
+                Teacher selectedTeacher = Main.personDB.getPedagogicalDB().findTeacher(staffTable.getSelectionModel().getSelectedItem().getName());
                 if (selectedTeacher != null) {
                     fullName.setText(getFullName());
                     education.setText(generateEducationString(staffTable.getSelectionModel().getSelectedItem().getEducation()));
@@ -165,7 +161,7 @@ public class EditScreenController implements Initializable, ControlledScreen {
                     workingExperience.setText("Стаж работы: " + selectedTeacher.getWorkingExperience() + " лет");
                 }
             } else if (sourceStaff == ViewScreenController.SourceStaff.ADMINISTRATION) {
-                Administrator selectedAdministrator = administryDB.findAdministrator(staffTable.getSelectionModel().getSelectedItem().getName());
+                Administrator selectedAdministrator = Main.personDB.getAdministryDB().findAdministrator(staffTable.getSelectionModel().getSelectedItem().getName());
                 if (selectedAdministrator != null) {
                     fullName.setText(getFullName());
                     education.setText(generateEducationString(staffTable.getSelectionModel().getSelectedItem().getEducation()));
@@ -180,7 +176,7 @@ public class EditScreenController implements Initializable, ControlledScreen {
                     workingExperience.setText("Стаж работы: " + "актуален для преподавателей");
                 }
             } else if (sourceStaff == ViewScreenController.SourceStaff.SERVICESTAFF) {
-                ServiceWorker selectedServiceWorker = serviceStaffDB.findServiceWorker(staffTable.getSelectionModel().getSelectedItem().getName());
+                ServiceWorker selectedServiceWorker = Main.personDB.getServiceStaffDB().findServiceWorker(staffTable.getSelectionModel().getSelectedItem().getName());
                 if (selectedServiceWorker != null) {
                     fullName.setText(getFullName());
                     education.setText(generateEducationString(staffTable.getSelectionModel().getSelectedItem().getEducation()));

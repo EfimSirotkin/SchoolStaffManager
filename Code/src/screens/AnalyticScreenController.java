@@ -55,9 +55,6 @@ public class AnalyticScreenController implements Initializable, ControlledScreen
     @FXML
     private NumberAxis yAxisHigherQualification;
 
-    private PedagogicalDB pedagogicalDB;
-
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         File file = new File("F:\\Code\\SchoolStaffManager\\src\\screens\\res\\logo.jpg");
@@ -94,13 +91,10 @@ public class AnalyticScreenController implements Initializable, ControlledScreen
     }
 
     public XYChart.Series<String, Number> getSeriesDistribution() {
-        ExcelParser excelParser = new ExcelParser();
         XYChart.Series<String, Number> tempSeries = new XYChart.Series<>();
-        pedagogicalDB = new PedagogicalDB(excelParser.importPedagogicalTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Преподавательский).xls"));
         tempSeries.setName("2019");
-        for (Teacher teacher : pedagogicalDB.getPedagogicalStaff()) {
+        for (Teacher teacher : Main.personDB.getPedagogicalDB().getPedagogicalStaff()) {
             String fullName = teacher.getName() + " " + teacher.getSurname();
-
             tempSeries.getData().add(new XYChart.Data<>(fullName, teacher.getWeeklyTeachingHours()));
         }
         return tempSeries;
@@ -127,13 +121,13 @@ public class AnalyticScreenController implements Initializable, ControlledScreen
         ExcelParser excelParser = new ExcelParser();
         TeacherStatistics teacherStatistics = excelParser.importStatisticsData("F:\\Code\\SchoolStaffManager\\res\\Динамика.xls");
         ArrayList<String> statisticsYearList = teacherStatistics.getYearsList();
-        ArrayList<Integer> statisticsHigherQualififcationCount = teacherStatistics.getHigherQualificationList();
+        ArrayList<Integer> statisticsHigherQualificationCount = teacherStatistics.getHigherQualificationList();
 
         XYChart.Series<String, Number> tempSeries = new XYChart.Series<>();
         tempSeries.setName("Сотрудники");
 
         for(int i =0; i < statisticsYearList.size(); i++)
-            tempSeries.getData().add(new XYChart.Data<>(statisticsYearList.get(i), statisticsHigherQualififcationCount.get(i)));
+            tempSeries.getData().add(new XYChart.Data<>(statisticsYearList.get(i), statisticsHigherQualificationCount.get(i)));
 
         return tempSeries;
     }
@@ -141,9 +135,8 @@ public class AnalyticScreenController implements Initializable, ControlledScreen
     public ObservableList<PieChart.Data> getPieChartData() {
 
         ArrayList<PieChart.Data> arrayList = new ArrayList<>();
-        ArrayList<Teacher> teacherList = pedagogicalDB.getPedagogicalStaff();
-        ArrayList<String> qualificationPresents = pedagogicalDB.getPresentQualifications();
-        ArrayList<Integer> qualificationCount = pedagogicalDB.getCertainQualificationsCount();
+        ArrayList<String> qualificationPresents = Main.personDB.getPedagogicalDB().getPresentQualifications();
+        ArrayList<Integer> qualificationCount = Main.personDB.getPedagogicalDB().getCertainQualificationsCount();
 
         for (int i = 0; i < qualificationPresents.size(); i++)
             arrayList.add(new PieChart.Data(qualificationPresents.get(i), qualificationCount.get(i)));
