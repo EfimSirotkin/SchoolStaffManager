@@ -19,9 +19,10 @@ public class PedagogicalDB {
     public ArrayList<Teacher> getPedagogicalStaff() {
         return pedagogicalStaff;
     }
-    public Teacher findTeacher(String name) {
+
+    public Teacher findTeacher(String surName, String name, String superName, String dateOfBirth) {
         for(Teacher teacher : getPedagogicalStaff()) {
-            if(teacher.getName().equals(name))
+            if(teacher.getName().equals(name) && teacher.getSurname().equals(surName) && teacher.getSuperName().equals(superName) && teacher.getDateOfBirth().equals(dateOfBirth))
                 return teacher;
         }
     return null;

@@ -1,4 +1,4 @@
-package screens;
+package main.screens;
 
 import javafx.fxml.Initializable;
 

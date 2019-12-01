@@ -17,7 +17,7 @@
 <?import javafx.scene.chart.PieChart?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="screens.AnalyticScreenController"
+      fx:controller="main.screens.AnalyticScreenController"
       prefHeight="1030" prefWidth="1920">
     <padding>
         <Insets top="5" left="5" right="10" bottom="10">

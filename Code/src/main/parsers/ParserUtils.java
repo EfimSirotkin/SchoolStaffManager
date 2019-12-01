@@ -17,7 +17,7 @@ public class ParserUtils {
             if (education.charAt(i) == ',') {
                 multipleEducation = true;
                 if (i > 0)
-                    end = i - 1;
+                    end = i;
                 else
                     end = 0;
                 parsedEducation = education.substring(beginning, end);

@@ -1,4 +1,4 @@
-package screens;
+package main.screens;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,7 +10,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import jxl.write.WriteException;
 import main.Main;
-import main.databases.PedagogicalDB;
 import main.databases.PersonDB;
 import main.parsers.AlertWarner;
 import main.parsers.ExcelParser;
@@ -19,7 +18,6 @@ import main.parsers.ParserUtils;
 import main.staff.Teacher;
 
 
-import javax.xml.soap.Text;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -60,7 +58,7 @@ public class TeacherRegistrationScreen implements Initializable, ControlledScree
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        File file = new File("F:\\Code\\SchoolStaffManager\\src\\screens\\res\\logo.jpg");
+        File file = new File("res\\logo.jpg");
         Image image = new Image(file.toURI().toString());
         imageView.setImage(image);
 
@@ -102,7 +100,7 @@ public class TeacherRegistrationScreen implements Initializable, ControlledScree
             newTeacher.setHaveHigherEducation(true);
             Main.personDB.getPedagogicalDB().addTeacher(newTeacher);
 
-            excelParser.exportTeachers("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Преподавательский12).xls", Main.personDB.getPedagogicalDB());
+            excelParser.exportTeachers("res/Шаблон(Преподавательский12).xls", Main.personDB.getPedagogicalDB());
 
         }
         catch (IOException | WriteException e) {

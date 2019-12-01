@@ -5,8 +5,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import main.databases.PersonDB;
-import main.parsers.ExcelParser;
-import screens.ScreensController;
+import main.screens.ScreensController;
 
 public class Main extends Application {
 
@@ -31,8 +30,8 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
 
         ScreensController mainContainer = new ScreensController();
-        mainContainer.loadScreen(mainScreenID, mainScreenFile);
         mainContainer.loadScreen(loginScreenID, loginScreenFile);
+        mainContainer.loadScreen(mainScreenID, mainScreenFile);
         mainContainer.loadScreen(registrationServiceStaffID, registrationServiceStaffFile);
         mainContainer.loadScreen(registrationTeacherScreenID, registrationTeacherScreenFile);
         mainContainer.loadScreen(viewScreenID, viewScreenFile);

@@ -1,4 +1,4 @@
-package screens;
+package main.screens;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -31,7 +31,7 @@ public class ScreensController extends StackPane {
         return screens.get(name);
     }
 
-    //Loads the fxml file, add the screen to the screens collection and
+    //Loads the fxml file, add the screen to the main.screens collection and
     //finally injects the screenPane to the controller.
     public boolean loadScreen(String name, String resource) {
         try {
@@ -87,7 +87,7 @@ public class ScreensController extends StackPane {
         }
     }
 
-    //This method will remove the screen with the given name from the collection of screens
+    //This method will remove the screen with the given name from the collection of main.screens
     public boolean unloadScreen(String name) {
         if (screens.remove(name) == null) {
             System.out.println("Screen didn't exist");

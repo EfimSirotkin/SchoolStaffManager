@@ -250,7 +250,7 @@ public class ExcelParser implements Exporter, Importer {
     @Override
     public void createTemplateForAdministry() throws IOException, WriteException {
         try {
-            WritableWorkbook administryWBook = Workbook.createWorkbook(new File("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Административный).xls"));
+            WritableWorkbook administryWBook = Workbook.createWorkbook(new File("res/Шаблон(Административный).xls"));
             WritableSheet excelSheet = administryWBook.createSheet("Лист", 0);
             WritableCellFormat cFormat = new WritableCellFormat();
             cFormat.setAlignment(Alignment.CENTRE);
@@ -285,7 +285,6 @@ public class ExcelParser implements Exporter, Importer {
     @Override
     public WritableWorkbook createTemplateForTeacher(WritableWorkbook teachersWBook, WritableSheet excelSheet, String filePath) throws IOException, WriteException, FileNotFoundException {
         try {
-
             WritableCellFormat cFormat = new WritableCellFormat();
             cFormat.setAlignment(Alignment.CENTRE);
             cFormat.setVerticalAlignment(VerticalAlignment.CENTRE);
@@ -349,7 +348,7 @@ public class ExcelParser implements Exporter, Importer {
     @Override
     public void createTemplateForServiceStaff() throws IOException, WriteException {
         try {
-            WritableWorkbook serviceStaffWBook = Workbook.createWorkbook(new File("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Обслуживающий).xls"));
+            WritableWorkbook serviceStaffWBook = Workbook.createWorkbook(new File("res/Шаблон(Обслуживающий).xls"));
             WritableSheet excelSheet = serviceStaffWBook.createSheet("Лист", 0);
 
             WritableCellFormat cFormat = new WritableCellFormat();

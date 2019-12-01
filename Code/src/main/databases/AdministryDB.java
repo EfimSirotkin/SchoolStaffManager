@@ -16,9 +16,9 @@ public class AdministryDB {
     public void addAdministrator(Administrator administrator) {
 
     }
-    public Administrator findAdministrator(String name) {
+    public Administrator findAdministrator(String surName, String name, String superName, String dateOfBirth) {
         for(Administrator administrator : administryStaff) {
-            if(administrator.getName().equals(name))
+            if(administrator.getName().equals(name) && administrator.getSurname().equals(surName) && administrator.getSuperName().equals(superName) && administrator.getDateOfBirth().equals(dateOfBirth))
                 return administrator;
         }
         return null;

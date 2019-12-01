@@ -62,6 +62,39 @@ public class Person implements PersonActivity {
         this.loginStorage = loginStorage;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setSuperName(String superName) {
+        this.superName = superName;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setEducation(ArrayList<String> education) {
+        this.education = education;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public void setPerson(Teacher sourceTeacher) {
+        this.name = sourceTeacher.getName();
+        this.surname = sourceTeacher.getSurname();
+        this.superName = sourceTeacher.getSuperName();
+        this.education = sourceTeacher.getEducation();
+        this.phoneNumber = sourceTeacher.getPhoneNumber();
+        this.dateOfBirth = sourceTeacher.getDateOfBirth();
+    }
+
     public boolean checkLoginDataValidity(LoginStorage loginStorage) {
         if(this.loginStorage.getLogin().equals(loginStorage.getLogin()) && this.loginStorage.getPassword().equals(loginStorage.getPassword()))
             return true;

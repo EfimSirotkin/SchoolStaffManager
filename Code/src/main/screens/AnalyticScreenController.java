@@ -1,4 +1,4 @@
-package screens;
+package main.screens;
 
 
 import javafx.collections.FXCollections;
@@ -6,13 +6,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.chart.*;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import main.Main;
-import main.databases.PedagogicalDB;
 import main.parsers.ExcelParser;
 import main.staff.Teacher;
 import main.staff.TeacherStatistics;
@@ -20,9 +18,7 @@ import main.staff.TeacherStatistics;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 public class AnalyticScreenController implements Initializable, ControlledScreen {
 
@@ -57,7 +53,7 @@ public class AnalyticScreenController implements Initializable, ControlledScreen
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        File file = new File("F:\\Code\\SchoolStaffManager\\src\\screens\\res\\logo.jpg");
+        File file = new File("res/logo.jpg");
         Image image = new Image(file.toURI().toString());
         imageView.setImage(image);
         hoursChargingBar.getData().add(getSeriesDistribution());
@@ -103,7 +99,7 @@ public class AnalyticScreenController implements Initializable, ControlledScreen
     public XYChart.Series<String, Number> getHigherEducationDistribution() {
 
         ExcelParser excelParser = new ExcelParser();
-        TeacherStatistics teacherStatistics = excelParser.importStatisticsData("F:\\Code\\SchoolStaffManager\\res\\Динамика.xls");
+        TeacherStatistics teacherStatistics = excelParser.importStatisticsData("res/Динамика.xls");
         ArrayList<String> statisticsYearList = teacherStatistics.getYearsList();
         ArrayList<Integer> statisticsHigherEducationCount = teacherStatistics.getHaveHigherEducation();
 
@@ -119,7 +115,7 @@ public class AnalyticScreenController implements Initializable, ControlledScreen
     public XYChart.Series<String, Number> getHigherQualificationDistribution() {
 
         ExcelParser excelParser = new ExcelParser();
-        TeacherStatistics teacherStatistics = excelParser.importStatisticsData("F:\\Code\\SchoolStaffManager\\res\\Динамика.xls");
+        TeacherStatistics teacherStatistics = excelParser.importStatisticsData("res/Динамика.xls");
         ArrayList<String> statisticsYearList = teacherStatistics.getYearsList();
         ArrayList<Integer> statisticsHigherQualificationCount = teacherStatistics.getHigherQualificationList();
 

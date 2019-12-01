@@ -1,4 +1,4 @@
-package screens;
+package main.screens;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,15 +19,11 @@ import main.parsers.AlertWarner;
 import main.parsers.ExcelParser;
 import main.parsers.LoginStorage;
 import main.staff.Administrator;
-import main.staff.Person;
 import main.staff.ServiceWorker;
 import main.staff.Teacher;
 
-import javax.swing.*;
-
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class LoginScreenController implements Initializable, ControlledScreen {
@@ -49,16 +45,14 @@ public class LoginScreenController implements Initializable, ControlledScreen {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        File file = new File("F:\\Code\\SchoolStaffManager\\src\\screens\\res\\logo.jpg");
+        File file = new File("res/logo.jpg");
         Image image = new Image(file.toURI().toString());
         imageView.setImage(image);
         ExcelParser excelParser = new ExcelParser();
         Main.personDB = new PersonDB();
-        Main.personDB.setPedagogicalDB(new PedagogicalDB(excelParser.importPedagogicalTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Преподавательский).xls")));
-        Main.personDB.setAdministryDB(new AdministryDB(excelParser.importAdministryTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Административный).xls")));
-        Main.personDB.setServiceStaffDB(new ServiceStaffDB(excelParser.importServiceStaffTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Обслуживающий).xls")));
-        Main.personDB.appendPedagogicalStaff(excelParser.importPedagogicalTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Преподавательский).xls"));
-        Main.personDB.appendAdministryStaff(excelParser.importAdministryTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Административный).xls"));
+        Main.personDB.setPedagogicalDB(new PedagogicalDB(excelParser.importPedagogicalTemplate("res/Шаблон(Преподавательский).xls")));
+        Main.personDB.setAdministryDB(new AdministryDB(excelParser.importAdministryTemplate("res/Шаблон(Административный).xls")));
+        Main.personDB.setServiceStaffDB(new ServiceStaffDB(excelParser.importServiceStaffTemplate("res/Шаблон(Обслуживающий).xls")));
 
     }
 
@@ -69,7 +63,6 @@ public class LoginScreenController implements Initializable, ControlledScreen {
     @FXML
     private void onApplyButtonClicked() {
 
-        boolean success = false;
         String loginInput = loginTextField.getText();
         String passWordInput = passwordTextField.getText();
         inputLoginStorage = new LoginStorage(loginInput, passWordInput);

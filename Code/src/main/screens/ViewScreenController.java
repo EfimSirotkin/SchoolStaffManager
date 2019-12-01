@@ -1,4 +1,4 @@
-package screens;
+package main.screens;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,7 +16,6 @@ import javafx.scene.input.MouseEvent;
 import main.Main;
 import main.databases.AdministryDB;
 import main.databases.PedagogicalDB;
-import main.databases.PersonDB;
 import main.databases.ServiceStaffDB;
 import main.parsers.ExcelParser;
 import main.staff.Administrator;
@@ -29,7 +28,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class EditScreenController implements Initializable, ControlledScreen {
+public class ViewScreenController implements Initializable, ControlledScreen {
 
     @FXML
     private Label fullName;
@@ -51,7 +50,11 @@ public class EditScreenController implements Initializable, ControlledScreen {
     private TableView<Person> staffTable;
 
     private ScreensController myController;
-    private ViewScreenController.SourceStaff sourceStaff;
+    private SourceStaff sourceStaff;
+
+    public String whiteStyle = "-fx-background-color: #ffffff";
+    public String colorStyle = "-fx-background-color: #7ebf7f";
+
 
     enum SourceStaff {PEDAGOGICAL, ADMINISTRATION, SERVICESTAFF}
 
@@ -69,16 +72,16 @@ public class EditScreenController implements Initializable, ControlledScreen {
     private Button importFromExcel;
     @FXML
     private Button exportToExcelButton;
+    @FXML
+    private Button sendMessageButton;
 
-    public EditScreenController() {
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        File file = new File("F:\\Code\\SchoolStaffManager\\src\\screens\\res\\logo.jpg");
+        File file = new File("res/logo.jpg");
         Image image = new Image(file.toURI().toString());
         imageView.setImage(image);
-        File photoFile = new File("F:\\Code\\SchoolStaffManager\\res\\photo.jpg");
+        File photoFile = new File("res/photo.jpg");
         Image photoImage = new Image(photoFile.toURI().toString());
         personImage.setImage(photoImage);
 
@@ -91,22 +94,21 @@ public class EditScreenController implements Initializable, ControlledScreen {
         education.setText("Белорусский государственный педагогический университет\n"
                 + "Академия управления при президенте Республики Беларусь");
         qualificationCourses.setText("Институт повышения квалификации работников учреждений образования");
-        getTableViewStaff();
+
     }
 
     @Override
     public void setScreenParent(ScreensController screenParent) {
-
         myController = screenParent;
     }
 
     @FXML
-    public void goToMainScreen(ActionEvent action) {
+    private void goToMainScreen(javafx.event.ActionEvent actionEvent) {
         myController.setScreen(Main.mainScreenID);
     }
 
-    public void getTableViewStaff() {
-    }
+
+
     @FXML
     public void onStaffTypeClicked(ActionEvent actionEvent) {
         exportToExcelButton.setDisable(false);
@@ -114,24 +116,39 @@ public class EditScreenController implements Initializable, ControlledScreen {
         ExcelParser excelParser = new ExcelParser();
 
         if (actionEvent.getSource().equals(pedagogicalButton)) {
+
+            administryButton.setStyle(whiteStyle);
+            pedagogicalButton.setStyle(colorStyle);
+            serviceStaffButton.setStyle(whiteStyle);
+
             sourceStaff = ViewScreenController.SourceStaff.PEDAGOGICAL;
-            Main.personDB.setPedagogicalDB(new PedagogicalDB(excelParser.importPedagogicalTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Преподавательский).xls")));
+            Main.personDB.setPedagogicalDB(new PedagogicalDB(excelParser.importPedagogicalTemplate("res/Шаблон(Преподавательский).xls")));
             ObservableList<Person> observableList = FXCollections.observableArrayList(Main.personDB.getPedagogicalDB().getPedagogicalStaff());
             staffTable.getColumns().clear();
             staffTable.setItems(FXCollections.observableArrayList(observableList));
             putDataIntoTableView();
 
         } else if (actionEvent.getSource().equals(administryButton)) {
+
+            administryButton.setStyle(colorStyle);
+            pedagogicalButton.setStyle(whiteStyle);
+            serviceStaffButton.setStyle(whiteStyle);
+
             sourceStaff = ViewScreenController.SourceStaff.ADMINISTRATION;
-            Main.personDB.setAdministryDB(new AdministryDB(excelParser.importAdministryTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Административный).xls")));
+            Main.personDB.setAdministryDB(new AdministryDB(excelParser.importAdministryTemplate("res/Шаблон(Административный).xls")));
             ObservableList<Person> observableList = FXCollections.observableArrayList(Main.personDB.getAdministryDB().getAdministryStaff());
             staffTable.getColumns().clear();
             staffTable.setItems(FXCollections.observableArrayList(observableList));
             putDataIntoTableView();
 
         } else if (actionEvent.getSource().equals(serviceStaffButton)) {
+
+            administryButton.setStyle(whiteStyle);
+            pedagogicalButton.setStyle(whiteStyle);
+            serviceStaffButton.setStyle(colorStyle);
+
             sourceStaff = ViewScreenController.SourceStaff.SERVICESTAFF;
-            Main.personDB.setServiceStaffDB(new ServiceStaffDB(excelParser.importServiceStaffTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Обслуживающий).xls")));
+            Main.personDB.setServiceStaffDB(new ServiceStaffDB(excelParser.importServiceStaffTemplate("res/Шаблон(Обслуживающий).xls")));
             ObservableList<Person> observableList = FXCollections.observableArrayList(Main.personDB.getServiceStaffDB().getServiceStaff());
             staffTable.getColumns().clear();
             staffTable.setItems(FXCollections.observableArrayList(observableList));
@@ -148,12 +165,18 @@ public class EditScreenController implements Initializable, ControlledScreen {
     @FXML
     public void clickTableViewItem(MouseEvent event) {
         if (event.getClickCount() == 2) {
+
+            String surName = staffTable.getSelectionModel().getSelectedItem().getSurname();
+            String name = staffTable.getSelectionModel().getSelectedItem().getName();
+            String superName = staffTable.getSelectionModel().getSelectedItem().getSuperName();
+            String dateOfBirth = staffTable.getSelectionModel().getSelectedItem().getDateOfBirth();
+
             if (sourceStaff == ViewScreenController.SourceStaff.PEDAGOGICAL) {
-                Teacher selectedTeacher = Main.personDB.getPedagogicalDB().findTeacher(staffTable.getSelectionModel().getSelectedItem().getName());
+                Teacher selectedTeacher = Main.personDB.getPedagogicalDB().findTeacher(surName, name,superName, dateOfBirth);
                 if (selectedTeacher != null) {
                     fullName.setText(getFullName());
                     education.setText(generateEducationString(staffTable.getSelectionModel().getSelectedItem().getEducation()));
-                    dateOfBirth.setText("Дата рождения: " + staffTable.getSelectionModel().getSelectedItem().getDateOfBirth());
+                    this.dateOfBirth.setText("Дата рождения: " + staffTable.getSelectionModel().getSelectedItem().getDateOfBirth());
                     jobTitle.setText("учитель");
                     qualification.setText("Квалификационная категория: " + selectedTeacher.getTeacherDegree());
                     phoneNumber.setText("Телефон: " + selectedTeacher.getPhoneNumber());
@@ -161,11 +184,11 @@ public class EditScreenController implements Initializable, ControlledScreen {
                     workingExperience.setText("Стаж работы: " + selectedTeacher.getWorkingExperience() + " лет");
                 }
             } else if (sourceStaff == ViewScreenController.SourceStaff.ADMINISTRATION) {
-                Administrator selectedAdministrator = Main.personDB.getAdministryDB().findAdministrator(staffTable.getSelectionModel().getSelectedItem().getName());
+                Administrator selectedAdministrator = Main.personDB.getAdministryDB().findAdministrator(surName, name,superName, dateOfBirth);
                 if (selectedAdministrator != null) {
                     fullName.setText(getFullName());
                     education.setText(generateEducationString(staffTable.getSelectionModel().getSelectedItem().getEducation()));
-                    dateOfBirth.setText("Дата рождения: " + staffTable.getSelectionModel().getSelectedItem().getDateOfBirth());
+                    this.dateOfBirth.setText("Дата рождения: " + staffTable.getSelectionModel().getSelectedItem().getDateOfBirth());
                     jobTitle.setText(selectedAdministrator.getJobTitle());
                     phoneNumber.setText("Телефон: " + selectedAdministrator.getPhoneNumber());
                     if (selectedAdministrator.isEditingAvailable())
@@ -176,18 +199,23 @@ public class EditScreenController implements Initializable, ControlledScreen {
                     workingExperience.setText("Стаж работы: " + "актуален для преподавателей");
                 }
             } else if (sourceStaff == ViewScreenController.SourceStaff.SERVICESTAFF) {
-                ServiceWorker selectedServiceWorker = Main.personDB.getServiceStaffDB().findServiceWorker(staffTable.getSelectionModel().getSelectedItem().getName());
+                ServiceWorker selectedServiceWorker = Main.personDB.getServiceStaffDB().findServiceWorker(surName, name,superName, dateOfBirth);
                 if (selectedServiceWorker != null) {
                     fullName.setText(getFullName());
                     education.setText(generateEducationString(staffTable.getSelectionModel().getSelectedItem().getEducation()));
-                    dateOfBirth.setText("Дата рождения: " + staffTable.getSelectionModel().getSelectedItem().getDateOfBirth());
+                    this.dateOfBirth.setText("Дата рождения: " + staffTable.getSelectionModel().getSelectedItem().getDateOfBirth());
                     jobTitle.setText(selectedServiceWorker.getTypeOfWork());
                     qualification.setText("Разряд: " + selectedServiceWorker.getWorkRank());
                     phoneNumber.setText(("Телефон: " + selectedServiceWorker.getPhoneNumber()));
                 }
             }
         }
+
+        if(event.getClickCount() == 1) {
+            sendMessageButton.setDisable(false);
+        }
     }
+
 
     public String generateEducationString(ArrayList<String> sourceList) {
         ArrayList<String> tempList = new ArrayList<String>();

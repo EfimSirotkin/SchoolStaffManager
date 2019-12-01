@@ -14,7 +14,7 @@
 <?import javafx.scene.image.Image?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="screens.MainScreenController"
+      fx:controller="main.screens.MainScreenController"
       minHeight="1030" minWidth="1920" >
     <padding>
         <Insets bottom="10" left="10" right="10" top="10"></Insets>

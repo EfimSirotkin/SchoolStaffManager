@@ -12,13 +12,13 @@
 <?import javafx.geometry.Insets?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="screens.TeacherRegistrationScreen"
-      prefHeight="1000.0" prefWidth="800.0">
+      fx:controller="main.screens.EditTeacherRecordScreenController"
+      prefHeight="750" prefWidth="540">
     <padding>
         <Insets top="10" left="20" right="20" bottom="10"></Insets>
     </padding>
-    <HBox spacing="200">
-        <Label text="Регистрация">
+    <HBox spacing="50">
+        <Label text="Редактирование" minWidth="80">
             <font>
                 <Font name="Verdana Bold" size="28"></Font>
             </font>
@@ -36,7 +36,6 @@
                 </font>
             </Label>
             <TextField fx:id="surNameField" minWidth="300">
-
             </TextField>
         </HBox>
         <HBox spacing="50">
@@ -154,12 +153,12 @@
             <padding>
                 <Insets left="100"></Insets>
             </padding>
-            <Button text="Зарегистрироваться" minWidth="200" onAction="#onRegisterButtonClicked">
+            <Button text="Подтвердить" minWidth="200" onAction="#onApplyButtonClicked">
                 <font>
                     <Font name="Verdana Bold" size="13"></Font>
                 </font>
             </Button>
-            <Button text="Назад" onAction="#onBackToLoginButtonClicked">
+            <Button text="Назад">
                 <font>
                     <Font name="Verdana Bold" size="13"></Font>
                 </font>
@@ -167,3 +166,4 @@
         </HBox>
     </VBox>
 </VBox>
+

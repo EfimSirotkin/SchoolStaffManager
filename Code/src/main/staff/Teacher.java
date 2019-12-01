@@ -17,6 +17,16 @@ public class Teacher extends Person implements StaffActivity {
     private Integer weeklyTeachingHours;
     private boolean haveHigherEducation;
 
+    public Teacher(Teacher sourceTeacher) {
+        this(sourceTeacher.getName(), sourceTeacher.getSurname(), sourceTeacher.getSuperName(),
+                sourceTeacher.getDateOfBirth(), sourceTeacher.getEducation(), sourceTeacher.getPhoneNumber());
+        this.teacherDegree = sourceTeacher.getTeacherDegree();
+        this.teachSubjectsAtClasses = sourceTeacher.getTeachSubjectsAtClasses();
+        this.workingExperience = sourceTeacher.getWorkingExperience();
+        this.qualificationCourses = sourceTeacher.getQualificationCourses();
+        this.weeklyTeachingHours = sourceTeacher.getWeeklyTeachingHours();
+        this.haveHigherEducation = sourceTeacher.isHaveHigherEducation();
+    }
 
     public void setHaveHigherEducation(boolean haveHigherEducation) {
         this.haveHigherEducation = haveHigherEducation;
@@ -64,6 +74,16 @@ public class Teacher extends Person implements StaffActivity {
 
     public HashMap<String, ArrayList<String>> getTeachSubjectsAtClasses() {
         return teachSubjectsAtClasses;
+    }
+
+    public void setTeacher(Teacher sourceTeacher) {
+        this.setPerson(sourceTeacher);
+        this.teacherDegree = sourceTeacher.getTeacherDegree();
+        this.teachSubjectsAtClasses = sourceTeacher.getTeachSubjectsAtClasses();
+        this.workingExperience = sourceTeacher.getWorkingExperience();
+        this.qualificationCourses = sourceTeacher.getQualificationCourses();
+        this.weeklyTeachingHours = sourceTeacher.getWeeklyTeachingHours();
+        this.haveHigherEducation = sourceTeacher.isHaveHigherEducation();
     }
 
     @Override

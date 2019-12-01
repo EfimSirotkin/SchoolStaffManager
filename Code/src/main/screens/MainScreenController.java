@@ -1,4 +1,4 @@
-package screens;
+package main.screens;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import javafx.stage.Stage;
 import main.Main;
 import main.parsers.AlertWarner;
 
@@ -19,18 +20,18 @@ import java.util.ResourceBundle;
 public class MainScreenController implements Initializable, ControlledScreen {
 
     @FXML
-    public Button editScreenButton;
+    private Button editScreenButton = new Button();
     @FXML
-    public Button viewScreenButton;
+    private Button viewScreenButton;
     @FXML
-    public Button analyticsScreenButton;
+    private Button analyticsScreenButton;
     @FXML
     private ImageView imageView;
     private ScreensController myController;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        File file = new File("F:\\Code\\SchoolStaffManager\\src\\screens\\res\\logo.jpg");
+        File file = new File("res/logo.jpg");
         Image image = new Image(file.toURI().toString());
         imageView.setImage(image);
     }

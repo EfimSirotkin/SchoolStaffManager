@@ -15,7 +15,7 @@
 <?import java.net.URL?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="screens.ViewScreenController"
+      fx:controller="main.screens.ViewScreenController"
       prefHeight="1030" prefWidth="1920">
     <padding>
         <Insets top="5" left="5" right="10" bottom="10">
@@ -146,7 +146,7 @@
                         <padding>
                             <Insets top="40" left="75"></Insets>
                         </padding>
-                        <Button text="Отправить письмо" prefWidth="275" prefHeight="35" textAlignment="LEFT">
+                        <Button fx:id="sendMessageButton" text="Отправить письмо" prefWidth="275" prefHeight="35" textAlignment="LEFT" disable="true">
                             <font>
                                 <Font name="Verdana Bold" size="20"></Font>
                             </font>
