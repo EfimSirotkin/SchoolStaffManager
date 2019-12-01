@@ -12,6 +12,7 @@ import jxl.format.VerticalAlignment;
 import jxl.read.biff.BiffException;
 import jxl.write.*;
 import jxl.write.Number;
+import main.Main;
 import main.databases.PedagogicalDB;
 import main.interfaces.parsers.Exporter;
 import main.interfaces.parsers.Importer;
@@ -22,6 +23,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -35,7 +37,7 @@ public class ExcelParser implements Exporter, Importer {
     }
 
     @Override
-    public void createDefaultTemplate(WritableWorkbook writableWorkbook, WritableSheet excelSheet, WritableCellFormat writableCellFormat) {
+    public void createDefaultTemplate(WritableWorkbook writableWorkbook,WritableSheet excelSheet, WritableCellFormat writableCellFormat) {
 
         try {
             CellView cellView = new CellView();
@@ -58,50 +60,156 @@ public class ExcelParser implements Exporter, Importer {
             label = new Label(5, 1, "Образование", writableCellFormat);
             excelSheet.addCell(label);
 
-        } catch (WriteException e) {
+            label = new Label(6, 1, "Телефон", writableCellFormat);
+            excelSheet.addCell(label);
+
+            writableWorkbook.write();
+
+        } catch (WriteException | IOException e) {
 
             e.printStackTrace();
         }
     }
 
     @Override
-    public void exportTeachers(String filePath, PedagogicalDB pedagogicalDB) {
-        WritableWorkbook writableWorkbook = null;
-        try {
+    public void exportTeachers(String filePath, PedagogicalDB pedagogicalDB) throws IOException, WriteException {
 
-            writableWorkbook = Workbook.createWorkbook(new File(filePath));
+        WritableWorkbook teachersWBook = Workbook.createWorkbook(new File(filePath));
+        WritableSheet excelSheet = teachersWBook.createSheet("Sheet 1", 0);
 
-            // create an Excel sheet
-            WritableSheet excelSheet = writableWorkbook.createSheet("Sheet 1", 0);
+        WritableCellFormat cFormat = new WritableCellFormat();
+        cFormat.setAlignment(Alignment.CENTRE);
+        cFormat.setVerticalAlignment(VerticalAlignment.CENTRE);
+        WritableFont font = new WritableFont(WritableFont.ARIAL, 10, WritableFont.BOLD);
+        cFormat.setFont(font);
 
-            // add something into the Excel sheet
-            Label label = new Label(0, 0, "Test Count");
-            excelSheet.addCell(label);
+        CellView cellView = new CellView();
+        cellView.setSize(20 * dimensionMultiplier);
+        for (int i = 1; i <= 5; i++)
+            excelSheet.setColumnView(i, cellView);
 
-            Number number = new Number(0, 1, 1);
-            excelSheet.addCell(number);
+        Label label = new Label(1, 1, "Фамилия", cFormat);
+        excelSheet.addCell(label);
 
-            label = new Label(1, 0, "Result");
-            excelSheet.addCell(label);
+        label = new Label(2, 1, "Имя", cFormat);
+        excelSheet.addCell(label);
 
-            label = new Label(1, 1, "Passed");
-            excelSheet.addCell(label);
+        label = new Label(3, 1, "Отчество", cFormat);
+        excelSheet.addCell(label);
 
-            number = new Number(0, 2, 2);
-            excelSheet.addCell(number);
+        label = new Label(4, 1, "Дата рождения", cFormat);
+        excelSheet.addCell(label);
 
-            label = new Label(1, 2, "Passed 2");
-            excelSheet.addCell(label);
+        label = new Label(5, 1, "Образование", cFormat);
+        excelSheet.addCell(label);
 
-            writableWorkbook.write();
+        cellView.setSize(30 * dimensionMultiplier);
+        label = new Label(6, 1, "Телефон", cFormat);
+        excelSheet.addCell(label);
+
+        label = new Label(7, 1, "Квалификационная категория", cFormat);
+        cellView.setSize(30 * dimensionMultiplier);
+        excelSheet.setColumnView(7, cellView);
+        excelSheet.addCell(label);
+
+        label = new Label(8, 1, "Курсы повышения квалификации", cFormat);
+        cellView.setSize(50 * dimensionMultiplier);
+        excelSheet.setColumnView(8, cellView);
+        excelSheet.addCell(label);
+
+        label = new Label(9, 1, "Преподает предмет", cFormat);
+        cellView.setSize(40 * dimensionMultiplier);
+        excelSheet.setColumnView(9, cellView);
+        excelSheet.addCell(label);
+
+        label = new Label(10, 1, "В следующих классах", cFormat);
+
+        excelSheet.setColumnView(10, cellView);
+        excelSheet.addCell(label);
+
+        label = new Label(11, 1, "Учебные часы", cFormat);
+        cellView.setSize(20 * dimensionMultiplier);
+        excelSheet.setColumnView(11, cellView);
+        excelSheet.addCell(label);
+
+        label = new Label(12, 1, "Стаж работы", cFormat);
+        excelSheet.setColumnView(12, cellView);
+        excelSheet.addCell(label);
+
+        label = new Label(13, 1, "Высшее образование", cFormat);
+        excelSheet.setColumnView(13, cellView);
+        excelSheet.addCell(label);
+
+        label = new Label(14, 1, "Логин", cFormat);
+        excelSheet.setColumnView(14, cellView);
+        excelSheet.addCell(label);
+
+        label = new Label(15, 1, "Пароль", cFormat);
+        excelSheet.setColumnView(15, cellView);
+        excelSheet.addCell(label);
 
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (WriteException e) {
-            e.printStackTrace();
+        final int STARTING_ROW = 2;
 
-        }
+        ArrayList<Teacher> teachersToExport = Main.personDB.getPedagogicalDB().getPedagogicalStaff();
+        int teachersNumberToExport = teachersToExport.size();
+
+        Label surNameLabel;
+        Label nameLabel;
+        Label superNameLabel;
+        Label dateOfBirthLabel;
+        Label educationLabel;
+        Label mobilePhone;
+        Label qualificationLabel;
+        Label qualificationCoursesLabel;
+        Label teachSubjectsLabel;
+        Label teachAtClassesLabel;
+        Label teachingHoursLabel;
+        Label workingExperienceLabel;
+        Label higherEducationLabel;
+        Label loginLabel;
+        Label passWordLabel;
+
+        for(int i = 0; i < teachersNumberToExport; ++i) {
+            Teacher currentTeacher = teachersToExport.get(i);
+            HashMap<String, ArrayList<String>> hashMap = currentTeacher.getTeachSubjectsAtClasses();
+            surNameLabel = new Label(1, STARTING_ROW + i, currentTeacher.getSurname());
+            nameLabel = new Label(2, STARTING_ROW + i, currentTeacher.getName());
+            superNameLabel = new Label(3, STARTING_ROW + i, currentTeacher.getSuperName());
+            dateOfBirthLabel = new Label(4, STARTING_ROW + i, currentTeacher.getDateOfBirth());
+            educationLabel = new Label(5, STARTING_ROW + i, ParserUtils.generateStringFromList(currentTeacher.getEducation()));
+            mobilePhone = new Label(6, STARTING_ROW + i, currentTeacher.getPhoneNumber());
+            qualificationLabel = new Label(7, STARTING_ROW + i, currentTeacher.getTeacherDegree());
+            qualificationCoursesLabel = new Label(8, STARTING_ROW + i, ParserUtils.generateStringFromList(currentTeacher.getQualificationCourses()));
+            teachSubjectsLabel = new Label(9, STARTING_ROW + i, ParserUtils.generateStringFromKeys(currentTeacher.getTeachSubjectsAtClasses()));
+            teachAtClassesLabel = new Label(10, STARTING_ROW + i, ParserUtils.generateStringFromValues(currentTeacher.getTeachSubjectsAtClasses()));
+            teachingHoursLabel = new Label(11, STARTING_ROW +i, currentTeacher.getWeeklyTeachingHours().toString());
+            workingExperienceLabel = new Label(12, STARTING_ROW + i, currentTeacher.getWorkingExperience());
+            if(currentTeacher.isHaveHigherEducation())
+                higherEducationLabel = new Label(13, STARTING_ROW + i, "Да");
+            else
+                higherEducationLabel = new Label(13, STARTING_ROW +i, "Нет");
+            loginLabel = new Label(14, STARTING_ROW + i, currentTeacher.getLoginStorage().getLogin());
+            passWordLabel = new Label(15, STARTING_ROW + i, currentTeacher.getLoginStorage().getPassword());
+
+            excelSheet.addCell(surNameLabel);
+            excelSheet.addCell(nameLabel);
+            excelSheet.addCell(superNameLabel);
+            excelSheet.addCell(dateOfBirthLabel);
+            excelSheet.addCell(mobilePhone);
+            excelSheet.addCell(educationLabel);
+            excelSheet.addCell(qualificationLabel);
+            excelSheet.addCell(qualificationCoursesLabel);
+            excelSheet.addCell(teachSubjectsLabel);
+            excelSheet.addCell(teachAtClassesLabel);
+            excelSheet.addCell(teachingHoursLabel);
+            excelSheet.addCell(workingExperienceLabel);
+            excelSheet.addCell(higherEducationLabel);
+            excelSheet.addCell(loginLabel);
+            excelSheet.addCell(passWordLabel);
+            }
+        teachersWBook.write();
+        teachersWBook.close();
     }
 
     @Override
@@ -175,10 +283,8 @@ public class ExcelParser implements Exporter, Importer {
     }
 
     @Override
-    public void createTemplateForTeacher() throws IOException, WriteException, FileNotFoundException {
+    public WritableWorkbook createTemplateForTeacher(WritableWorkbook teachersWBook, WritableSheet excelSheet, String filePath) throws IOException, WriteException, FileNotFoundException {
         try {
-            WritableWorkbook teachersWBook = Workbook.createWorkbook(new File("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Преподавательский).xls"));
-            WritableSheet excelSheet = teachersWBook.createSheet("Лист", 0);
 
             WritableCellFormat cFormat = new WritableCellFormat();
             cFormat.setAlignment(Alignment.CENTRE);
@@ -191,27 +297,53 @@ public class ExcelParser implements Exporter, Importer {
             CellView cellView = new CellView();
             cellView.setSize(20 * dimensionMultiplier);
 
-            Label label = new Label(6, 1, "Квалификационная категория", cFormat);
+            Label label = new Label(7, 1, "Квалификационная категория", cFormat);
             cellView.setSize(30 * dimensionMultiplier);
-            excelSheet.setColumnView(6, cellView);
-            excelSheet.addCell(label);
-
-            label = new Label(7, 1, "Преподает предмет", cFormat);
             excelSheet.setColumnView(7, cellView);
             excelSheet.addCell(label);
 
-            label = new Label(8, 1, "В следующих классах", cFormat);
+            label = new Label(8, 1, "Курсы повышения квалификации", cFormat);
+            cellView.setSize(50 * dimensionMultiplier);
             excelSheet.setColumnView(8, cellView);
             excelSheet.addCell(label);
 
+            label = new Label(9, 1, "Преподает предмет", cFormat);
+            excelSheet.setColumnView(9, cellView);
+            excelSheet.addCell(label);
+
+            label = new Label(10, 1, "В следующих классах", cFormat);
+            excelSheet.setColumnView(10, cellView);
+            excelSheet.addCell(label);
+
+            label = new Label(11, 1, "Учебные часы", cFormat);
+            excelSheet.setColumnView(11, cellView);
+            excelSheet.addCell(label);
+
+            label = new Label(12, 1, "Стаж работы", cFormat);
+            excelSheet.setColumnView(12, cellView);
+            excelSheet.addCell(label);
+
+            label = new Label(13, 1, "Высшее образование", cFormat);
+            excelSheet.setColumnView(13, cellView);
+            excelSheet.addCell(label);
+
+            label = new Label(14, 1, "Логин", cFormat);
+            excelSheet.setColumnView(14, cellView);
+            excelSheet.addCell(label);
+
+            label = new Label(15, 1, "Пароль", cFormat);
+            excelSheet.setColumnView(15, cellView);
+            excelSheet.addCell(label);
+
             teachersWBook.write();
-            teachersWBook.close();
+
+
         } catch (IOException e) {
 
             AlertWarner.showAlert("Предупреждение", "Экспорт шаблона: ", "Вероятно, файл шаблона уже открыт в Microsoft Excel", Alert.AlertType.WARNING);
             e.printStackTrace();
         }
-
+        return teachersWBook;
     }
 
     @Override
@@ -373,6 +505,7 @@ public class ExcelParser implements Exporter, Importer {
             ArrayList<String> teachingClasses;
             ArrayList<String> workingExperience;
             ArrayList<String> teachingHoursList;
+            ArrayList<String> haveHigherEducationList;
 
             Sheet sheet = workbook.getSheet(0);
 
@@ -399,16 +532,25 @@ public class ExcelParser implements Exporter, Importer {
 
             rowCounter = 2;
             workingExperience = readColumns(columnCounter, rowCounter, sheet);
+            columnCounter++;
+
+            rowCounter = 2;
+            haveHigherEducationList = readColumns(columnCounter,rowCounter,sheet);
+            columnCounter++;
 
             ArrayList<LoginStorage> loginStorages = importLoginData(filePath);
 
             for (int i = 0; i < importedTeachers.size(); i++) {
                 importedTeachers.get(i).setTeacherDegree(qualificationCategory.get(i));
-                importedTeachers.get(i).setTeachSubjectsAtClasses(ParserUtils.mapSubjectsWithClasses(teachingSubjects, teachingClasses));
+                importedTeachers.get(i).setTeachSubjectsAtClasses(ParserUtils.mapSubjectsWithClasses(teachingSubjects.get(i), teachingClasses.get(i)));
                 importedTeachers.get(i).setWorkingExperience(workingExperience.get(i));
                 importedTeachers.get(i).setQualificationCourses(ParserUtils.parseEducationString(qualificationCourses.get(i)));
                 importedTeachers.get(i).setWeeklyTeachingHours(Integer.valueOf(teachingHoursList.get(i)));
                 importedTeachers.get(i).setLoginStorage(loginStorages.get(i));
+                if(haveHigherEducationList.get(i).equals("Да") || haveHigherEducationList.get(i).equals("да"))
+                    importedTeachers.get(i).setHaveHigherEducation(true);
+                else
+                    importedTeachers.get(i).setHaveHigherEducation(false);
             }
 
         } catch (IOException e) {

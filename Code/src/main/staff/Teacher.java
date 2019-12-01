@@ -15,6 +15,16 @@ public class Teacher extends Person implements StaffActivity {
     private String workingExperience;
     private ArrayList<String> qualificationCourses;
     private Integer weeklyTeachingHours;
+    private boolean haveHigherEducation;
+
+
+    public void setHaveHigherEducation(boolean haveHigherEducation) {
+        this.haveHigherEducation = haveHigherEducation;
+    }
+
+    public boolean isHaveHigherEducation() {
+        return haveHigherEducation;
+    }
 
     public void setWeeklyTeachingHours(Integer weeklyTeachingHours) {
         this.weeklyTeachingHours = weeklyTeachingHours;

@@ -80,14 +80,14 @@ public class AnalyticScreenController implements Initializable, ControlledScreen
 
     @FXML
     public void generateAnalyticsGraphics() {
-        hoursChargingBar.getData().clear();
-        hoursChargingBar.getData().add(getSeriesDistribution());
-        qualificationDistributionPie.getData().clear();
-        qualificationDistributionPie.setData(getPieChartData());
-        higherEducationDynamicLine.getData().clear();
-        higherEducationDynamicLine.getData().add(getHigherEducationDistribution());
-        higherQualificationDistributionBar.getData().clear();
-        higherQualificationDistributionBar.getData().add(getHigherQualificationDistribution());
+        PieChartCreator pieChartCreator = new PieChartCreator();
+        HoursBarCreator hoursBarCreator = new HoursBarCreator();
+        HigherEducationLineCreator higherEducationLineCreator = new HigherEducationLineCreator();
+        HigherQualificationLineCreator higherQualificationLineCreator = new HigherQualificationLineCreator();
+        pieChartCreator.run();
+        hoursBarCreator.run();
+        higherEducationLineCreator.run();
+        higherQualificationLineCreator.run();
     }
 
     public XYChart.Series<String, Number> getSeriesDistribution() {
@@ -147,5 +147,36 @@ public class AnalyticScreenController implements Initializable, ControlledScreen
 
     }
 
+    public class PieChartCreator implements Runnable {
 
+        @Override
+        public void run() {
+            qualificationDistributionPie.getData().clear();
+            qualificationDistributionPie.setData(getPieChartData());
+        }
+    }
+    public class HoursBarCreator implements  Runnable {
+
+        @Override
+        public void run() {
+            hoursChargingBar.getData().clear();
+            hoursChargingBar.getData().add(getSeriesDistribution());
+        }
+    }
+    public class HigherEducationLineCreator implements Runnable {
+
+        @Override
+        public void run() {
+            higherEducationDynamicLine.getData().clear();
+            higherEducationDynamicLine.getData().add(getHigherEducationDistribution());
+        }
+    }
+    public class HigherQualificationLineCreator implements Runnable {
+
+        @Override
+        public void run() {
+            higherQualificationDistributionBar.getData().clear();
+            higherQualificationDistributionBar.getData().add(getHigherQualificationDistribution());
+        }
+    }
 }

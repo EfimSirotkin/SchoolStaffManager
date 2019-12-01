@@ -3,13 +3,16 @@ package screens;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import jxl.write.WriteException;
 import main.Main;
 import main.databases.PedagogicalDB;
 import main.databases.PersonDB;
+import main.parsers.AlertWarner;
 import main.parsers.ExcelParser;
 import main.parsers.LoginStorage;
 import main.parsers.ParserUtils;
@@ -18,6 +21,7 @@ import main.staff.Teacher;
 
 import javax.xml.soap.Text;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -59,47 +63,63 @@ public class TeacherRegistrationScreen implements Initializable, ControlledScree
         File file = new File("F:\\Code\\SchoolStaffManager\\src\\screens\\res\\logo.jpg");
         Image image = new Image(file.toURI().toString());
         imageView.setImage(image);
-        ExcelParser excelParser = new ExcelParser();
-        personDB = new PersonDB();
-        personDB.appendPedagogicalStaff(excelParser.importPedagogicalTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Преподавательский).xls"));
-        personDB.appendAdministryStaff(excelParser.importAdministryTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Административный).xls"));
-        personDB.appendServiceStaff(excelParser.importServiceStaffTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Обслуживающий).xls"));
+
     }
     @Override
     public void setScreenParent(ScreensController screenParent) {
         myController = screenParent;
     }
     @FXML
-    private void onRegisterButtonClicked(ActionEvent event) {
+    private void onRegisterButtonClicked(ActionEvent event) throws IOException, WriteException {
+        try {
 
-        ExcelParser excelParser = new ExcelParser();
-        PedagogicalDB pedagogicalDB = new PedagogicalDB(excelParser.importPedagogicalTemplate("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Преподавательский).xls"));
+            ExcelParser excelParser = new ExcelParser();
 
-        String name = nameField.getText();
-        String surName = surNameField.getText();
-        String superName = superNameField.getText();
-        String dateOfBirth = dateOfBirthField.getText();
-        String education = educationField.getText();
-        String qualification = qualificationField.getText();
-        String qualificationCourses = qualificationCoursesField.getText();
-        String teachingSubjects = teachingSubjectsField.getText();
-        String teachSubjectAtClasses = teachAtClassesField.getText();
-        String phoneNumber = phoneNumberField.getText();
-        Integer weeklyTeachingHours = Integer.valueOf(weeklyTeachingHoursField.getText());
+            String name = nameField.getText();
+            String surName = surNameField.getText();
+            String superName = superNameField.getText();
+            String dateOfBirth = dateOfBirthField.getText();
+            String education = educationField.getText();
+            String qualification = qualificationField.getText();
+            String qualificationCourses = qualificationCoursesField.getText();
+            String teachingSubjects = teachingSubjectsField.getText();
+            String teachSubjectAtClasses = teachAtClassesField.getText();
+            String phoneNumber = phoneNumberField.getText();
+            Integer weeklyTeachingHours = Integer.valueOf(weeklyTeachingHoursField.getText());
 
-        int loginLength = 8;
-        int passwordNumbersLength = 3;
-        int passwordSymbolsLength = 5;
+            int loginLength = 8;
+            int passwordNumbersLength = 3;
+            int passwordSymbolsLength = 5;
 
-        LoginStorage newLoginData = new LoginStorage(ParserUtils.generateLogin(loginLength), ParserUtils.generatePassword(passwordSymbolsLength,passwordNumbersLength));
+            LoginStorage newLoginData = new LoginStorage(ParserUtils.generateLogin(loginLength), ParserUtils.generatePassword(passwordSymbolsLength, passwordNumbersLength));
 
-        Teacher newTeacher = new Teacher(name, surName, superName, dateOfBirth, ParserUtils.parseEducationString(education), phoneNumber);
-        newTeacher.setWeeklyTeachingHours(weeklyTeachingHours);
-        newTeacher.setTeacherDegree(qualification);
-        newTeacher.setQualificationCourses(ParserUtils.parseEducationString(qualificationCourses));
-        newTeacher.setTeachSubjectsAtClasses(ParserUtils.mapSubjectsWithClasses(ParserUtils.parseEducationString(teachingSubjects), ParserUtils.parseClassesString(teachSubjectAtClasses)));
-        newTeacher.setLoginStorage(newLoginData);
-        pedagogicalDB.addTeacher(newTeacher);
+            Teacher newTeacher = new Teacher(name, surName, superName, dateOfBirth, ParserUtils.parseEducationString(education), phoneNumber);
+            newTeacher.setWeeklyTeachingHours(weeklyTeachingHours);
+            newTeacher.setTeacherDegree(qualification);
+            newTeacher.setQualificationCourses(ParserUtils.parseEducationString(qualificationCourses));
+            newTeacher.setTeachSubjectsAtClasses(ParserUtils.mapSubjectsWithClasses(teachingSubjects, teachSubjectAtClasses));
+            newTeacher.setLoginStorage(newLoginData);
+            newTeacher.setHaveHigherEducation(true);
+            Main.personDB.getPedagogicalDB().addTeacher(newTeacher);
+
+            excelParser.exportTeachers("F:\\Code\\SchoolStaffManager\\res\\Шаблон(Преподавательский12).xls", Main.personDB.getPedagogicalDB());
+
+        }
+        catch (IOException | WriteException e) {
+            AlertWarner.showAlert("Ошибка", "Экспорт шаблона: " +
+                            "Шаблон(Преподавательский).xls","Произошел сбой",
+                    Alert.AlertType.ERROR );
+
+            e.printStackTrace();
+        }
+        finally {
+
+            Stage stage = (Stage) nameField.getScene().getWindow();
+            myController.setScreen(Main.mainScreenID);
+            stage.setMaximized(true);
+        }
+
+
     }
     @FXML
     private void onBackToLoginButtonClicked(ActionEvent event) {

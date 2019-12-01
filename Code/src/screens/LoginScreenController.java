@@ -35,8 +35,7 @@ public class LoginScreenController implements Initializable, ControlledScreen {
     private ScreensController myController;
     private static LoginStorage inputLoginStorage;
     private static boolean isPersonFound = false;
-
-
+    public static boolean isAdministrator = false;
 
 
     @FXML
@@ -71,7 +70,6 @@ public class LoginScreenController implements Initializable, ControlledScreen {
     private void onApplyButtonClicked() {
 
         boolean success = false;
-
         String loginInput = loginTextField.getText();
         String passWordInput = passwordTextField.getText();
         inputLoginStorage = new LoginStorage(loginInput, passWordInput);
@@ -123,6 +121,7 @@ public class LoginScreenController implements Initializable, ControlledScreen {
             for(ServiceWorker serviceWorker : serviceStaffDB.getServiceStaff())
                 if(serviceWorker.checkLoginDataValidity(inputLoginStorage)) {
                     isPersonFound = true;
+
                     AlertWarner.showAlert("Подтверждение", "Авторизация успешна", "Добро пожаловать, " +
                             serviceWorker.getName() +" " + serviceWorker.getSuperName() + "!", Alert.AlertType.INFORMATION);
                     myController.setScreen(Main.mainScreenID);
@@ -138,6 +137,7 @@ public class LoginScreenController implements Initializable, ControlledScreen {
             for(Administrator administrator : administryDB.getAdministryStaff())
                 if(administrator.checkLoginDataValidity(inputLoginStorage)) {
                     isPersonFound = true;
+                    isAdministrator = true;
                     AlertWarner.showAlert("Подтверждение", "Авторизация успешна", "Добро пожаловать, " +
                             administrator.getName() +" " + administrator.getSuperName() + "!", Alert.AlertType.INFORMATION);
                     myController.setScreen(Main.mainScreenID);

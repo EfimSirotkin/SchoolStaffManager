@@ -89,8 +89,7 @@ public class ViewScreenController implements Initializable, ControlledScreen {
         education.setText("Белорусский государственный педагогический университет\n"
                 + "Академия управления при президенте Республики Беларусь");
         qualificationCourses.setText("Институт повышения квалификации работников учреждений образования");
-        SourceStaff sourceStaff;
-        getTableViewStaff();
+
     }
 
     @Override
@@ -103,8 +102,7 @@ public class ViewScreenController implements Initializable, ControlledScreen {
         myController.setScreen(Main.mainScreenID);
     }
 
-    public void getTableViewStaff() {
-    }
+
 
     @FXML
     public void onStaffTypeClicked(ActionEvent actionEvent) {

@@ -39,7 +39,6 @@ public class Main extends Application {
         mainContainer.loadScreen(editScreenID, editScreenFile);
         mainContainer.loadScreen(analyticScreenID, analyticScreenFile);
 
-
         mainContainer.setScreen(loginScreenID);
 
         Group root = new Group();

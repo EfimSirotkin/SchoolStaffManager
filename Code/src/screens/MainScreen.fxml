@@ -49,6 +49,7 @@
                     </padding>
                     <children>
                         <Button
+                                fx:id="editScreenButton"
                                 onAction="#goToEditScreen"
                                 text="Редактировать"
                                 minHeight="100"

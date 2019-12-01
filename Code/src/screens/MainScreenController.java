@@ -3,12 +3,13 @@ package screens;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
+
 import main.Main;
+import main.parsers.AlertWarner;
 
 import java.io.File;
 import java.net.URL;
@@ -16,6 +17,13 @@ import java.util.ResourceBundle;
 
 
 public class MainScreenController implements Initializable, ControlledScreen {
+
+    @FXML
+    public Button editScreenButton;
+    @FXML
+    public Button viewScreenButton;
+    @FXML
+    public Button analyticsScreenButton;
     @FXML
     private ImageView imageView;
     private ScreensController myController;
@@ -43,8 +51,14 @@ public class MainScreenController implements Initializable, ControlledScreen {
     }
 
     @FXML
-    private void goToEditScreen(ActionEvent event) {
+    private void goToEditScreen(ActionEvent event)
+    {
+        if(LoginScreenController.isAdministrator)
         myController.setScreen(Main.editScreenID);
+        else {
+            editScreenButton.setDisable(true);
+            AlertWarner.showAlert("Права доступа", "Редактировать записи могут только работники администрации", "Приносим свои извинения", Alert.AlertType.INFORMATION);
+        }
     }
 
 }

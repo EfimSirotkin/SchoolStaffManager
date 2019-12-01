@@ -1,11 +1,9 @@
 package main.parsers;
 
+
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 public class ParserUtils {
 
@@ -44,11 +42,10 @@ public class ParserUtils {
         return tempList;
     }
 
-    static public HashMap<String, ArrayList<String>> mapSubjectsWithClasses(ArrayList<String> subjects, ArrayList<String> classes) {
+    static public HashMap<String, ArrayList<String>> mapSubjectsWithClasses(String subject, String classes) {
         HashMap<String, ArrayList<String>> tempMap = new HashMap<>();
-        for (int i = 0; i < subjects.size(); i++) {
-            tempMap.put(subjects.get(i), parseClassesString(classes.get(i)));
-        }
+        tempMap.put(subject, parseClassesString(classes));
+
         return tempMap;
     }
 
@@ -134,5 +131,39 @@ public class ParserUtils {
             }
         }
         return null;
+    }
+
+    static public String generateStringFromList(ArrayList<String> eduactionList) {
+        StringBuilder generatedString = new StringBuilder("");
+        for(String education : eduactionList)
+        {
+            generatedString.append(education);
+            generatedString.append(", ");
+        }
+        return generatedString.toString();
+    }
+
+    static public String generateStringFromKeys(HashMap<String, ArrayList<String>> sourceHashMap) {
+        Set<String> keySet = sourceHashMap.keySet();
+        String generatedString = new String("");
+        for(String key : keySet) {
+            generatedString += key;
+            generatedString+= ", ";
+        }
+        return generatedString;
+    }
+
+    static public String generateStringFromValues(HashMap<String, ArrayList<String>> sourceHashMap) {
+
+        String generatedString = "";
+
+       Collection<ArrayList<String>> subjectValues = sourceHashMap.values();
+       for(ArrayList<String> subjectValue: subjectValues)
+           for(String hashString: subjectValue) {
+               generatedString += hashString;
+               generatedString += ", ";
+           }
+
+        return generatedString;
     }
 }

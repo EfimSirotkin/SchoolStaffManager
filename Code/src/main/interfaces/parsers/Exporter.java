@@ -12,9 +12,9 @@ public interface Exporter {
     void exportData();
     void createTemplateForPerson() throws IOException, WriteException;
     void createTemplateForAdministry() throws IOException, WriteException;
-    void createTemplateForTeacher() throws IOException, WriteException;
+    WritableWorkbook createTemplateForTeacher(WritableWorkbook writableWorkbook, WritableSheet excelSheet, String filePath) throws IOException, WriteException;
     void createTemplateForServiceStaff() throws IOException, WriteException;
-    void createDefaultTemplate(WritableWorkbook writableWorkbook,WritableSheet excelSheet, WritableCellFormat writableCellFormat);
+    void createDefaultTemplate(WritableWorkbook writableWorkbook, WritableSheet excelSheet, WritableCellFormat writableCellFormat);
 
-    void exportTeachers(String filePath, PedagogicalDB pedagogicalDB);
+    void exportTeachers(String filePath, PedagogicalDB pedagogicalDB) throws IOException, WriteException;
 }
