@@ -20,7 +20,6 @@ import main.parsers.LoginStorage;
 import main.parsers.ParserUtils;
 import main.staff.Teacher;
 
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -154,7 +153,8 @@ public class TeacherRegistrationScreen implements Initializable, ControlledScree
             newTeacher.setHaveHigherEducation(true);
             Main.personDB.getPedagogicalDB().addTeacher(newTeacher);
 
-            excelParser.exportTeachers("res/Шаблон(Преподавательский12).xls");
+            excelParser.exportTeachers("res/Шаблон(Преподавательский).xls");
+            AlertWarner.showAlert("Регистрация", "Добро пожаловать!", "Вы успешно зарегистрированы в системе" , Alert.AlertType.INFORMATION);
 
         }
         catch (IOException | WriteException e) {

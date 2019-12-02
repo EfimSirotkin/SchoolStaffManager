@@ -203,7 +203,7 @@
                 <TableView fx:id="staffTable" onMouseClicked="#clickTableViewItem" maxWidth="930" minHeight="600">
                 </TableView>
                 <HBox spacing="410">
-                    <Button fx:id="importFromExcel" text="Импортировать из Excel" minWidth="200" style="-fx-background-color: #7ebf7f"
+                    <Button fx:id="importFromExcel" text="Импортировать из Excel" onAction="#onImportDataFromExcelClicked" minWidth="200" style="-fx-background-color: #7ebf7f"
                             disable="true">
                         <font>
                             <Font name="Verdana Bold" size="15"/>

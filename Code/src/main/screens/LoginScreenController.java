@@ -63,8 +63,28 @@ public class LoginScreenController implements Initializable, ControlledScreen {
     @FXML
     private void onApplyButtonClicked() {
 
+        String errorStyle = "-fx-background-color: #eb9b9b";
+        String defaultStyle = "-fx-background-color: #ffffff";
+        loginTextField.setStyle(defaultStyle);
+        passwordTextField.setStyle(defaultStyle);
+
         String loginInput = loginTextField.getText();
         String passWordInput = passwordTextField.getText();
+
+
+        boolean isLoginEmpty = loginInput.equals("");
+        boolean isPasswordEmpty = passWordInput.equals("");
+
+        if(isLoginEmpty || isPasswordEmpty) {
+            AlertWarner.showAlert("Ошибка авторизации", "Авторизация неуспешна", "Поля не заполнены", Alert.AlertType.ERROR);
+
+            if(isLoginEmpty)
+                loginTextField.setStyle(errorStyle);
+            if(isPasswordEmpty)
+                passwordTextField.setStyle(errorStyle);
+            return;
+        }
+
         inputLoginStorage = new LoginStorage(loginInput, passWordInput);
         TeacherFinder teacherFinder = new TeacherFinder();
         ServiceStaffFinder serviceStaffFinder = new ServiceStaffFinder();

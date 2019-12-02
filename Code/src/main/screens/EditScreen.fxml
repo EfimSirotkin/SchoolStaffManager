@@ -233,7 +233,7 @@
                             <Font name="Verdana Bold" size="15"/>
                         </font>
                     </Button>
-                    <Button text="Экспортировать в Excel" style="-fx-background-color: #d1c821" fx:id="exportToExcelButton" minWidth="200">
+                    <Button text="Экспортировать в Excel" style="-fx-background-color: #d1c821" onAction="#onExportDataButtonClicked" fx:id="exportToExcelButton" minWidth="200">
                         <font>
                             <Font name="Verdana Bold" size="15"/>
                         </font>

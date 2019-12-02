@@ -13,6 +13,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 import jxl.write.WriteException;
 import main.Main;
@@ -132,6 +133,9 @@ public class EditScreenController implements Initializable, ControlledScreen {
 
         if (actionEvent.getSource().equals(pedagogicalButton)) {
             pedagogicalButton.setStyle(colorStyle);
+            administryButton.setStyle(whiteStyle);
+            serviceStaffButton.setStyle(whiteStyle);
+
             sourceStaff = ViewScreenController.SourceStaff.PEDAGOGICAL;
             Main.personDB.setPedagogicalDB(new PedagogicalDB(excelParser.importPedagogicalTemplate("res/Шаблон(Преподавательский).xls")));
             ObservableList<Person> observableList = FXCollections.observableArrayList(Main.personDB.getPedagogicalDB().getPedagogicalStaff());
@@ -320,7 +324,7 @@ public class EditScreenController implements Initializable, ControlledScreen {
         if(sourceStaff == ViewScreenController.SourceStaff.PEDAGOGICAL) {
             Main.personDB.getPedagogicalDB().getPedagogicalStaff().remove(Main.personDB.getPedagogicalDB().findTeacher(personSurName, personName, personSuperName, personDateOfBirth));
             ExcelParser excelParser = new ExcelParser();
-            excelParser.exportTeachers("res/Шаблон(Преподавательский1234).xls");
+            excelParser.exportTeachers("res/Шаблон(Преподавательский).xls");
             AlertWarner.showAlert("Удаление записи", "Запись о " + personName + " " + personSuperName, "Запись удалена", Alert.AlertType.INFORMATION);
         }
 
@@ -331,7 +335,7 @@ public class EditScreenController implements Initializable, ControlledScreen {
         if(sourceStaff == ViewScreenController.SourceStaff.SERVICESTAFF) {
             Main.personDB.getServiceStaffDB().getServiceStaff().remove(Main.personDB.getServiceStaffDB().findServiceWorker(personSurName, personName, personSuperName, personDateOfBirth));
             ExcelParser excelParser = new ExcelParser();
-            excelParser.exportTeachers("res/Шаблон(Обслуживающий1234).xls");
+            excelParser.exportServiceWorkers("res/Шаблон(Обслуживающий).xls");
             AlertWarner.showAlert("Удаление записи", "Запись о " + personName + " " + personSuperName, "Запись удалена", Alert.AlertType.INFORMATION);
         }
     }
@@ -347,6 +351,28 @@ public class EditScreenController implements Initializable, ControlledScreen {
         sendMessageStage.setScene(scene);
         sendMessageStage.setAlwaysOnTop(true);
         sendMessageStage.show();
+    }
+
+    @FXML
+    private void onExportDataButtonClicked() throws IOException, WriteException {
+        ExcelParser excelParser = new ExcelParser();
+        String filePath;
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        File selectedDirectory = directoryChooser.showDialog(null);
+        filePath = selectedDirectory.getAbsolutePath();
+
+        if(sourceStaff == ViewScreenController.SourceStaff.PEDAGOGICAL) {
+            excelParser.exportTeachers(filePath+"/Шаблон(Экспорт педагогический).xls");
+        }
+
+        if(sourceStaff == ViewScreenController.SourceStaff.ADMINISTRATION) {
+            excelParser.exportAdministration(filePath+"/Шаблон(Экспорт административный).xls");
+        }
+
+        if(sourceStaff == ViewScreenController.SourceStaff.SERVICESTAFF) {
+            excelParser.exportServiceWorkers(filePath+"/Шаблон(Экспорт обслуживающий).xls");
+        }
+        AlertWarner.showAlert("Экспорт состава учреждения", "Экспорт успешен", "", Alert.AlertType.INFORMATION);
     }
 
 

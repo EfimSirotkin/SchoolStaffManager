@@ -251,9 +251,9 @@ public class ExcelParser implements Exporter, Importer {
 
         for(int i = 0; i < administratorsToExportSize; ++i) {
             Administrator currentAdministrator = administratorsToExport.get(i);
-            superNameLabel = new Label(1, STARTING_ROW + i, currentAdministrator.getSuperName());
+            surNameLabel = new Label(1, STARTING_ROW + i, currentAdministrator.getSurname());
             nameLabel = new Label(2, STARTING_ROW + i, currentAdministrator.getName());
-            surNameLabel = new Label(3, STARTING_ROW + i, currentAdministrator.getSurname());
+            superNameLabel = new Label(3, STARTING_ROW + i, currentAdministrator.getSuperName());
             dateOfBirthLabel = new Label(4, STARTING_ROW + i, currentAdministrator.getDateOfBirth());
             educationLabel = new Label(5, STARTING_ROW + i, ParserUtils.generateStringFromList(currentAdministrator.getEducation()));
             mobilePhoneLabel = new Label(6, STARTING_ROW + i, currentAdministrator.getPhoneNumber());

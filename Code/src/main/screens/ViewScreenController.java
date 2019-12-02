@@ -14,6 +14,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import jxl.write.WriteException;
 import main.Main;
@@ -298,6 +299,54 @@ public class ViewScreenController implements Initializable, ControlledScreen {
             excelParser.exportServiceWorkers(filePath+"/Шаблон(Экспорт обслуживающий).xls");
         }
         AlertWarner.showAlert("Экспорт состава учреждения", "Экспорт успешен", "", Alert.AlertType.INFORMATION);
+    }
+
+    @FXML
+    private void onImportDataFromExcelClicked() {
+        ExcelParser excelParser = new ExcelParser();
+        String filePath;
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Excel Files", "*.xls"),
+                new FileChooser.ExtensionFilter("All Files", "*.*"));
+        File selectedFile = fileChooser.showOpenDialog(null);
+        filePath = selectedFile.getAbsolutePath();
+
+        if(sourceStaff == ViewScreenController.SourceStaff.PEDAGOGICAL) {
+            Main.personDB.setPedagogicalDB(new PedagogicalDB(excelParser.importPedagogicalTemplate(filePath)));
+//            administryButton.setStyle(whiteStyle);
+//            pedagogicalButton.setStyle(colorStyle);
+//            serviceStaffButton.setStyle(whiteStyle);
+            ObservableList<Person> observableList = FXCollections.observableArrayList(Main.personDB.getPedagogicalDB().getPedagogicalStaff());
+            staffTable.getColumns().clear();
+            staffTable.setItems(FXCollections.observableArrayList(observableList));
+            putDataIntoTableView();
+        }
+
+        if(sourceStaff == SourceStaff.ADMINISTRATION) {
+            Main.personDB.setAdministryDB(new AdministryDB(excelParser.importAdministryTemplate(filePath)));
+//            administryButton.setStyle(colorStyle);
+//            pedagogicalButton.setStyle(whiteStyle);
+//            serviceStaffButton.setStyle(whiteStyle);
+            ObservableList<Person> observableList = FXCollections.observableArrayList(Main.personDB.getAdministryDB().getAdministryStaff());
+            staffTable.getColumns().clear();
+            staffTable.setItems(FXCollections.observableArrayList(observableList));
+            putDataIntoTableView();
+        }
+
+        if(sourceStaff == SourceStaff.SERVICESTAFF) {
+//            administryButton.setStyle(whiteStyle);
+//            pedagogicalButton.setStyle(whiteStyle);
+//            serviceStaffButton.setStyle(colorStyle);
+            Main.personDB.setServiceStaffDB(new ServiceStaffDB(excelParser.importServiceStaffTemplate(filePath)));
+            ObservableList<Person> observableList = FXCollections.observableArrayList(Main.personDB.getServiceStaffDB().getServiceStaff());
+            staffTable.getColumns().clear();
+            staffTable.setItems(FXCollections.observableArrayList(observableList));
+            putDataIntoTableView();
+        }
+
     }
 }
 
