@@ -16,7 +16,7 @@ public class Main extends Application {
     public static String viewScreenID = "View";
     public static String viewScreenFile = "ViewScreen.fxml";
     public static String editScreenID = "Edit";
-    public static String editScreenFile= "EditScreen.fxml";
+    public static String editScreenFile = "EditScreen.fxml";
     public static String loginScreenID = "Login";
     public static String loginScreenFile = "LoginScreen.fxml";
     public static String registrationTeacherScreenID = "teacherRegistration";

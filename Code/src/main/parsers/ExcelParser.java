@@ -1,6 +1,5 @@
 package main.parsers;
 
-import com.sun.corba.se.spi.orbutil.threadpool.Work;
 import javafx.scene.control.Alert;
 import javafx.stage.DirectoryChooser;
 import jxl.Cell;
@@ -8,14 +7,10 @@ import jxl.CellView;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.format.Alignment;
-
 import jxl.format.VerticalAlignment;
 import jxl.read.biff.BiffException;
 import jxl.write.*;
-import jxl.write.Number;
 import main.Main;
-import main.databases.PedagogicalDB;
-import main.databases.ServiceStaffDB;
 import main.interfaces.parsers.Exporter;
 import main.interfaces.parsers.Importer;
 import main.staff.*;
@@ -23,9 +18,7 @@ import main.staff.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -39,7 +32,7 @@ public class ExcelParser implements Exporter, Importer {
     }
 
     @Override
-    public void createDefaultTemplate(WritableWorkbook writableWorkbook,WritableSheet excelSheet, WritableCellFormat writableCellFormat) {
+    public void createDefaultTemplate(WritableWorkbook writableWorkbook, WritableSheet excelSheet, WritableCellFormat writableCellFormat) {
 
         try {
             CellView cellView = new CellView();
@@ -146,9 +139,9 @@ public class ExcelParser implements Exporter, Importer {
         Label loginLabel;
         Label passWordLabel;
 
-        for(int i = 0; i < serviceWorkersToExportSize; ++i) {
+        for (int i = 0; i < serviceWorkersToExportSize; ++i) {
             ServiceWorker currentServiceWorker = serviceWorkersToExport.get(i);
-            surNameLabel = new Label(1 , STARTING_ROW + i, currentServiceWorker.getSurname());
+            surNameLabel = new Label(1, STARTING_ROW + i, currentServiceWorker.getSurname());
             nameLabel = new Label(2, STARTING_ROW + i, currentServiceWorker.getName());
             superNameLabel = new Label(3, STARTING_ROW + i, currentServiceWorker.getSuperName());
             dateOfBirthLabel = new Label(4, STARTING_ROW + i, currentServiceWorker.getDateOfBirth());
@@ -157,10 +150,10 @@ public class ExcelParser implements Exporter, Importer {
             specializationLabel = new Label(7, STARTING_ROW + i, currentServiceWorker.getTypeOfWork());
             degreeLabel = new Label(8, STARTING_ROW + i, currentServiceWorker.getWorkRank());
             responsibilityZoneLabel = new Label(9, STARTING_ROW + i, currentServiceWorker.getResponsibilityZone());
-            if(currentServiceWorker.isInstrumentsNeeded())
+            if (currentServiceWorker.isInstrumentsNeeded())
                 isInventoryNeededLabel = new Label(10, STARTING_ROW + i, "да");
             else
-                isInventoryNeededLabel = new Label(10,STARTING_ROW + i, "нет");
+                isInventoryNeededLabel = new Label(10, STARTING_ROW + i, "нет");
             loginLabel = new Label(14, STARTING_ROW + i, currentServiceWorker.getLoginStorage().getLogin());
             passWordLabel = new Label(15, STARTING_ROW + i, currentServiceWorker.getLoginStorage().getPassword());
 
@@ -185,7 +178,7 @@ public class ExcelParser implements Exporter, Importer {
     @Override
     public void exportAdministration(String filePath) throws IOException, WriteException {
         WritableWorkbook administrationWBook = Workbook.createWorkbook(new File(filePath));
-        WritableSheet excelSheet =  administrationWBook.createSheet("Sheet 1", 0);
+        WritableSheet excelSheet = administrationWBook.createSheet("Sheet 1", 0);
 
         WritableCellFormat cFormat = new WritableCellFormat();
         cFormat.setAlignment(Alignment.CENTRE);
@@ -249,7 +242,7 @@ public class ExcelParser implements Exporter, Importer {
         Label loginLabel;
         Label passWordLabel;
 
-        for(int i = 0; i < administratorsToExportSize; ++i) {
+        for (int i = 0; i < administratorsToExportSize; ++i) {
             Administrator currentAdministrator = administratorsToExport.get(i);
             surNameLabel = new Label(1, STARTING_ROW + i, currentAdministrator.getSurname());
             nameLabel = new Label(2, STARTING_ROW + i, currentAdministrator.getName());
@@ -376,7 +369,7 @@ public class ExcelParser implements Exporter, Importer {
         Label loginLabel;
         Label passWordLabel;
 
-        for(int i = 0; i < teachersNumberToExport; ++i) {
+        for (int i = 0; i < teachersNumberToExport; ++i) {
             Teacher currentTeacher = teachersToExport.get(i);
             HashMap<String, ArrayList<String>> hashMap = currentTeacher.getTeachSubjectsAtClasses();
             surNameLabel = new Label(1, STARTING_ROW + i, currentTeacher.getSurname());
@@ -389,12 +382,12 @@ public class ExcelParser implements Exporter, Importer {
             qualificationCoursesLabel = new Label(8, STARTING_ROW + i, ParserUtils.generateStringFromList(currentTeacher.getQualificationCourses()));
             teachSubjectsLabel = new Label(9, STARTING_ROW + i, ParserUtils.generateStringFromKeys(currentTeacher.getTeachSubjectsAtClasses()));
             teachAtClassesLabel = new Label(10, STARTING_ROW + i, ParserUtils.generateStringFromValues(currentTeacher.getTeachSubjectsAtClasses()));
-            teachingHoursLabel = new Label(11, STARTING_ROW +i, currentTeacher.getWeeklyTeachingHours().toString());
+            teachingHoursLabel = new Label(11, STARTING_ROW + i, currentTeacher.getWeeklyTeachingHours().toString());
             workingExperienceLabel = new Label(12, STARTING_ROW + i, currentTeacher.getWorkingExperience());
-            if(currentTeacher.isHaveHigherEducation())
+            if (currentTeacher.isHaveHigherEducation())
                 higherEducationLabel = new Label(13, STARTING_ROW + i, "Да");
             else
-                higherEducationLabel = new Label(13, STARTING_ROW +i, "Нет");
+                higherEducationLabel = new Label(13, STARTING_ROW + i, "Нет");
             loginLabel = new Label(14, STARTING_ROW + i, currentTeacher.getLoginStorage().getLogin());
             passWordLabel = new Label(15, STARTING_ROW + i, currentTeacher.getLoginStorage().getPassword());
 
@@ -413,7 +406,7 @@ public class ExcelParser implements Exporter, Importer {
             excelSheet.addCell(higherEducationLabel);
             excelSheet.addCell(loginLabel);
             excelSheet.addCell(passWordLabel);
-            }
+        }
         teachersWBook.write();
         teachersWBook.close();
     }
@@ -438,15 +431,15 @@ public class ExcelParser implements Exporter, Importer {
                 personWBook.close();
             } else {
                 AlertWarner.showAlert("Предупреждение", "Экспорт шаблона: " +
-                                "Шаблон(Пользовательский).xls","Вероятно, файл шаблона уже открыт в Microsoft Excel",
-                        Alert.AlertType.WARNING );
+                                "Шаблон(Пользовательский).xls", "Вероятно, файл шаблона уже открыт в Microsoft Excel",
+                        Alert.AlertType.WARNING);
             }
 
         } catch (IOException e) {
 
             AlertWarner.showAlert("Предупреждение", "Экспорт шаблона: " +
-                    "Шаблон(Пользовательский).xls","Вероятно, файл шаблона уже открыт в Microsoft Excel",
-                    Alert.AlertType.WARNING );
+                            "Шаблон(Пользовательский).xls", "Вероятно, файл шаблона уже открыт в Microsoft Excel",
+                    Alert.AlertType.WARNING);
 
             e.printStackTrace();
         }
@@ -597,11 +590,6 @@ public class ExcelParser implements Exporter, Importer {
     }
 
     @Override
-    public void importData() {
-
-    }
-
-    @Override
     public ArrayList<Person> importPersonTemplate(String filePath) {
         Workbook workbook;
         ArrayList<Person> importedPersons = new ArrayList<>();
@@ -740,7 +728,7 @@ public class ExcelParser implements Exporter, Importer {
             columnCounter++;
 
             rowCounter = 2;
-            haveHigherEducationList = readColumns(columnCounter,rowCounter,sheet);
+            haveHigherEducationList = readColumns(columnCounter, rowCounter, sheet);
             columnCounter++;
 
             ArrayList<LoginStorage> loginStorages = importLoginData(filePath);
@@ -752,7 +740,7 @@ public class ExcelParser implements Exporter, Importer {
                 importedTeachers.get(i).setQualificationCourses(ParserUtils.parseEducationString(qualificationCourses.get(i)));
                 importedTeachers.get(i).setWeeklyTeachingHours(Integer.valueOf(teachingHoursList.get(i)));
                 importedTeachers.get(i).setLoginStorage(loginStorages.get(i));
-                if(haveHigherEducationList.get(i).equals("Да") || haveHigherEducationList.get(i).equals("да"))
+                if (haveHigherEducationList.get(i).equals("Да") || haveHigherEducationList.get(i).equals("да"))
                     importedTeachers.get(i).setHaveHigherEducation(true);
                 else
                     importedTeachers.get(i).setHaveHigherEducation(false);
@@ -849,6 +837,7 @@ public class ExcelParser implements Exporter, Importer {
         }
         return teacherStatistics;
     }
+
     @Override
     public ArrayList<LoginStorage> importLoginData(String filePath) throws IOException, BiffException {
 
@@ -866,11 +855,11 @@ public class ExcelParser implements Exporter, Importer {
             columnCounter++;
             passwordList = readColumns(columnCounter, rowCounter, sheet);
 
-            for(int i = 0; i < loginList.size(); i++)
+            for (int i = 0; i < loginList.size(); i++)
                 loginStorages.add(new LoginStorage(loginList.get(i), passwordList.get(i)));
             return loginStorages;
 
-        }catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         } catch (BiffException e) {
             e.printStackTrace();
@@ -891,6 +880,7 @@ public class ExcelParser implements Exporter, Importer {
         }
         return tempDataList;
     }
+
     public void writeTeacherColumns(ArrayList<Teacher> teachers, int columnNumber, int rowNumber, Sheet sheet) {
 
         ArrayList<String> surNameList = new ArrayList<>();
@@ -908,7 +898,7 @@ public class ExcelParser implements Exporter, Importer {
         HashMap<String, ArrayList<String>> teachSubjectsAtClasses = new HashMap<>();
         int iterator = 0;
 
-        for(Teacher teacher : teachers) {
+        for (Teacher teacher : teachers) {
 
             teachSubjectsAtClasses = teacher.getTeachSubjectsAtClasses();
             Set<String> teachingSubjects = teachSubjectsAtClasses.keySet();
@@ -924,9 +914,8 @@ public class ExcelParser implements Exporter, Importer {
             qualificationCoursesList.add(teacher.getQualificationCourses());
 
             ArrayList<String> teacherTeachingSubjects = new ArrayList<String>();
-            for(String subject : teachingSubjects)
+            for (String subject : teachingSubjects)
                 teacherTeachingSubjects.add(subject + ",");
-
 
 
         }

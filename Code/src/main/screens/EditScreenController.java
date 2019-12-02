@@ -125,6 +125,7 @@ public class EditScreenController implements Initializable, ControlledScreen {
 
     public void getTableViewStaff() {
     }
+
     @FXML
     public void onStaffTypeClicked(ActionEvent actionEvent) {
         exportToExcelButton.setDisable(false);
@@ -185,7 +186,7 @@ public class EditScreenController implements Initializable, ControlledScreen {
 
             if (sourceStaff == ViewScreenController.SourceStaff.PEDAGOGICAL) {
 
-                Teacher selectedTeacher = Main.personDB.getPedagogicalDB().findTeacher(surName, name,superName, dateOfBirth);
+                Teacher selectedTeacher = Main.personDB.getPedagogicalDB().findTeacher(surName, name, superName, dateOfBirth);
                 if (selectedTeacher != null) {
                     fullName.setText(getFullName());
                     education.setText(generateEducationString(staffTable.getSelectionModel().getSelectedItem().getEducation()));
@@ -226,8 +227,7 @@ public class EditScreenController implements Initializable, ControlledScreen {
             }
         }
 
-        if (event.getClickCount() == 1)
-        {
+        if (event.getClickCount() == 1) {
             editRecordButton.setDisable(false);
             sendMessageButton.setDisable(false);
             deleteRecordButton.setDisable(false);
@@ -244,7 +244,7 @@ public class EditScreenController implements Initializable, ControlledScreen {
         String personDateOfBirth = staffTable.getSelectionModel().getSelectedItem().getDateOfBirth();
 
         try {
-            if(sourceStaff == ViewScreenController.SourceStaff.PEDAGOGICAL) {
+            if (sourceStaff == ViewScreenController.SourceStaff.PEDAGOGICAL) {
                 if ((foundTeacher = Main.personDB.getPedagogicalDB().findTeacher(personSurName, personName, personSuperName, personDateOfBirth)) != null) {
                     Stage editTeacherStage = new Stage();
                     Parent root = FXMLLoader.load(getClass().getResource("EditTeacherRecordScreen.fxml"));
@@ -259,14 +259,13 @@ public class EditScreenController implements Initializable, ControlledScreen {
             if ((foundAdministrator = Main.personDB.getAdministryDB().findAdministrator(personSurName, personName, personSuperName, personDateOfBirth)) != null) {
                 System.out.println(foundAdministrator.getName());
             }
-            if(sourceStaff == ViewScreenController.SourceStaff.SERVICESTAFF) {
+            if (sourceStaff == ViewScreenController.SourceStaff.SERVICESTAFF) {
                 if ((foundServiceWorker = Main.personDB.getServiceStaffDB().findServiceWorker(personSurName, personName, personSuperName, personDateOfBirth)) != null) {
                     System.out.println(foundServiceWorker.getName());
                 }
             }
 
-        }catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -321,18 +320,18 @@ public class EditScreenController implements Initializable, ControlledScreen {
         String personSuperName = staffTable.getSelectionModel().getSelectedItem().getSuperName();
         String personDateOfBirth = staffTable.getSelectionModel().getSelectedItem().getDateOfBirth();
 
-        if(sourceStaff == ViewScreenController.SourceStaff.PEDAGOGICAL) {
+        if (sourceStaff == ViewScreenController.SourceStaff.PEDAGOGICAL) {
             Main.personDB.getPedagogicalDB().getPedagogicalStaff().remove(Main.personDB.getPedagogicalDB().findTeacher(personSurName, personName, personSuperName, personDateOfBirth));
             ExcelParser excelParser = new ExcelParser();
             excelParser.exportTeachers("res/Шаблон(Преподавательский).xls");
             AlertWarner.showAlert("Удаление записи", "Запись о " + personName + " " + personSuperName, "Запись удалена", Alert.AlertType.INFORMATION);
         }
 
-        if(sourceStaff == ViewScreenController.SourceStaff.ADMINISTRATION) {
+        if (sourceStaff == ViewScreenController.SourceStaff.ADMINISTRATION) {
             AlertWarner.showAlert("Запрет операции", "Удаление записей об административных работниках:", "Операция запрещена", Alert.AlertType.ERROR);
         }
 
-        if(sourceStaff == ViewScreenController.SourceStaff.SERVICESTAFF) {
+        if (sourceStaff == ViewScreenController.SourceStaff.SERVICESTAFF) {
             Main.personDB.getServiceStaffDB().getServiceStaff().remove(Main.personDB.getServiceStaffDB().findServiceWorker(personSurName, personName, personSuperName, personDateOfBirth));
             ExcelParser excelParser = new ExcelParser();
             excelParser.exportServiceWorkers("res/Шаблон(Обслуживающий).xls");
@@ -361,16 +360,16 @@ public class EditScreenController implements Initializable, ControlledScreen {
         File selectedDirectory = directoryChooser.showDialog(null);
         filePath = selectedDirectory.getAbsolutePath();
 
-        if(sourceStaff == ViewScreenController.SourceStaff.PEDAGOGICAL) {
-            excelParser.exportTeachers(filePath+"/Шаблон(Экспорт педагогический).xls");
+        if (sourceStaff == ViewScreenController.SourceStaff.PEDAGOGICAL) {
+            excelParser.exportTeachers(filePath + "/Шаблон(Экспорт педагогический).xls");
         }
 
-        if(sourceStaff == ViewScreenController.SourceStaff.ADMINISTRATION) {
-            excelParser.exportAdministration(filePath+"/Шаблон(Экспорт административный).xls");
+        if (sourceStaff == ViewScreenController.SourceStaff.ADMINISTRATION) {
+            excelParser.exportAdministration(filePath + "/Шаблон(Экспорт административный).xls");
         }
 
-        if(sourceStaff == ViewScreenController.SourceStaff.SERVICESTAFF) {
-            excelParser.exportServiceWorkers(filePath+"/Шаблон(Экспорт обслуживающий).xls");
+        if (sourceStaff == ViewScreenController.SourceStaff.SERVICESTAFF) {
+            excelParser.exportServiceWorkers(filePath + "/Шаблон(Экспорт обслуживающий).xls");
         }
         AlertWarner.showAlert("Экспорт состава учреждения", "Экспорт успешен", "", Alert.AlertType.INFORMATION);
     }

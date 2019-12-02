@@ -114,7 +114,6 @@ public class ViewScreenController implements Initializable, ControlledScreen {
     }
 
 
-
     @FXML
     public void onStaffTypeClicked(ActionEvent actionEvent) {
         exportToExcelButton.setDisable(false);
@@ -178,7 +177,7 @@ public class ViewScreenController implements Initializable, ControlledScreen {
             String dateOfBirth = staffTable.getSelectionModel().getSelectedItem().getDateOfBirth();
 
             if (sourceStaff == ViewScreenController.SourceStaff.PEDAGOGICAL) {
-                Teacher selectedTeacher = Main.personDB.getPedagogicalDB().findTeacher(surName, name,superName, dateOfBirth);
+                Teacher selectedTeacher = Main.personDB.getPedagogicalDB().findTeacher(surName, name, superName, dateOfBirth);
                 if (selectedTeacher != null) {
                     fullName.setText(getFullName());
                     education.setText(generateEducationString(staffTable.getSelectionModel().getSelectedItem().getEducation()));
@@ -190,7 +189,7 @@ public class ViewScreenController implements Initializable, ControlledScreen {
                     workingExperience.setText("Стаж работы: " + selectedTeacher.getWorkingExperience() + " лет");
                 }
             } else if (sourceStaff == ViewScreenController.SourceStaff.ADMINISTRATION) {
-                Administrator selectedAdministrator = Main.personDB.getAdministryDB().findAdministrator(surName, name,superName, dateOfBirth);
+                Administrator selectedAdministrator = Main.personDB.getAdministryDB().findAdministrator(surName, name, superName, dateOfBirth);
                 if (selectedAdministrator != null) {
                     fullName.setText(getFullName());
                     education.setText(generateEducationString(staffTable.getSelectionModel().getSelectedItem().getEducation()));
@@ -205,7 +204,7 @@ public class ViewScreenController implements Initializable, ControlledScreen {
                     workingExperience.setText("Стаж работы: " + "актуален для преподавателей");
                 }
             } else if (sourceStaff == ViewScreenController.SourceStaff.SERVICESTAFF) {
-                ServiceWorker selectedServiceWorker = Main.personDB.getServiceStaffDB().findServiceWorker(surName, name,superName, dateOfBirth);
+                ServiceWorker selectedServiceWorker = Main.personDB.getServiceStaffDB().findServiceWorker(surName, name, superName, dateOfBirth);
                 if (selectedServiceWorker != null) {
                     fullName.setText(getFullName());
                     education.setText(generateEducationString(staffTable.getSelectionModel().getSelectedItem().getEducation()));
@@ -217,7 +216,7 @@ public class ViewScreenController implements Initializable, ControlledScreen {
             }
         }
 
-        if(event.getClickCount() == 1) {
+        if (event.getClickCount() == 1) {
             sendMessageButton.setDisable(false);
         }
     }
@@ -287,16 +286,16 @@ public class ViewScreenController implements Initializable, ControlledScreen {
         File selectedDirectory = directoryChooser.showDialog(null);
         filePath = selectedDirectory.getAbsolutePath();
 
-        if(sourceStaff == ViewScreenController.SourceStaff.PEDAGOGICAL) {
-            excelParser.exportTeachers(filePath+"/Шаблон(Экспорт педагогический).xls");
+        if (sourceStaff == ViewScreenController.SourceStaff.PEDAGOGICAL) {
+            excelParser.exportTeachers(filePath + "/Шаблон(Экспорт педагогический).xls");
         }
 
-        if(sourceStaff == SourceStaff.ADMINISTRATION) {
-            excelParser.exportAdministration(filePath+"/Шаблон(Экспорт административный).xls");
+        if (sourceStaff == SourceStaff.ADMINISTRATION) {
+            excelParser.exportAdministration(filePath + "/Шаблон(Экспорт административный).xls");
         }
 
-        if(sourceStaff == SourceStaff.SERVICESTAFF) {
-            excelParser.exportServiceWorkers(filePath+"/Шаблон(Экспорт обслуживающий).xls");
+        if (sourceStaff == SourceStaff.SERVICESTAFF) {
+            excelParser.exportServiceWorkers(filePath + "/Шаблон(Экспорт обслуживающий).xls");
         }
         AlertWarner.showAlert("Экспорт состава учреждения", "Экспорт успешен", "", Alert.AlertType.INFORMATION);
     }
@@ -314,32 +313,23 @@ public class ViewScreenController implements Initializable, ControlledScreen {
         File selectedFile = fileChooser.showOpenDialog(null);
         filePath = selectedFile.getAbsolutePath();
 
-        if(sourceStaff == ViewScreenController.SourceStaff.PEDAGOGICAL) {
+        if (sourceStaff == ViewScreenController.SourceStaff.PEDAGOGICAL) {
             Main.personDB.setPedagogicalDB(new PedagogicalDB(excelParser.importPedagogicalTemplate(filePath)));
-//            administryButton.setStyle(whiteStyle);
-//            pedagogicalButton.setStyle(colorStyle);
-//            serviceStaffButton.setStyle(whiteStyle);
             ObservableList<Person> observableList = FXCollections.observableArrayList(Main.personDB.getPedagogicalDB().getPedagogicalStaff());
             staffTable.getColumns().clear();
             staffTable.setItems(FXCollections.observableArrayList(observableList));
             putDataIntoTableView();
         }
 
-        if(sourceStaff == SourceStaff.ADMINISTRATION) {
+        if (sourceStaff == SourceStaff.ADMINISTRATION) {
             Main.personDB.setAdministryDB(new AdministryDB(excelParser.importAdministryTemplate(filePath)));
-//            administryButton.setStyle(colorStyle);
-//            pedagogicalButton.setStyle(whiteStyle);
-//            serviceStaffButton.setStyle(whiteStyle);
             ObservableList<Person> observableList = FXCollections.observableArrayList(Main.personDB.getAdministryDB().getAdministryStaff());
             staffTable.getColumns().clear();
             staffTable.setItems(FXCollections.observableArrayList(observableList));
             putDataIntoTableView();
         }
 
-        if(sourceStaff == SourceStaff.SERVICESTAFF) {
-//            administryButton.setStyle(whiteStyle);
-//            pedagogicalButton.setStyle(whiteStyle);
-//            serviceStaffButton.setStyle(colorStyle);
+        if (sourceStaff == SourceStaff.SERVICESTAFF) {
             Main.personDB.setServiceStaffDB(new ServiceStaffDB(excelParser.importServiceStaffTemplate(filePath)));
             ObservableList<Person> observableList = FXCollections.observableArrayList(Main.personDB.getServiceStaffDB().getServiceStaff());
             staffTable.getColumns().clear();

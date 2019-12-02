@@ -46,6 +46,7 @@ public class SendMessageScreenController implements Initializable {
         Stage stage = (Stage) imageView.getScene().getWindow();
         stage.close();
     }
+
     @FXML
     private void onSendMessageButtonClicked() throws MessagingException {
         Stage stage = (Stage) imageView.getScene().getWindow();
@@ -54,12 +55,11 @@ public class SendMessageScreenController implements Initializable {
         String messageMainText = messageMainTextField.getText();
         String host = "localhost";
 
-        if(!messageTheme.equals("") || !messageMainText.equals("")) {
+        if (!messageTheme.equals("") || !messageMainText.equals("")) {
             MailSender mailSender = new MailSender(senderAddress.getText(), receiverAddress.getText(), host);
             mailSender.setMessage(new CustomMessage(messageTheme, messageMainText));
             mailSender.sendMailMessage();
-        }
-        else {
+        } else {
             AlertWarner.showAlert("Отправка сообщения", "Тема письма или основной текст не указаны", "Проверьте введённые данные", Alert.AlertType.WARNING);
         }
     }

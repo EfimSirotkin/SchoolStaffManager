@@ -7,8 +7,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-
-import javafx.stage.Stage;
 import main.Main;
 import main.parsers.AlertWarner;
 
@@ -52,10 +50,9 @@ public class MainScreenController implements Initializable, ControlledScreen {
     }
 
     @FXML
-    private void goToEditScreen(ActionEvent event)
-    {
-        if(LoginScreenController.isAdministrator)
-        myController.setScreen(Main.editScreenID);
+    private void goToEditScreen(ActionEvent event) {
+        if (LoginScreenController.isAdministrator)
+            myController.setScreen(Main.editScreenID);
         else {
             editScreenButton.setDisable(true);
             AlertWarner.showAlert("Права доступа", "Редактировать записи могут только работники администрации", "Приносим свои извинения", Alert.AlertType.INFORMATION);

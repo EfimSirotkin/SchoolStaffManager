@@ -8,11 +8,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import jxl.write.WriteException;
-import main.Main;
 import main.parsers.AlertWarner;
 import main.parsers.ExcelParser;
 import main.parsers.ParserUtils;
-import main.staff.Teacher;
 
 import java.io.File;
 import java.io.IOException;
@@ -108,7 +106,7 @@ public class EditTeacherRecordScreenController implements Initializable {
         stage.setAlwaysOnTop(false);
         excelParser.exportTeachers("res/Шаблон(Преподавательский123).xls");
 
-        AlertWarner.showAlert("Редактирование", "Запись успешно отредактирована" , "Успешно.", Alert.AlertType.INFORMATION);
+        AlertWarner.showAlert("Редактирование", "Запись успешно отредактирована", "Успешно.", Alert.AlertType.INFORMATION);
 
 
         stage.close();

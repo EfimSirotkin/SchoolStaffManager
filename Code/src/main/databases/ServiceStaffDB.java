@@ -7,8 +7,6 @@ import java.util.ArrayList;
 public class ServiceStaffDB {
     private ArrayList<ServiceWorker> serviceStaff;
 
-    public ServiceStaffDB() {}
-
     public ServiceStaffDB(ArrayList<ServiceWorker> serviceStaff) {
         this.serviceStaff = serviceStaff;
     }
@@ -18,18 +16,11 @@ public class ServiceStaffDB {
     }
 
     public ServiceWorker findServiceWorker(String surName, String name, String superName, String dateOfBirth) {
-        for(ServiceWorker serviceWorker : serviceStaff)
-            if(serviceWorker.getName().equals(name) && serviceWorker.getSurname().equals(surName) && serviceWorker.getSuperName().equals(superName) && serviceWorker.getDateOfBirth().equals(dateOfBirth))
+        for (ServiceWorker serviceWorker : serviceStaff)
+            if (serviceWorker.getName().equals(name) && serviceWorker.getSurname().equals(surName) && serviceWorker.getSuperName().equals(superName) && serviceWorker.getDateOfBirth().equals(dateOfBirth))
                 return serviceWorker;
         return null;
     }
 
-    public void addServiceWorker(ServiceWorker serviceWorker)
-    {
 
-    }
-
-    public void deleteServiceWorker(String name) {
-
-    }
 }

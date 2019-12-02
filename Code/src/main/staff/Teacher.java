@@ -1,14 +1,10 @@
 package main.staff;
 
-
-import main.interfaces.staff.StaffActivity;
-import main.staff.Person;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
-public class Teacher extends Person implements StaffActivity {
+
+public class Teacher extends Person {
     private String teacherDegree;
     private ArrayList<String> extraLessonsName;
     private HashMap<String, ArrayList<String>> teachSubjectsAtClasses;
@@ -68,9 +64,6 @@ public class Teacher extends Person implements StaffActivity {
         return teacherDegree;
     }
 
-    public ArrayList<String> getExtraLessonsName() {
-        return extraLessonsName;
-    }
 
     public HashMap<String, ArrayList<String>> getTeachSubjectsAtClasses() {
         return teachSubjectsAtClasses;
@@ -86,27 +79,9 @@ public class Teacher extends Person implements StaffActivity {
         this.haveHigherEducation = sourceTeacher.isHaveHigherEducation();
     }
 
-    @Override
-    public void editPersonalData() {
-
-    }
-
-    @Override
-    public void requestForModification() {
-
-    }
-
-    @Override
-    public void requestForMaterials() {
-
-    }
 
     public void setTeacherDegree(String teacherDegree) {
         this.teacherDegree = teacherDegree;
-    }
-
-    public void setExtraLessonsName(ArrayList<String> extraLessonsName) {
-        this.extraLessonsName = extraLessonsName;
     }
 
     public void setTeachSubjectsAtClasses(HashMap<String, ArrayList<String>> teachSubjectsAtClasses) {

@@ -145,7 +145,7 @@
                     <Font name="Verdana Bold" size="15"></Font>
                 </font>
             </Label>
-            <TextField fx:id="weeklyTeachingHoursField"  minWidth="230">
+            <TextField fx:id="weeklyTeachingHoursField" minWidth="230">
 
             </TextField>
         </HBox>

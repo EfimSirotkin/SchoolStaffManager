@@ -6,7 +6,6 @@ import main.parsers.AlertWarner;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.net.UnknownHostException;
 import java.util.Properties;
 
 public class MailSender {
@@ -16,7 +15,6 @@ public class MailSender {
     private String localHost;
     private CustomMessage message;
 
-    public MailSender() {}
 
     public MailSender(String sourceAddress, String destinationAddress, String localHost) {
         this.sourceAddress = sourceAddress;
@@ -48,13 +46,6 @@ public class MailSender {
         this.destinationAddress = destinationAddress;
     }
 
-    public String getLocalHost() {
-        return localHost;
-    }
-
-    public void setLocalHost(String localHost) {
-        this.localHost = localHost;
-    }
 
     public void sendMailMessage() throws MessagingException {
         Properties properties = System.getProperties();
@@ -71,8 +62,7 @@ public class MailSender {
             }
         });
 
-        try
-        {
+        try {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(getSourceAddress()));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(getDestinationAddress()));
@@ -88,5 +78,5 @@ public class MailSender {
 
 
     }
-    }
+}
 

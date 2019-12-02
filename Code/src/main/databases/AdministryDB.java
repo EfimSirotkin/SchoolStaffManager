@@ -1,6 +1,7 @@
 package main.databases;
 
 import main.staff.Administrator;
+
 import java.util.ArrayList;
 
 public class AdministryDB {
@@ -13,18 +14,13 @@ public class AdministryDB {
     public ArrayList<Administrator> getAdministryStaff() {
         return administryStaff;
     }
-    public void addAdministrator(Administrator administrator) {
 
-    }
     public Administrator findAdministrator(String surName, String name, String superName, String dateOfBirth) {
-        for(Administrator administrator : administryStaff) {
-            if(administrator.getName().equals(name) && administrator.getSurname().equals(surName) && administrator.getSuperName().equals(superName) && administrator.getDateOfBirth().equals(dateOfBirth))
+        for (Administrator administrator : administryStaff) {
+            if (administrator.getName().equals(name) && administrator.getSurname().equals(surName) && administrator.getSuperName().equals(superName) && administrator.getDateOfBirth().equals(dateOfBirth))
                 return administrator;
         }
         return null;
-    }
-    public void deleteAdministrator(String name) {
-
     }
 
 }

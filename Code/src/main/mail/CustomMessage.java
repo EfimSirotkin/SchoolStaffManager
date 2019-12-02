@@ -4,9 +4,6 @@ public class CustomMessage {
     private String messageSubject;
     private String messageText;
 
-    public CustomMessage() {
-
-    }
     public CustomMessage(String subject, String text) {
         this.messageSubject = subject;
         this.messageText = text;

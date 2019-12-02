@@ -1,11 +1,9 @@
 package main.staff;
 
-import main.interfaces.staff.StaffActivity;
-import main.staff.Person;
 
 import java.util.ArrayList;
 
-public class ServiceWorker extends Person implements StaffActivity {
+public class ServiceWorker extends Person {
     private String typeOfWork;
     private String workRank;
     private String responsibilityZone;
@@ -32,20 +30,6 @@ public class ServiceWorker extends Person implements StaffActivity {
         return InstrumentsNeeded;
     }
 
-    @Override
-    public void editPersonalData() {
-
-    }
-
-    @Override
-    public void requestForModification() {
-
-    }
-
-    @Override
-    public void requestForMaterials() {
-
-    }
 
     public void setTypeOfWork(String typeOfWork) {
         this.typeOfWork = typeOfWork;

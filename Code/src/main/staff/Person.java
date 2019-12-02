@@ -1,11 +1,10 @@
 package main.staff;
 
-import main.interfaces.staff.PersonActivity;
 import main.parsers.LoginStorage;
 
 import java.util.ArrayList;
 
-public class Person implements PersonActivity {
+public class Person {
     private String name;
     private String surname;
     private String superName;
@@ -14,8 +13,6 @@ public class Person implements PersonActivity {
     private String phoneNumber;
     LoginStorage loginStorage;
 
-    public Person() {
-    }
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -96,35 +93,10 @@ public class Person implements PersonActivity {
     }
 
     public boolean checkLoginDataValidity(LoginStorage loginStorage) {
-        if(this.loginStorage.getLogin().equals(loginStorage.getLogin()) && this.loginStorage.getPassword().equals(loginStorage.getPassword()))
+        if (this.loginStorage.getLogin().equals(loginStorage.getLogin()) && this.loginStorage.getPassword().equals(loginStorage.getPassword()))
             return true;
         else
             return false;
     }
 
-
-    @Override
-    public void viewStaffList() {
-
-    }
-
-    @Override
-    public void viewAnalytics() {
-
-    }
-
-    @Override
-    public void viewEmployeeInformation() {
-
-    }
-
-    @Override
-    public void register() {
-
-    }
-
-    @Override
-    public void login() {
-
-    }
 }

@@ -24,9 +24,9 @@
     <children>
         <HBox spacing="450">
             <children>
-                <HBox >
+                <HBox>
                     <padding>
-                        <Insets top="15" left="5" >
+                        <Insets top="15" left="5">
                         </Insets>
                     </padding>
                     <children>
@@ -146,7 +146,8 @@
                         <padding>
                             <Insets top="40" left="75"></Insets>
                         </padding>
-                        <Button fx:id="sendMessageButton" onAction="#onSendMessageButtonClicked" text="Отправить письмо" prefWidth="275" prefHeight="35" textAlignment="LEFT" disable="true">
+                        <Button fx:id="sendMessageButton" onAction="#onSendMessageButtonClicked" text="Отправить письмо"
+                                prefWidth="275" prefHeight="35" textAlignment="LEFT" disable="true">
                             <font>
                                 <Font name="Verdana Bold" size="20"></Font>
                             </font>
@@ -203,13 +204,16 @@
                 <TableView fx:id="staffTable" onMouseClicked="#clickTableViewItem" maxWidth="930" minHeight="600">
                 </TableView>
                 <HBox spacing="410">
-                    <Button fx:id="importFromExcel" text="Импортировать из Excel" onAction="#onImportDataFromExcelClicked" minWidth="200" style="-fx-background-color: #7ebf7f"
+                    <Button fx:id="importFromExcel" text="Импортировать из Excel"
+                            onAction="#onImportDataFromExcelClicked" minWidth="200"
+                            style="-fx-background-color: #7ebf7f"
                             disable="true">
                         <font>
                             <Font name="Verdana Bold" size="15"/>
                         </font>
                     </Button>
-                    <Button fx:id="exportToExcelButton" text="Экспортировать в Excel" onAction="#onExportDataButtonClicked" minWidth="200"
+                    <Button fx:id="exportToExcelButton" text="Экспортировать в Excel"
+                            onAction="#onExportDataButtonClicked" minWidth="200"
                             style="-fx-background-color: #d1c821" disable="true">
                         <font>
                             <Font name="Verdana Bold" size="15"/>

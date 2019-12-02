@@ -1,10 +1,9 @@
 package main.staff;
 
-import main.interfaces.staff.AdministryActivity;
 
 import java.util.ArrayList;
 
-public class Administrator extends Person implements AdministryActivity {
+public class Administrator extends Person {
     private String jobTitle;
     boolean editingAvailable = true;
 
@@ -21,25 +20,6 @@ public class Administrator extends Person implements AdministryActivity {
         return editingAvailable;
     }
 
-    @Override
-    public void addEmployee() {
-
-    }
-
-    @Override
-    public void editEmployee() {
-
-    }
-
-    @Override
-    public void sendNotification() {
-
-    }
-
-    @Override
-    public void deleteEmployee() {
-
-    }
 
     public void setJobTitle(String jobTitle) {
         this.jobTitle = jobTitle;

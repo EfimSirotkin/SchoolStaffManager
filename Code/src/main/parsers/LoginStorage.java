@@ -4,7 +4,8 @@ public class LoginStorage {
     String login;
     String password;
 
-    public LoginStorage() {}
+    public LoginStorage() {
+    }
 
     public LoginStorage(String login, String password) {
         this.login = login;

@@ -30,16 +30,16 @@
     </HBox>
     <VBox spacing="30">
         <HBox>
-        <Label text="Отправитель: " minWidth="250">
-            <font>
-                <Font name="Verdana" size="18"></Font>
-            </font>
-        </Label>
-        <Label fx:id="senderAddress">
-            <font>
-                <Font name="Verdana Bold" size="18"></Font>
-            </font>
-        </Label>
+            <Label text="Отправитель: " minWidth="250">
+                <font>
+                    <Font name="Verdana" size="18"></Font>
+                </font>
+            </Label>
+            <Label fx:id="senderAddress">
+                <font>
+                    <Font name="Verdana Bold" size="18"></Font>
+                </font>
+            </Label>
         </HBox>
         <HBox>
             <Label text="Получатель: " minWidth="250">
@@ -83,12 +83,14 @@
                 <Insets left="80">
                 </Insets>
             </padding>
-            <Button fx:id="sendButton" text="Отправить сообщение" onAction="#onSendMessageButtonClicked" minWidth="200" style="-fx-background-color: #7ebf7f">
+            <Button fx:id="sendButton" text="Отправить сообщение" onAction="#onSendMessageButtonClicked" minWidth="200"
+                    style="-fx-background-color: #7ebf7f">
                 <font>
                     <Font name="Verdana Bold" size="18"></Font>
                 </font>
             </Button>
-            <Button fx:id="cancelButton" text="Отмена" onAction="#onCancelButtonClicked" minWidth="150" style="-fx-background-color: #cc3b3b">
+            <Button fx:id="cancelButton" text="Отмена" onAction="#onCancelButtonClicked" minWidth="150"
+                    style="-fx-background-color: #cc3b3b">
                 <font>
                     <Font name="Verdana Bold" size="18"></Font>
                 </font>

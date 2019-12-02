@@ -1,13 +1,11 @@
 package main.screens;
 
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.*;
-
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import main.Main;
@@ -106,7 +104,7 @@ public class AnalyticScreenController implements Initializable, ControlledScreen
         XYChart.Series<String, Number> tempSeries = new XYChart.Series<>();
         tempSeries.setName("Сотрудники");
 
-        for(int i = 0; i < statisticsYearList.size(); i++)
+        for (int i = 0; i < statisticsYearList.size(); i++)
             tempSeries.getData().add(new XYChart.Data<>(statisticsYearList.get(i), statisticsHigherEducationCount.get(i)));
 
         return tempSeries;
@@ -122,7 +120,7 @@ public class AnalyticScreenController implements Initializable, ControlledScreen
         XYChart.Series<String, Number> tempSeries = new XYChart.Series<>();
         tempSeries.setName("Сотрудники");
 
-        for(int i =0; i < statisticsYearList.size(); i++)
+        for (int i = 0; i < statisticsYearList.size(); i++)
             tempSeries.getData().add(new XYChart.Data<>(statisticsYearList.get(i), statisticsHigherQualificationCount.get(i)));
 
         return tempSeries;
@@ -151,7 +149,8 @@ public class AnalyticScreenController implements Initializable, ControlledScreen
             qualificationDistributionPie.setData(getPieChartData());
         }
     }
-    public class HoursBarCreator implements  Runnable {
+
+    public class HoursBarCreator implements Runnable {
 
         @Override
         public void run() {
@@ -159,6 +158,7 @@ public class AnalyticScreenController implements Initializable, ControlledScreen
             hoursChargingBar.getData().add(getSeriesDistribution());
         }
     }
+
     public class HigherEducationLineCreator implements Runnable {
 
         @Override
@@ -167,6 +167,7 @@ public class AnalyticScreenController implements Initializable, ControlledScreen
             higherEducationDynamicLine.getData().add(getHigherEducationDistribution());
         }
     }
+
     public class HigherQualificationLineCreator implements Runnable {
 
         @Override

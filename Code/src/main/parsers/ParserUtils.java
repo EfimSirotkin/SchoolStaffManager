@@ -91,6 +91,7 @@ public class ParserUtils {
         else
             return false;
     }
+
     static public String generateLogin(int loginLength) {
 
 
@@ -100,7 +101,7 @@ public class ParserUtils {
         StringBuilder generatedLoginBuilder = new StringBuilder(loginLength);
 
         for (int i = 0; i < loginLength; i++) {
-            int index = (int)(symbolsToGrab.length() * Math.random());
+            int index = (int) (symbolsToGrab.length() * Math.random());
 
             generatedLoginBuilder.append(symbolsToGrab.charAt(index));
         }
@@ -117,7 +118,7 @@ public class ParserUtils {
         StringBuilder generatedPasswordBuilder = new StringBuilder(generatedString);
 
         for (int i = 0; i < numbersLength; i++) {
-            int index = (int)(numbersToGrab.length() * Math.random());
+            int index = (int) (numbersToGrab.length() * Math.random());
 
             generatedPasswordBuilder.append(numbersToGrab.charAt(index));
         }
@@ -135,8 +136,7 @@ public class ParserUtils {
 
     static public String generateStringFromList(ArrayList<String> eduactionList) {
         StringBuilder generatedString = new StringBuilder("");
-        for(String education : eduactionList)
-        {
+        for (String education : eduactionList) {
             generatedString.append(education);
             generatedString.append(", ");
         }
@@ -146,9 +146,9 @@ public class ParserUtils {
     static public String generateStringFromKeys(HashMap<String, ArrayList<String>> sourceHashMap) {
         Set<String> keySet = sourceHashMap.keySet();
         String generatedString = new String("");
-        for(String key : keySet) {
+        for (String key : keySet) {
             generatedString += key;
-            generatedString+= ", ";
+            generatedString += ", ";
         }
         return generatedString;
     }
@@ -157,12 +157,12 @@ public class ParserUtils {
 
         String generatedString = "";
 
-       Collection<ArrayList<String>> subjectValues = sourceHashMap.values();
-       for(ArrayList<String> subjectValue: subjectValues)
-           for(String hashString: subjectValue) {
-               generatedString += hashString;
-               generatedString += ", ";
-           }
+        Collection<ArrayList<String>> subjectValues = sourceHashMap.values();
+        for (ArrayList<String> subjectValue : subjectValues)
+            for (String hashString : subjectValue) {
+                generatedString += hashString;
+                generatedString += ", ";
+            }
 
         return generatedString;
     }

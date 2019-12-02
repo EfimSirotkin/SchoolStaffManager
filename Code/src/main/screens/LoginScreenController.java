@@ -60,6 +60,7 @@ public class LoginScreenController implements Initializable, ControlledScreen {
     public void setScreenParent(ScreensController screenParent) {
         myController = screenParent;
     }
+
     @FXML
     private void onApplyButtonClicked() {
 
@@ -75,12 +76,12 @@ public class LoginScreenController implements Initializable, ControlledScreen {
         boolean isLoginEmpty = loginInput.equals("");
         boolean isPasswordEmpty = passWordInput.equals("");
 
-        if(isLoginEmpty || isPasswordEmpty) {
+        if (isLoginEmpty || isPasswordEmpty) {
             AlertWarner.showAlert("Ошибка авторизации", "Авторизация неуспешна", "Поля не заполнены", Alert.AlertType.ERROR);
 
-            if(isLoginEmpty)
+            if (isLoginEmpty)
                 loginTextField.setStyle(errorStyle);
-            if(isPasswordEmpty)
+            if (isPasswordEmpty)
                 passwordTextField.setStyle(errorStyle);
             return;
         }
@@ -93,15 +94,17 @@ public class LoginScreenController implements Initializable, ControlledScreen {
         serviceStaffFinder.run();
         administratorFinder.run();
 
-        if(!isPersonFound) {
+        if (!isPersonFound) {
             AlertWarner.showAlert("Ошибка авторизации", "Авторизация неуспешна", "Логин или пароль введены неверно", Alert.AlertType.ERROR);
         }
     }
+
     @FXML
     private void onCancelButtonClicked(ActionEvent event) {
         Stage stage = (Stage) loginTextField.getScene().getWindow();
         stage.close();
     }
+
     @FXML
     private void onRegistrationButtonClicked(ActionEvent event) {
         Stage stage = (Stage) loginTextField.getScene().getWindow();
@@ -113,13 +116,13 @@ public class LoginScreenController implements Initializable, ControlledScreen {
     }
 
     public class TeacherFinder implements Runnable {
-        public void run(){
+        public void run() {
             PedagogicalDB pedagogicalDB = Main.personDB.getPedagogicalDB();
-            for(Teacher person : pedagogicalDB.getPedagogicalStaff())
-                if(person.checkLoginDataValidity(inputLoginStorage)) {
+            for (Teacher person : pedagogicalDB.getPedagogicalStaff())
+                if (person.checkLoginDataValidity(inputLoginStorage)) {
                     isPersonFound = true;
                     AlertWarner.showAlert("Подтверждение", "Авторизация успешна", "Добро пожаловать, " +
-                            person.getName() +" " + person.getSuperName() + "!", Alert.AlertType.INFORMATION);
+                            person.getName() + " " + person.getSuperName() + "!", Alert.AlertType.INFORMATION);
                     myController.setScreen(Main.mainScreenID);
                     Stage stage = (Stage) loginTextField.getScene().getWindow();
                     stage.setMaximized(true);
@@ -128,15 +131,16 @@ public class LoginScreenController implements Initializable, ControlledScreen {
 
         }
     }
+
     public class ServiceStaffFinder implements Runnable {
-        public void run(){
+        public void run() {
             ServiceStaffDB serviceStaffDB = Main.personDB.getServiceStaffDB();
-            for(ServiceWorker serviceWorker : serviceStaffDB.getServiceStaff())
-                if(serviceWorker.checkLoginDataValidity(inputLoginStorage)) {
+            for (ServiceWorker serviceWorker : serviceStaffDB.getServiceStaff())
+                if (serviceWorker.checkLoginDataValidity(inputLoginStorage)) {
                     isPersonFound = true;
 
                     AlertWarner.showAlert("Подтверждение", "Авторизация успешна", "Добро пожаловать, " +
-                            serviceWorker.getName() +" " + serviceWorker.getSuperName() + "!", Alert.AlertType.INFORMATION);
+                            serviceWorker.getName() + " " + serviceWorker.getSuperName() + "!", Alert.AlertType.INFORMATION);
                     myController.setScreen(Main.mainScreenID);
                     Stage stage = (Stage) loginTextField.getScene().getWindow();
                     stage.setMaximized(true);
@@ -144,15 +148,16 @@ public class LoginScreenController implements Initializable, ControlledScreen {
                 }
         }
     }
+
     public class AdministratorFinder implements Runnable {
-        public void run(){
+        public void run() {
             AdministryDB administryDB = Main.personDB.getAdministryDB();
-            for(Administrator administrator : administryDB.getAdministryStaff())
-                if(administrator.checkLoginDataValidity(inputLoginStorage)) {
+            for (Administrator administrator : administryDB.getAdministryStaff())
+                if (administrator.checkLoginDataValidity(inputLoginStorage)) {
                     isPersonFound = true;
                     isAdministrator = true;
                     AlertWarner.showAlert("Подтверждение", "Авторизация успешна", "Добро пожаловать, " +
-                            administrator.getName() +" " + administrator.getSuperName() + "!", Alert.AlertType.INFORMATION);
+                            administrator.getName() + " " + administrator.getSuperName() + "!", Alert.AlertType.INFORMATION);
                     myController.setScreen(Main.mainScreenID);
                     Stage stage = (Stage) loginTextField.getScene().getWindow();
                     stage.setMaximized(true);
