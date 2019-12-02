@@ -1,5 +1,7 @@
 package main.screens;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -7,6 +9,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import jxl.write.WriteException;
 import main.Main;
@@ -70,6 +73,8 @@ public class TeacherRegistrationScreen implements Initializable, ControlledScree
     @FXML
     private void onRegisterButtonClicked(ActionEvent event) throws IOException, WriteException {
         try {
+            String defaultStyle = "-fx-background-color: #ffffff";
+            setDefaultTextFieldStyle(defaultStyle);
 
             ExcelParser excelParser = new ExcelParser();
 
@@ -83,7 +88,56 @@ public class TeacherRegistrationScreen implements Initializable, ControlledScree
             String teachingSubjects = teachingSubjectsField.getText();
             String teachSubjectAtClasses = teachAtClassesField.getText();
             String phoneNumber = phoneNumberField.getText();
-            Integer weeklyTeachingHours = Integer.valueOf(weeklyTeachingHoursField.getText());
+            String workingExperience = workingExperienceField.getText();
+            Integer weeklyTeachingHours = 0;
+            if(!weeklyTeachingHoursField.getText().equals(""))
+             weeklyTeachingHours= Integer.valueOf(weeklyTeachingHoursField.getText());
+
+            boolean isNameEmpty = name.equals("");
+            boolean isSurNameEmpty = surName.equals("");
+            boolean isSuperNameEmpty = superName.equals("");
+            boolean isDateOfBirthEmpty = dateOfBirth.equals("");
+            boolean isEducationEmpty = education.equals("");
+            boolean isQualificationEmpty = qualification.equals("");
+            boolean isQualificationCoursesEmpty = qualificationCourses.equals("");
+            boolean isTeachingSubjectsEmpty = teachingSubjects.equals("");
+            boolean isTeachSubjectsAtClassesEmpty = teachSubjectAtClasses.equals("");
+            boolean isPhoneNumberEmpty = phoneNumber.equals("");
+            boolean isWeeklyTeachingHoursEmpty = weeklyTeachingHours.equals("");
+            boolean isWorkingExperienceEmpty = workingExperience.equals("");
+
+            String errorStyle = "-fx-background-color: #eb9b9b";
+
+            if(isNameEmpty || isSurNameEmpty || isSuperNameEmpty || isDateOfBirthEmpty || isEducationEmpty
+                || isQualificationEmpty || isQualificationCoursesEmpty || isTeachingSubjectsEmpty || isTeachSubjectsAtClassesEmpty
+                || isPhoneNumberEmpty || isWeeklyTeachingHoursEmpty || isWorkingExperienceEmpty) {
+                AlertWarner.showAlert("Регистрация", "При заполнении данные пропущены поля", "Заполните недостающие поля", Alert.AlertType.ERROR);
+                if(isNameEmpty)
+                    nameField.setStyle(errorStyle);
+                if(isSurNameEmpty)
+                    surNameField.setStyle(errorStyle);
+                if(isSuperNameEmpty)
+                    superNameField.setStyle(errorStyle);
+                if(isDateOfBirthEmpty)
+                    dateOfBirthField.setStyle(errorStyle);
+                if(isEducationEmpty)
+                    educationField.setStyle(errorStyle);
+                if(isQualificationEmpty)
+                    qualificationField.setStyle(errorStyle);
+                if(isQualificationCoursesEmpty)
+                    qualificationCoursesField.setStyle(errorStyle);
+                if(isTeachingSubjectsEmpty)
+                    teachingSubjectsField.setStyle(errorStyle);
+                if(isTeachSubjectsAtClassesEmpty)
+                    teachAtClassesField.setStyle(errorStyle);
+                if(isPhoneNumberEmpty)
+                    phoneNumberField.setStyle(errorStyle);
+                if(isWeeklyTeachingHoursEmpty)
+                    weeklyTeachingHoursField.setStyle(errorStyle);
+                if(isWorkingExperienceEmpty)
+                    workingExperienceField.setStyle(errorStyle);
+                return;
+            }
 
             int loginLength = 8;
             int passwordNumbersLength = 3;
@@ -100,7 +154,7 @@ public class TeacherRegistrationScreen implements Initializable, ControlledScree
             newTeacher.setHaveHigherEducation(true);
             Main.personDB.getPedagogicalDB().addTeacher(newTeacher);
 
-            excelParser.exportTeachers("res/Шаблон(Преподавательский12).xls", Main.personDB.getPedagogicalDB());
+            excelParser.exportTeachers("res/Шаблон(Преподавательский12).xls");
 
         }
         catch (IOException | WriteException e) {
@@ -110,18 +164,32 @@ public class TeacherRegistrationScreen implements Initializable, ControlledScree
 
             e.printStackTrace();
         }
-        finally {
-
             Stage stage = (Stage) nameField.getScene().getWindow();
             myController.setScreen(Main.mainScreenID);
             stage.setMaximized(true);
-        }
-
 
     }
     @FXML
     private void onBackToLoginButtonClicked(ActionEvent event) {
         myController.setScreen(Main.loginScreenID);
     }
+
+    private void setDefaultTextFieldStyle(String style) {
+
+        nameField.setStyle(style);
+        surNameField.setStyle(style);
+        superNameField.setStyle(style);
+        dateOfBirthField.setStyle(style);
+        educationField.setStyle(style);
+        qualificationField.setStyle(style);;
+        qualificationCoursesField.setStyle(style);
+        teachingSubjectsField.setStyle(style);
+        teachAtClassesField.setStyle(style);
+        phoneNumberField.setStyle(style);
+        workingExperienceField.setStyle(style);
+        weeklyTeachingHoursField.setStyle(style);
+    }
+
+
 
 }

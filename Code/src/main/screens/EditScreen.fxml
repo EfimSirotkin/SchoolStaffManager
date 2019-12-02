@@ -147,7 +147,7 @@
                         <padding>
                             <Insets top="40" left="75"></Insets>
                         </padding>
-                        <Button fx:id="sendMessageButton" text="Отправить письмо" prefWidth="275" prefHeight="35" textAlignment="LEFT" disable="true">
+                        <Button fx:id="sendMessageButton" text="Отправить письмо" onAction="#onSendMessageButtonClicked" prefWidth="275" prefHeight="35" textAlignment="LEFT" disable="true">
                             <font>
                                 <Font name="Verdana Bold" size="20"></Font>
                             </font>
@@ -227,13 +227,13 @@
 
                 <TableView fx:id="staffTable" onMouseClicked="#clickTableViewItem" maxWidth="850" minHeight="600">
                 </TableView>
-                <HBox spacing="395">
-                    <Button text="Импортировать из Excel" style="-fx-background-color: #7ebf7f" fx:id="importFromExcel">
+                <HBox spacing="410">
+                    <Button text="Импортировать из Excel" style="-fx-background-color: #7ebf7f" fx:id="importFromExcel" minWidth="200">
                         <font>
                             <Font name="Verdana Bold" size="15"/>
                         </font>
                     </Button>
-                    <Button text="Экспортировать в Excel" style="-fx-background-color: #d1c821" fx:id="exportToExcelButton">
+                    <Button text="Экспортировать в Excel" style="-fx-background-color: #d1c821" fx:id="exportToExcelButton" minWidth="200">
                         <font>
                             <Font name="Verdana Bold" size="15"/>
                         </font>

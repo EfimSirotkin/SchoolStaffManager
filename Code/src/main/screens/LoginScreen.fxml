@@ -63,7 +63,7 @@
                 <Font name="Verdana Bold" size="13"></Font>
             </font>
         </Button>
-        <Button fx:id="applyButton" text="Подтвердить" onAction="#onApplyButtonClicked" minWidth="150" style="-fx-background-color: #388f33">
+        <Button fx:id="applyButton" text="Подтвердить" onAction="#onApplyButtonClicked" minWidth="150" style="-fx-background-color: #7ebf7f">
             <font>
                 <Font name="Verdana Bold" size="13"></Font>
             </font>

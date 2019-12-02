@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.text.Text?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="main.screens.SendMessageScreenController"
+      prefHeight="400.0" prefWidth="600.0">
+    <padding>
+        <Insets top="10" left="20" right="20" bottom="10"></Insets>
+    </padding>
+    <HBox spacing="130">
+        <Label text="Отправка письма" minWidth="250">
+            <font>
+                <Font name="Verdana Bold" size="28"></Font>
+            </font>
+        </Label>
+        <ImageView
+                fx:id="imageView"
+                fitHeight="120" fitWidth="150">
+        </ImageView>
+    </HBox>
+    <VBox spacing="30">
+        <HBox>
+        <Label text="Отправитель: " minWidth="250">
+            <font>
+                <Font name="Verdana" size="18"></Font>
+            </font>
+        </Label>
+        <Label fx:id="senderAddress">
+            <font>
+                <Font name="Verdana Bold" size="18"></Font>
+            </font>
+        </Label>
+        </HBox>
+        <HBox>
+            <Label text="Получатель: " minWidth="250">
+                <font>
+                    <Font name="Verdana" size="18"></Font>
+                </font>
+            </Label>
+            <Label fx:id="receiverAddress">
+                <font>
+                    <Font name="Verdana Bold" size="18"></Font>
+                </font>
+            </Label>
+        </HBox>
+        <HBox>
+            <Label text="Тема письма: " minWidth="250">
+                <font>
+                    <Font name="Verdana Bold" size="22"></Font>
+                </font>
+            </Label>
+            <TextField fx:id="messageThemeField" minWidth="330">
+                <font>
+                    <Font name="Verdana Bold" size="18"></Font>
+                </font>
+            </TextField>
+        </HBox>
+        <HBox>
+            <Label text="Основной текст: " minWidth="250">
+                <font>
+                    <Font name="Verdana Bold" size="22"></Font>
+                </font>
+            </Label>
+            <TextArea fx:id="messageMainTextField" minHeight="200" minWidth="330" wrapText="true">
+                <font>
+                    <Font name="Verdana" size="16"></Font>
+                </font>
+            </TextArea>
+        </HBox>
+
+        <HBox spacing="85">
+            <padding>
+                <Insets left="80">
+                </Insets>
+            </padding>
+            <Button fx:id="sendButton" text="Отправить сообщение" onAction="#onSendMessageButtonClicked" minWidth="200" style="-fx-background-color: #7ebf7f">
+                <font>
+                    <Font name="Verdana Bold" size="18"></Font>
+                </font>
+            </Button>
+            <Button fx:id="cancelButton" text="Отмена" onAction="#onCancelButtonClicked" minWidth="150" style="-fx-background-color: #cc3b3b">
+                <font>
+                    <Font name="Verdana Bold" size="18"></Font>
+                </font>
+            </Button>
+        </HBox>
+    </VBox>
+
+</VBox>

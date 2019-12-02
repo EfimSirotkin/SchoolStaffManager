@@ -234,8 +234,6 @@ public class EditScreenController implements Initializable, ControlledScreen {
     @FXML
     public void onEditRecordButtonClicked() throws IOException {
 
-
-
         String personName = staffTable.getSelectionModel().getSelectedItem().getName();
         String personSurName = staffTable.getSelectionModel().getSelectedItem().getSurname();
         String personSuperName = staffTable.getSelectionModel().getSelectedItem().getSuperName();
@@ -322,7 +320,7 @@ public class EditScreenController implements Initializable, ControlledScreen {
         if(sourceStaff == ViewScreenController.SourceStaff.PEDAGOGICAL) {
             Main.personDB.getPedagogicalDB().getPedagogicalStaff().remove(Main.personDB.getPedagogicalDB().findTeacher(personSurName, personName, personSuperName, personDateOfBirth));
             ExcelParser excelParser = new ExcelParser();
-            excelParser.exportTeachers("res/Шаблон(Преподавательский1234).xls", Main.personDB.getPedagogicalDB());
+            excelParser.exportTeachers("res/Шаблон(Преподавательский1234).xls");
             AlertWarner.showAlert("Удаление записи", "Запись о " + personName + " " + personSuperName, "Запись удалена", Alert.AlertType.INFORMATION);
         }
 
@@ -333,9 +331,22 @@ public class EditScreenController implements Initializable, ControlledScreen {
         if(sourceStaff == ViewScreenController.SourceStaff.SERVICESTAFF) {
             Main.personDB.getServiceStaffDB().getServiceStaff().remove(Main.personDB.getServiceStaffDB().findServiceWorker(personSurName, personName, personSuperName, personDateOfBirth));
             ExcelParser excelParser = new ExcelParser();
-            excelParser.exportTeachers("res/Шаблон(Обслуживающий1234).xls", Main.personDB.getPedagogicalDB());
+            excelParser.exportTeachers("res/Шаблон(Обслуживающий1234).xls");
             AlertWarner.showAlert("Удаление записи", "Запись о " + personName + " " + personSuperName, "Запись удалена", Alert.AlertType.INFORMATION);
         }
+    }
+
+    @FXML
+    private void onSendMessageButtonClicked() throws IOException {
+
+        Stage sendMessageStage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("SendMessageScreen.fxml"));
+
+        Scene scene = new Scene(root);
+        sendMessageStage.setTitle("Отправка сообщений");
+        sendMessageStage.setScene(scene);
+        sendMessageStage.setAlwaysOnTop(true);
+        sendMessageStage.show();
     }
 
 

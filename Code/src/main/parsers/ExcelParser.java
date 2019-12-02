@@ -1,5 +1,6 @@
 package main.parsers;
 
+import com.sun.corba.se.spi.orbutil.threadpool.Work;
 import javafx.scene.control.Alert;
 import javafx.stage.DirectoryChooser;
 import jxl.Cell;
@@ -14,6 +15,7 @@ import jxl.write.*;
 import jxl.write.Number;
 import main.Main;
 import main.databases.PedagogicalDB;
+import main.databases.ServiceStaffDB;
 import main.interfaces.parsers.Exporter;
 import main.interfaces.parsers.Importer;
 import main.staff.*;
@@ -72,7 +74,211 @@ public class ExcelParser implements Exporter, Importer {
     }
 
     @Override
-    public void exportTeachers(String filePath, PedagogicalDB pedagogicalDB) throws IOException, WriteException {
+    public void exportServiceWorkers(String filePath) throws IOException, WriteException {
+        WritableWorkbook serviceStaffWBook = Workbook.createWorkbook(new File(filePath));
+        WritableSheet excelSheet = serviceStaffWBook.createSheet("Sheet 1", 0);
+
+        WritableCellFormat cFormat = new WritableCellFormat();
+        cFormat.setAlignment(Alignment.CENTRE);
+        cFormat.setVerticalAlignment(VerticalAlignment.CENTRE);
+        WritableFont font = new WritableFont(WritableFont.ARIAL, 10, WritableFont.BOLD);
+        cFormat.setFont(font);
+
+        CellView cellView = new CellView();
+        cellView.setSize(20 * dimensionMultiplier);
+        for (int i = 1; i <= 5; i++)
+            excelSheet.setColumnView(i, cellView);
+
+        Label label = new Label(1, 1, "Фамилия", cFormat);
+        excelSheet.addCell(label);
+
+        label = new Label(2, 1, "Имя", cFormat);
+        excelSheet.addCell(label);
+
+        label = new Label(3, 1, "Отчество", cFormat);
+        excelSheet.addCell(label);
+
+        label = new Label(4, 1, "Дата рождения", cFormat);
+        excelSheet.addCell(label);
+
+        label = new Label(5, 1, "Образование", cFormat);
+        excelSheet.addCell(label);
+
+        cellView.setSize(30 * dimensionMultiplier);
+        label = new Label(6, 1, "Телефон", cFormat);
+        excelSheet.addCell(label);
+
+        label = new Label(7, 1, "Специализация", cFormat);
+        excelSheet.addCell(label);
+
+        label = new Label(8, 1, "Разряд", cFormat);
+        excelSheet.addCell(label);
+
+        label = new Label(9, 1, "Зона ответственности", cFormat);
+        excelSheet.addCell(label);
+
+        label = new Label(10, 1, "Необходим инвентарь", cFormat);
+        excelSheet.addCell(label);
+
+        label = new Label(14, 1, "Логин", cFormat);
+        excelSheet.setColumnView(14, cellView);
+        excelSheet.addCell(label);
+
+        label = new Label(15, 1, "Пароль", cFormat);
+        excelSheet.setColumnView(15, cellView);
+        excelSheet.addCell(label);
+
+        final int STARTING_ROW = 2;
+
+        ArrayList<ServiceWorker> serviceWorkersToExport = Main.personDB.getServiceStaffDB().getServiceStaff();
+        int serviceWorkersToExportSize = serviceWorkersToExport.size();
+
+        Label surNameLabel;
+        Label nameLabel;
+        Label superNameLabel;
+        Label dateOfBirthLabel;
+        Label educationLabel;
+        Label mobilePhoneLabel;
+        Label specializationLabel;
+        Label degreeLabel;
+        Label responsibilityZoneLabel;
+        Label isInventoryNeededLabel;
+        Label loginLabel;
+        Label passWordLabel;
+
+        for(int i = 0; i < serviceWorkersToExportSize; ++i) {
+            ServiceWorker currentServiceWorker = serviceWorkersToExport.get(i);
+            surNameLabel = new Label(1 , STARTING_ROW + i, currentServiceWorker.getSurname());
+            nameLabel = new Label(2, STARTING_ROW + i, currentServiceWorker.getName());
+            superNameLabel = new Label(3, STARTING_ROW + i, currentServiceWorker.getSuperName());
+            dateOfBirthLabel = new Label(4, STARTING_ROW + i, currentServiceWorker.getDateOfBirth());
+            educationLabel = new Label(5, STARTING_ROW + i, ParserUtils.generateStringFromList(currentServiceWorker.getEducation()));
+            mobilePhoneLabel = new Label(6, STARTING_ROW + i, currentServiceWorker.getPhoneNumber());
+            specializationLabel = new Label(7, STARTING_ROW + i, currentServiceWorker.getTypeOfWork());
+            degreeLabel = new Label(8, STARTING_ROW + i, currentServiceWorker.getWorkRank());
+            responsibilityZoneLabel = new Label(9, STARTING_ROW + i, currentServiceWorker.getResponsibilityZone());
+            if(currentServiceWorker.isInstrumentsNeeded())
+                isInventoryNeededLabel = new Label(10, STARTING_ROW + i, "да");
+            else
+                isInventoryNeededLabel = new Label(10,STARTING_ROW + i, "нет");
+            loginLabel = new Label(14, STARTING_ROW + i, currentServiceWorker.getLoginStorage().getLogin());
+            passWordLabel = new Label(15, STARTING_ROW + i, currentServiceWorker.getLoginStorage().getPassword());
+
+            excelSheet.addCell(surNameLabel);
+            excelSheet.addCell(nameLabel);
+            excelSheet.addCell(superNameLabel);
+            excelSheet.addCell(dateOfBirthLabel);
+            excelSheet.addCell(mobilePhoneLabel);
+            excelSheet.addCell(educationLabel);
+            excelSheet.addCell(specializationLabel);
+            excelSheet.addCell(degreeLabel);
+            excelSheet.addCell(responsibilityZoneLabel);
+            excelSheet.addCell(isInventoryNeededLabel);
+            excelSheet.addCell(loginLabel);
+            excelSheet.addCell(passWordLabel);
+        }
+        serviceStaffWBook.write();
+        serviceStaffWBook.close();
+
+    }
+
+    @Override
+    public void exportAdministration(String filePath) throws IOException, WriteException {
+        WritableWorkbook administrationWBook = Workbook.createWorkbook(new File(filePath));
+        WritableSheet excelSheet =  administrationWBook.createSheet("Sheet 1", 0);
+
+        WritableCellFormat cFormat = new WritableCellFormat();
+        cFormat.setAlignment(Alignment.CENTRE);
+        cFormat.setVerticalAlignment(VerticalAlignment.CENTRE);
+        WritableFont font = new WritableFont(WritableFont.ARIAL, 10, WritableFont.BOLD);
+        cFormat.setFont(font);
+
+        CellView cellView = new CellView();
+        cellView.setSize(20 * dimensionMultiplier);
+        for (int i = 1; i <= 5; i++)
+            excelSheet.setColumnView(i, cellView);
+
+        Label label = new Label(1, 1, "Фамилия", cFormat);
+        excelSheet.addCell(label);
+
+        label = new Label(2, 1, "Имя", cFormat);
+        excelSheet.addCell(label);
+
+        label = new Label(3, 1, "Отчество", cFormat);
+        excelSheet.addCell(label);
+
+        label = new Label(4, 1, "Дата рождения", cFormat);
+        excelSheet.addCell(label);
+
+        label = new Label(5, 1, "Образование", cFormat);
+        excelSheet.addCell(label);
+
+        cellView.setSize(30 * dimensionMultiplier);
+        label = new Label(6, 1, "Телефон", cFormat);
+        excelSheet.addCell(label);
+
+        cellView.setSize(80 * dimensionMultiplier);
+        label = new Label(7, 1, "Должность", cFormat);
+        excelSheet.addCell(label);
+
+        cellView.setSize(30 * dimensionMultiplier);
+        label = new Label(8, 1, "Права доступа", cFormat);
+        excelSheet.addCell(label);
+
+        label = new Label(14, 1, "Логин", cFormat);
+        excelSheet.setColumnView(14, cellView);
+        excelSheet.addCell(label);
+
+        label = new Label(15, 1, "Пароль", cFormat);
+        excelSheet.setColumnView(15, cellView);
+        excelSheet.addCell(label);
+
+        final int STARTING_ROW = 2;
+
+        ArrayList<Administrator> administratorsToExport = Main.personDB.getAdministryDB().getAdministryStaff();
+        int administratorsToExportSize = administratorsToExport.size();
+
+        Label surNameLabel;
+        Label nameLabel;
+        Label superNameLabel;
+        Label dateOfBirthLabel;
+        Label educationLabel;
+        Label mobilePhoneLabel;
+        Label jobTitleLable;
+        Label rightsLabel;
+        Label loginLabel;
+        Label passWordLabel;
+
+        for(int i = 0; i < administratorsToExportSize; ++i) {
+            Administrator currentAdministrator = administratorsToExport.get(i);
+            superNameLabel = new Label(1, STARTING_ROW + i, currentAdministrator.getSuperName());
+            nameLabel = new Label(2, STARTING_ROW + i, currentAdministrator.getName());
+            surNameLabel = new Label(3, STARTING_ROW + i, currentAdministrator.getSurname());
+            dateOfBirthLabel = new Label(4, STARTING_ROW + i, currentAdministrator.getDateOfBirth());
+            educationLabel = new Label(5, STARTING_ROW + i, ParserUtils.generateStringFromList(currentAdministrator.getEducation()));
+            mobilePhoneLabel = new Label(6, STARTING_ROW + i, currentAdministrator.getPhoneNumber());
+            jobTitleLable = new Label(7, STARTING_ROW + i, currentAdministrator.getJobTitle());
+            rightsLabel = new Label(8, STARTING_ROW + i, "да");
+            loginLabel = new Label(14, STARTING_ROW + i, currentAdministrator.getLoginStorage().getLogin());
+            passWordLabel = new Label(15, STARTING_ROW + i, currentAdministrator.getLoginStorage().getPassword());
+
+            excelSheet.addCell(surNameLabel);
+            excelSheet.addCell(nameLabel);
+            excelSheet.addCell(superNameLabel);
+            excelSheet.addCell(dateOfBirthLabel);
+            excelSheet.addCell(mobilePhoneLabel);
+            excelSheet.addCell(educationLabel);
+            excelSheet.addCell(jobTitleLable);
+            excelSheet.addCell(rightsLabel);
+            excelSheet.addCell(loginLabel);
+            excelSheet.addCell(passWordLabel);
+        }
+        administrationWBook.write();
+        administrationWBook.close();
+    }
+
+    @Override
+    public void exportTeachers(String filePath) throws IOException, WriteException {
 
         WritableWorkbook teachersWBook = Workbook.createWorkbook(new File(filePath));
         WritableSheet excelSheet = teachersWBook.createSheet("Sheet 1", 0);

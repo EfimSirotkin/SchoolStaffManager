@@ -52,7 +52,6 @@ public class EditTeacherRecordScreenController implements Initializable {
     private ImageView imageView;
 
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         File file = new File("res\\logo.jpg");
@@ -107,7 +106,7 @@ public class EditTeacherRecordScreenController implements Initializable {
         ExcelParser excelParser = new ExcelParser();
         Stage stage = (Stage) imageView.getScene().getWindow();
         stage.setAlwaysOnTop(false);
-        excelParser.exportTeachers("res/Шаблон(Преподавательский123).xls", Main.personDB.getPedagogicalDB());
+        excelParser.exportTeachers("res/Шаблон(Преподавательский123).xls");
 
         AlertWarner.showAlert("Редактирование", "Запись успешно отредактирована" , "Успешно.", Alert.AlertType.INFORMATION);
 

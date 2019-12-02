@@ -4,19 +4,23 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.Stage;
+import jxl.write.WriteException;
 import main.Main;
 import main.databases.AdministryDB;
 import main.databases.PedagogicalDB;
 import main.databases.ServiceStaffDB;
+import main.parsers.AlertWarner;
 import main.parsers.ExcelParser;
 import main.staff.Administrator;
 import main.staff.Person;
@@ -24,6 +28,7 @@ import main.staff.ServiceWorker;
 import main.staff.Teacher;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -258,6 +263,41 @@ public class ViewScreenController implements Initializable, ControlledScreen {
         educationColumn.setMinWidth(250);
 
         staffTable.getColumns().add(educationColumn);
+    }
+
+    @FXML
+    private void onSendMessageButtonClicked() throws IOException {
+
+        Stage sendMessageStage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("SendMessageScreen.fxml"));
+
+        Scene scene = new Scene(root);
+        sendMessageStage.setTitle("Отправка сообщений");
+        sendMessageStage.setScene(scene);
+        sendMessageStage.setAlwaysOnTop(true);
+        sendMessageStage.show();
+    }
+
+    @FXML
+    private void onExportDataButtonClicked() throws IOException, WriteException {
+        ExcelParser excelParser = new ExcelParser();
+        String filePath;
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        File selectedDirectory = directoryChooser.showDialog(null);
+        filePath = selectedDirectory.getAbsolutePath();
+
+        if(sourceStaff == ViewScreenController.SourceStaff.PEDAGOGICAL) {
+            excelParser.exportTeachers(filePath+"/Шаблон(Экспорт педагогический).xls");
+        }
+
+        if(sourceStaff == SourceStaff.ADMINISTRATION) {
+            excelParser.exportAdministration(filePath+"/Шаблон(Экспорт административный).xls");
+        }
+
+        if(sourceStaff == SourceStaff.SERVICESTAFF) {
+            excelParser.exportServiceWorkers(filePath+"/Шаблон(Экспорт обслуживающий).xls");
+        }
+        AlertWarner.showAlert("Экспорт состава учреждения", "Экспорт успешен", "", Alert.AlertType.INFORMATION);
     }
 }
 

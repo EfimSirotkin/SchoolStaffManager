@@ -6,6 +6,7 @@ import main.parsers.AlertWarner;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.net.UnknownHostException;
 import java.util.Properties;
 
 public class MailSender {
@@ -55,13 +56,13 @@ public class MailSender {
         this.localHost = localHost;
     }
 
-    public void sendMailMessage() {
+    public void sendMailMessage() throws MessagingException {
         Properties properties = System.getProperties();
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");
-        String myPassword = "Efim4ik64";
+        String myPassword = "GladRoll";
 
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
@@ -77,14 +78,14 @@ public class MailSender {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(getDestinationAddress()));
             message.setSubject(getMessage().getMessageSubject());
             message.setText(getMessage().getMessageText());
-
             Transport.send(message);
 
-            AlertWarner.showAlert("Отправка сообщения", "Собщение от " + getSourceAddress() + "к " + getDestinationAddress(), "Успешно отправлено.", Alert.AlertType.INFORMATION);
+            AlertWarner.showAlert("Отправка сообщения", "Собщение от " + getSourceAddress() + "\nк " + getDestinationAddress(), "Успешно отправлено.", Alert.AlertType.INFORMATION);
             System.out.println("message sent successfully");
         } catch (MessagingException e) {
-            e.printStackTrace();
+            AlertWarner.showAlert("Отправка сообщения", "Собщение от " + getSourceAddress() + "\nк " + getDestinationAddress(), "Невозможно отправить(проверьте подключение к Интернету).", Alert.AlertType.ERROR);
         }
+
 
     }
     }
