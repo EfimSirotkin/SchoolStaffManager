@@ -16,5 +16,7 @@ Java 8.0, jExcel API, Drive API, SMTP API
 
 [Diagrams-RU](https://github.com/EfimSirotkin/SchoolStaffManager/blob/master/Diagrams/Diagrams.md)
 
+[Testing](https://github.com/EfimSirotkin/SchoolStaffManager/tree/master/Testing)
+
 
 
