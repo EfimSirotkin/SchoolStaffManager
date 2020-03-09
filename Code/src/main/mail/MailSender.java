@@ -53,7 +53,7 @@ public class MailSender {
         properties.put("mail.smtp.starttls.enable", "true");
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");
-        String myPassword = "GladRoll";
+        String myPassword = "";
 
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
